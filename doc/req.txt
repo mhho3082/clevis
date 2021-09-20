@@ -1,0 +1,39 @@
+IO:
+    -html [fileName] (commands in table w/ index)
+	-txt [fileName] (commands in exe order)
+
+	(-gui (Trigger gui))
+
+Shapes:
+    rectangle [name] [xLeft yTop width height]
+	square [name] [xLeft yTop length]
+	line [name] [x1 y1 x2 y2]
+	circle [name] [xCenter yCenter radius]
+
+    group (list of shapes that acts as a shape)
+
+Actions:
+    [type of object] [name] [args] (create shape)
+
+	group [name] [list of shapes] (groups shapes into one)
+	ungroup [name]
+
+	delete [name]
+
+	"boundingbox" [name] (the minimum bounding box in [x y w h] (same as that of rectangle))
+
+	move [name] [dx dy] (dx and dy are distance to be moved)
+
+	pick-and-move [x y dx dy] (find the first shape containing (x, y); move it)
+
+	intersect [name1 name2] (boolean; if common points of outlines exist)
+
+	list [name] (list basic info (e.g. name, center, radius); for group, list components and basic info of directly contained; float round to 2 d.p.)
+
+    listAll (list in decreasing Z-order; indent)
+
+    quit
+
+Extra:
+    GUI (w/ text field for CLI, zoom in/out)
+	undo and redo
