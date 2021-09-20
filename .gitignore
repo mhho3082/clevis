@@ -24,3 +24,5 @@ hs_err_pid*
 
 # JUnit .class output
 out/
+
+.DS_Store
