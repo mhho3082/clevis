@@ -1,4 +1,4 @@
-package hk.edu.polyu.comp.comp2021.clitoris.model;
+package hk.edu.polyu.comp.comp2021.clitoris.model.exceptions;
 
 /**
  * An exception thrown when the name had been used already.

@@ -7,5 +7,5 @@ package hk.edu.polyu.comp.comp2021.clitoris.model;
  * @author Ho Man Hin
  */
 public class Config {
-	public static final String INDENT = "    "; // 4 spaces
+	public static final String INDENT = "   |"; // 4 spaces
 }

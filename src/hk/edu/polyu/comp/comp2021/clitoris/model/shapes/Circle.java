@@ -1,11 +1,14 @@
-package hk.edu.polyu.comp.comp2021.clitoris.model;
+package hk.edu.polyu.comp.comp2021.clitoris.model.shapes;
+
+import hk.edu.polyu.comp.comp2021.clitoris.model.exceptions.DuplicateShapeNameException;
+import hk.edu.polyu.comp.comp2021.clitoris.model.exceptions.SizeIsZeroException;
 
 import java.util.ArrayList;
 
 public class Circle extends Shape {
-    private double xCenter;
-    private double yCenter;
-    private double radius;
+    private final double xCenter;
+    private final double yCenter;
+    private final double radius;
 
     public Circle(String name, double xCenter, double yCenter, double radius)
             throws SizeIsZeroException, DuplicateShapeNameException {
@@ -18,13 +21,14 @@ public class Circle extends Shape {
         this.xRight = xCenter + radius;
         this.yTop = yCenter - radius;
         this.yBottom = yCenter + radius;
+
+        if (radius <= 0) {
+            throw new SizeIsZeroException(name);
+        }
     }
 
     public boolean contains(double x, double y) {
-        if (Math.sqrt(Math.pow(x - xCenter, 2) + Math.pow(y - yCenter, 2)) <= radius) {
-            return true;
-        }
-        return false;
+        return Math.sqrt(Math.pow(x - xCenter, 2) + Math.pow(y - yCenter, 2)) <= radius;
     }
 
     public ArrayList<String> list() {
