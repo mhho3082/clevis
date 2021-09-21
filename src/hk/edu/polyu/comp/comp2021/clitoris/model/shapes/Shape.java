@@ -1,4 +1,6 @@
-package hk.edu.polyu.comp.comp2021.clitoris.model;
+package hk.edu.polyu.comp.comp2021.clitoris.model.shapes;
+
+import hk.edu.polyu.comp.comp2021.clitoris.model.exceptions.DuplicateShapeNameException;
 
 import java.util.*;
 
