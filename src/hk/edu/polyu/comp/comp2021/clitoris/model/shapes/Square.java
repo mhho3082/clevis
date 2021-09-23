@@ -17,11 +17,11 @@ public class Square extends Rectangle {
     public ArrayList<String> list() {
         ArrayList <String> out = new ArrayList <>();
 
-        out.add("Name: " + this.name);
-        out.add("Type: Square");
-        out.add("   x: " + this.xLeft);
-        out.add("   y: " + this.yTop);
-        out.add("   l: " + Math.abs(xLeft - xRight));
+        out.add("  Name: " + this.name);
+        out.add("  Type: Square");
+        out.add(" xLeft: " + this.xLeft);
+        out.add("  yTop: " + this.yTop);
+        out.add("length: " + Math.abs(xLeft - xRight));
 
         return out;
     }
