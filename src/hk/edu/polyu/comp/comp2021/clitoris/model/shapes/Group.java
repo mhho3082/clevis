@@ -41,13 +41,13 @@ public class Group extends Shape {
                 this.yTop = shapes.get(i).getYTop();
                 this.yBottom = shapes.get(i).getYBottom();
             } else {
-                if (this.xLeft < shapes.get(i).getXLeft()) {
+                if (this.xLeft > shapes.get(i).getXLeft()) {
                     this.xLeft = shapes.get(i).getXLeft();
                 }
                 if (this.xRight < shapes.get(i).getXRight()) {
                     this.xRight = shapes.get(i).getXRight();
                 }
-                if (this.yTop < shapes.get(i).getYTop()) {
+                if (this.yTop > shapes.get(i).getYTop()) {
                     this.yTop = shapes.get(i).getYTop();
                 }
                 if (this.yBottom < shapes.get(i).getYBottom()) {
