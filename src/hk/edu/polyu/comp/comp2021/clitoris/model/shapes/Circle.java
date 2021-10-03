@@ -23,6 +23,7 @@ public class Circle extends Shape {
         this.yBottom = yCenter + radius;
 
         if (radius <= 0) {
+            this.removeName();
             throw new SizeIsZeroException(name);
         }
     }

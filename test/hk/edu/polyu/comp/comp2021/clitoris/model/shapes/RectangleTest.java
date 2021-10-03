@@ -137,13 +137,13 @@ public class RectangleTest {
     @Test(expected = SizeIsZeroException.class)
     public void testSizeIsZeroException2() throws SizeIsZeroException, DuplicateShapeNameException {
         // Height is 0
-        new Rectangle("test4", 2.1, 3.5, 3.4, 0);
+        new Rectangle("test3", 2.1, 3.5, 3.4, 0);
     }
 
     @Test(expected = SizeIsZeroException.class)
     public void testSizeIsZeroException3() throws SizeIsZeroException, DuplicateShapeNameException {
         // Width and Height is 0
-        new Rectangle("test5", 2.1, 3.5, 0, 0);
+        new Rectangle("test3", 2.1, 3.5, 0, 0);
     }
 
 }

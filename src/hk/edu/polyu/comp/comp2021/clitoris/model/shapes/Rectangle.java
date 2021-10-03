@@ -21,6 +21,7 @@ public class Rectangle extends Shape {
         this.yBottom = yTop + height;
 
         if (width == 0 || height == 0) {
+            this.removeName();
             throw new SizeIsZeroException(name);
         }
     }

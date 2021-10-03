@@ -31,6 +31,7 @@ public class Line extends Shape {
         this.y2 = y2;
 
         if (Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2)) == 0) {
+            this.removeName();
             throw new SizeIsZeroException(name);
         }
     }
