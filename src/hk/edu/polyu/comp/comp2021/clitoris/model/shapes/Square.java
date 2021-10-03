@@ -21,7 +21,7 @@ public class Square extends Rectangle {
         out.add("  Type: Square");
         out.add(" xLeft: " + this.xLeft);
         out.add("  yTop: " + this.yTop);
-        out.add("length: " + Math.abs(xLeft - xRight));
+        out.add("length: " + (xRight - xLeft));
 
         return out;
     }

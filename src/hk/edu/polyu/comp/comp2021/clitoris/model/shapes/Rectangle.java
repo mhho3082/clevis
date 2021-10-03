@@ -35,8 +35,8 @@ public class Rectangle extends Shape {
         out.add("  Type: Rectangle");
         out.add(" xLeft: " + this.xLeft);
         out.add("  yTop: " + this.yTop);
-        out.add(" width: " + Math.abs(xLeft - xRight));
-        out.add("height: " + Math.abs(yTop - yBottom));
+        out.add(" width: " + (xRight - xLeft));
+        out.add("height: " + (yBottom - yTop));
 
         return out;
     }

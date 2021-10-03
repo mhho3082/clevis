@@ -12,10 +12,10 @@ import java.util.ArrayList;
  * @author Ho Man Hin
  */
 public class Line extends Shape {
-    private final double x1;
-    private final double y1;
-    private final double x2;
-    private final double y2;
+    private double x1;
+    private double y1;
+    private double x2;
+    private double y2;
 
     public Line(String name, double x1, double y1, double x2, double y2) throws DuplicateShapeNameException, SizeIsZeroException {
         super(name);
@@ -44,6 +44,14 @@ public class Line extends Shape {
             return xA + xB == xAll;
         }
         return false;
+    }
+
+    public void move(double dx, double dy) {
+        super.move(dx, dy);
+        x1 += dx;
+        y1 += dy;
+        x2 += dx;
+        y2 += dy;
     }
 
     public ArrayList<String> list() {
