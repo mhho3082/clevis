@@ -16,10 +16,11 @@ import static org.junit.Assert.assertTrue;
  *
  * The test covers the Circle object created with integer and double.
  *
- * The IsContains1 check for 3 different cases:
+ * The IsContains1 check for 4 different cases:
  * 1. The point inside the Circle
  * 2. The point touch the line of the Circle
  * 3. The point outside the Circle
+ * 4. The point have minimum distance from outline of the shape is smaller than 0.05 [REQ11]
  *
  * The testList and testListShort check the class return correct value.
  *
@@ -83,6 +84,30 @@ public class CircleTest {
     public void testIsContains6() {
         // Outside the circle
         assertFalse(c2.contains(-6.321, -3.231));
+    }
+
+    @Test
+    public void testIsContain7() {
+        // The point have minimum distance from outline of the shape is smaller than 0.05 [REQ11] (outside)
+        assertTrue(c1.contains(-3, 10.049));
+    }
+
+    @Test
+    public void testIsContain8() {
+        // The point have minimum distance from outline of the shape is larger than or equal to 0.05 [REQ11] (outside)
+        assertFalse(c1.contains(-3, 10.051));
+    }
+
+    @Test
+    public void testIsContain9() {
+        // The point have minimum distance from outline of the shape is smaller than 0.05 [REQ11] (outside)
+        assertTrue(c2.contains(11.445, -5.7));
+    }
+
+    @Test
+    public void testIsContain10() {
+        // The point have minimum distance from outline of the shape is larger than or equal to 0.05 [REQ11] (outside)
+        assertFalse(c2.contains(11.46, -5.7));
     }
 
     @Test
