@@ -3,6 +3,7 @@ package hk.edu.polyu.comp.comp2021.clitoris.model.shapes;
 import hk.edu.polyu.comp.comp2021.clitoris.model.exceptions.DuplicateShapeNameException;
 import hk.edu.polyu.comp.comp2021.clitoris.model.exceptions.SizeIsZeroException;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -30,13 +31,20 @@ public class Rectangle extends Shape {
 
     public ArrayList<String> list() {
         ArrayList<String> out = new ArrayList<>();
+        BigDecimal xRight = new BigDecimal(String.valueOf(this.xRight));
+        BigDecimal xLeft = new BigDecimal(String.valueOf(this.xLeft));
+        BigDecimal yBottom = new BigDecimal(String.valueOf(this.yBottom));
+        BigDecimal yTop = new BigDecimal(String.valueOf(this.yTop));
 
         out.add("  Name: " + this.name);
         out.add("  Type: Rectangle");
         out.add(" xLeft: " + this.xLeft);
         out.add("  yTop: " + this.yTop);
-        out.add(" width: " + (xRight - xLeft));
-        out.add("height: " + (yBottom - yTop));
+
+        BigDecimal width = xRight.subtract(xLeft);
+        BigDecimal height = yBottom.subtract(yTop);
+        out.add(" width: " + width.abs());
+        out.add("height: " + height.abs());
 
         return out;
     }
