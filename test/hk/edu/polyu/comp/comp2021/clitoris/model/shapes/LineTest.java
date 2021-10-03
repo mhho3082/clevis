@@ -2,7 +2,8 @@ package hk.edu.polyu.comp.comp2021.clitoris.model.shapes;
 
 import hk.edu.polyu.comp.comp2021.clitoris.model.exceptions.DuplicateShapeNameException;
 import hk.edu.polyu.comp.comp2021.clitoris.model.exceptions.SizeIsZeroException;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -27,16 +28,21 @@ import static org.junit.Assert.*;
  * @author Mok Ka Kiu
  */
 public class LineTest {
-    private static Line line1;
-    private static Line line2;
+    Line line1, line2;
     ArrayList<String> out;
 
-    @BeforeClass
-    public static void  init() throws SizeIsZeroException, DuplicateShapeNameException {
+    @Before
+    public void init() throws SizeIsZeroException, DuplicateShapeNameException {
         // All integer
         line1 = new Line("test1", 2, 3, 8, 6);
         // All double
         line2 = new Line("test2", 2.7, 5.7, 10.6, 5.7);
+    }
+
+    @After
+    public void delete() {
+        line1.removeName();
+        line2.removeName();
     }
 
     @Test
@@ -122,7 +128,7 @@ public class LineTest {
     }
 
     @Test(expected = DuplicateShapeNameException.class)
-    public void testDuplicateShapeNameExceptionn() throws SizeIsZeroException, DuplicateShapeNameException {
+    public void testDuplicateShapeNameException() throws SizeIsZeroException, DuplicateShapeNameException {
         // Duplicate Name
         new Line("test1", 2, 3, 8, 6);
     }
