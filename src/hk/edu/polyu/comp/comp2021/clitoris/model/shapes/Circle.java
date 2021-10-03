@@ -6,8 +6,8 @@ import hk.edu.polyu.comp.comp2021.clitoris.model.exceptions.SizeIsZeroException;
 import java.util.ArrayList;
 
 public class Circle extends Shape {
-    private final double xCenter;
-    private final double yCenter;
+    private double xCenter;
+    private double yCenter;
     private final double radius;
 
     public Circle(String name, double xCenter, double yCenter, double radius)
@@ -25,6 +25,12 @@ public class Circle extends Shape {
         if (radius <= 0) {
             throw new SizeIsZeroException(name);
         }
+    }
+
+    public void move(double dx, double dy) {
+        super.move(dx, dy);
+        xCenter += dx;
+        yCenter += dy;
     }
 
     public boolean contains(double x, double y) {
