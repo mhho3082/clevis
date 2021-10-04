@@ -2,11 +2,11 @@ package hk.edu.polyu.comp.comp2021.clitoris.model.newShapes;
 
 import java.math.BigDecimal;
 
-public class Segment {
+public class Line {
     private final Point point1;
     private final Point point2;
 
-    public Segment(Point point1, Point point2) {
+    public Line(Point point1, Point point2) {
         this.point1 = point1;
         this.point2 = point2;
     }
@@ -16,10 +16,10 @@ public class Segment {
         point2.move(dx, dy);
     }
 
-    public boolean equals(Segment basicLine) {
-        if (this.point1.equals(basicLine.point1) && this.point2.equals((basicLine.point2))) {
+    public boolean equals(Line line) {
+        if (this.point1.equals(line.point1) && this.point2.equals((line.point2))) {
             return true;
-        } else return this.point1.equals(basicLine.point2) && this.point2.equals((basicLine.point1));
+        } else return this.point1.equals(line.point2) && this.point2.equals((line.point1));
     }
 
     public BigDecimal getLength() {
