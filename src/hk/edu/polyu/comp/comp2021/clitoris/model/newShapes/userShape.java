@@ -4,11 +4,16 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public abstract class userShape {
-    protected String name;
+    protected final String name;
 
-    protected int zOrder;
+    protected final int zOrder;
     protected static int zOrderHighest = 0;
 
+    /**
+     * A base, abstract shape for user-interactive shapes.
+     * Duplicate name checks are not carried out here, but in main model.
+     * @param name the name of the shape
+     */
     public userShape(String name) {
         this.name = name;
         this.zOrder = zOrderHighest;
