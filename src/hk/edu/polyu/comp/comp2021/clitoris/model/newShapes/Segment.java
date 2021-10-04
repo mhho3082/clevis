@@ -1,13 +1,20 @@
 package hk.edu.polyu.comp.comp2021.clitoris.model.newShapes;
 
+import hk.edu.polyu.comp.comp2021.clitoris.model.exceptions.SizeIsZeroException;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-public class Line {
+public class Segment {
     private final Point point1;
     private final Point point2;
 
-    public Line(Point point1, Point point2) {
+    public Segment(Point point1, Point point2) throws SizeIsZeroException {
+        // Check for exception
+        if (point1.equals(point2)) {
+            throw new SizeIsZeroException();
+        }
+
         this.point1 = point1;
         this.point2 = point2;
     }
@@ -17,12 +24,20 @@ public class Line {
         point2.move(dx, dy);
     }
 
-    public boolean equals(Line line) {
+    public boolean equals(Segment line) {
         if (this.point1.equals(line.point1) && this.point2.equals((line.point2))) {
             return true;
         } else {
             return this.point1.equals(line.point2) && this.point2.equals((line.point1));
         }
+    }
+
+    public Point getPoint1() {
+        return point1;
+    }
+
+    public Point getPoint2() {
+        return point2;
     }
 
     public BigDecimal getLength() {
@@ -46,16 +61,16 @@ public class Line {
         // If out of reach
         if (
                 length1.compareTo(this.getLength()) > 0
-                        && length2.doubleValue() < 0.05
+                        && length2.compareTo(new BigDecimal("0.05")) < 0
         ) {
             return true;
         } else if (
                 length2.compareTo(this.getLength()) > 0
-                        && length1.doubleValue() < 0.05
+                        && length1.compareTo(new BigDecimal("0.05")) < 0
         ) {
             return true;
         } else {
-            return perpendicularDistance(point).doubleValue() < 0.05;
+            return perpendicularDistance(point).compareTo(new BigDecimal("0.05")) < 0;
         }
     }
 
