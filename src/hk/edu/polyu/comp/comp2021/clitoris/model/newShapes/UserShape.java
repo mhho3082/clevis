@@ -3,6 +3,13 @@ package hk.edu.polyu.comp.comp2021.clitoris.model.newShapes;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+/**
+ * A basic user shape template.
+ * This is a base shape.
+ * This shape should not be created directly through user commands.
+ *
+ * @author Ho Man Hin
+ */
 public abstract class UserShape {
     protected static int zOrderHighest = 0;
     protected final int zOrder;

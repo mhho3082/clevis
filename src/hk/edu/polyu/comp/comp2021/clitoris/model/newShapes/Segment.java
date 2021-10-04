@@ -5,6 +5,13 @@ import hk.edu.polyu.comp.comp2021.clitoris.model.exceptions.SizeIsZeroException;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
+/**
+ * A basic straight segment (line).
+ * This is a base shape.
+ * This shape should not be created directly through user commands.
+ *
+ * @author Ho Man Hin
+ */
 public class Segment {
     private final Point point1;
     private final Point point2;
@@ -121,7 +128,7 @@ public class Segment {
         BigDecimal lengthB = this.point2.getLength(point);
         BigDecimal lengthAll = this.getLength();
 
-        BigDecimal s = lengthA.add(lengthB).add(lengthAll).divide(new BigDecimal(2), MathContext.UNLIMITED);
+        BigDecimal s = lengthA.add(lengthB).add(lengthAll).divide(new BigDecimal(2), MathContext.DECIMAL128);
 
         return new BigDecimal(2)
                 .multiply(
@@ -129,7 +136,7 @@ public class Segment {
                                 s.multiply(s.subtract(lengthA))
                                         .multiply(s.subtract(lengthB))
                                         .multiply(s.subtract(lengthAll))
-                        ).sqrt(MathContext.UNLIMITED)).divide(lengthAll, MathContext.UNLIMITED);
+                        ).sqrt(MathContext.DECIMAL128)).divide(lengthAll, MathContext.DECIMAL128);
     }
 
     /**

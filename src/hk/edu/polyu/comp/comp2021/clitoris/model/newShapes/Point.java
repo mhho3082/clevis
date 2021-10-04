@@ -3,6 +3,13 @@ package hk.edu.polyu.comp.comp2021.clitoris.model.newShapes;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
+/**
+ * A basic point.
+ * This is a base shape.
+ * This shape should not be created directly through user commands.
+ *
+ * @author Ho Man Hin
+ */
 public class Point {
     private BigDecimal x;
     private BigDecimal y;
@@ -75,6 +82,6 @@ public class Point {
      * @return the length between the two points
      */
     public BigDecimal getLength(Point point) {
-        return this.x.subtract(point.x).pow(2).add(this.y.subtract(point.y).pow(2)).sqrt(MathContext.UNLIMITED);
+        return this.x.subtract(point.x).pow(2).add(this.y.subtract(point.y).pow(2)).sqrt(MathContext.DECIMAL128);
     }
 }

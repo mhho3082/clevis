@@ -90,19 +90,20 @@ public class PointTest {
     @Test
     public void testGetLength1() {
         Point testPoint1 = new Point(new BigDecimal("-12"), new BigDecimal("-2.213"));
-        assertEquals(0, new BigDecimal("24.791155").compareTo(p1.getLength(testPoint1)));
+        System.out.println(p1.getLength(testPoint1));
+        assertEquals("24.791155", p1.getLength(testPoint1).toString().substring(0, 9));
     }
 
     @Test
     public void testGetLength2() {
         Point testPoint1 = new Point(new BigDecimal("12"), new BigDecimal("4"));
-        assertEquals(0, new BigDecimal("0").compareTo(p1.getLength(testPoint1)));
+        assertEquals("0", p1.getLength(testPoint1).toString().substring(0, 1));
     }
 
     @Test
     public void testGetLength3() {
         Point testPoint1 = new Point(new BigDecimal("23.412"), new BigDecimal("-21"));
-        assertEquals(0, new BigDecimal("20.183381").compareTo(p2.getLength(testPoint1)));
+        assertEquals("20.183380", p2.getLength(testPoint1).toString().substring(0, 9));
     }
 
     @Test

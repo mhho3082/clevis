@@ -4,6 +4,13 @@ import hk.edu.polyu.comp.comp2021.clitoris.model.exceptions.SizeIsZeroException;
 
 import java.math.BigDecimal;
 
+/**
+ * A basic circular segment (circle).
+ * This is a base shape.
+ * This shape should not be created directly through user commands.
+ *
+ * @author Ho Man Hin
+ */
 public class CircularSegment {
     private final Point center;
     private final BigDecimal radius;
