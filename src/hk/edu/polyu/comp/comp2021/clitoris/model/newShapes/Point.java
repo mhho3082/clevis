@@ -9,20 +9,22 @@ public class Point {
 
     /**
      * A point, defined by x- and y- coordinates.
+     *
      * @param x the x-coordinate
      * @param y the y-coordinate
      */
-    public Point (String x, String y) {
+    public Point(String x, String y) {
         this.x = new BigDecimal(String.valueOf(x));
         this.y = new BigDecimal(String.valueOf(y));
     }
 
     /**
      * A point, defined by x- and y- coordinates.
+     *
      * @param x the x-coordinate
      * @param y the y-coordinate
      */
-    public Point (BigDecimal x, BigDecimal y){
+    public Point(BigDecimal x, BigDecimal y) {
         this.x = new BigDecimal(String.valueOf(x));
         this.y = new BigDecimal(String.valueOf(y));
     }
@@ -40,6 +42,7 @@ public class Point {
 
     /**
      * Gets the x coordinate
+     *
      * @return the x coordinate
      */
     public BigDecimal getX() {
@@ -48,6 +51,7 @@ public class Point {
 
     /**
      * Gets the y coordinate
+     *
      * @return the y coordinate
      */
     public BigDecimal getY() {
@@ -56,6 +60,7 @@ public class Point {
 
     /**
      * Checks if a point is equal to this one.
+     *
      * @param point the point to be checked
      * @return if the two points have the same coordinates
      */
@@ -65,6 +70,7 @@ public class Point {
 
     /**
      * Gets the length between this point and another point.
+     *
      * @param point the other point in the calculation
      * @return the length between the two points
      */
