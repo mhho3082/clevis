@@ -1,6 +1,7 @@
 package hk.edu.polyu.comp.comp2021.clitoris.model.newShapes;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 public class Line {
     private final Point point1;
@@ -19,7 +20,9 @@ public class Line {
     public boolean equals(Line line) {
         if (this.point1.equals(line.point1) && this.point2.equals((line.point2))) {
             return true;
-        } else return this.point1.equals(line.point2) && this.point2.equals((line.point1));
+        } else {
+            return this.point1.equals(line.point2) && this.point2.equals((line.point1));
+        }
     }
 
     public BigDecimal getLength() {
@@ -36,6 +39,7 @@ public class Line {
 
     public boolean isContains(Point point) {
         // Compares < 0.05
+
         BigDecimal length1 = this.point1.getLength(point);
         BigDecimal length2 = this.point2.getLength(point);
 
@@ -50,28 +54,30 @@ public class Line {
                         && length1.doubleValue() < 0.05
         ) {
             return true;
-        } else if (
-                perpendicularDistance(point).doubleValue() < 0.05
-        ) {
-            return true;
+        } else {
+            return perpendicularDistance(point).doubleValue() < 0.05;
         }
-        return false;
     }
 
     public BigDecimal perpendicularDistance(Point point) {
-        double lengthA = this.point1.getLength(point).doubleValue();
-        double lengthB = this.point2.getLength(point).doubleValue();
-        double lengthAll = this.getLength().doubleValue();
+        BigDecimal lengthA = this.point1.getLength(point);
+        BigDecimal lengthB = this.point2.getLength(point);
+        BigDecimal lengthAll = this.getLength();
 
-        double s = (lengthA + lengthB + lengthAll) / 2.0;
+        BigDecimal s = lengthA.add(lengthB).add(lengthAll).divide(new BigDecimal(2), MathContext.UNLIMITED);
 
-        double out = 2.0 * Math.sqrt(s * (s - lengthA) * (s - lengthB) * (s - lengthAll)) / lengthAll;
-
-        return new BigDecimal(String.valueOf(out));
+        return new BigDecimal(2)
+                .multiply(
+                        (
+                                s.multiply(s.subtract(lengthA))
+                                        .multiply(s.subtract(lengthB))
+                                        .multiply(s.subtract(lengthAll))
+                        ).sqrt(MathContext.UNLIMITED)).divide(lengthAll, MathContext.UNLIMITED);
     }
 
     public BigDecimal[] boundingBox() {
         // Return [xLeft, yTop, width, height]
+
         BigDecimal[] temp = new BigDecimal[4];
 
         temp[0] = point1.getX().min(point2.getX());
