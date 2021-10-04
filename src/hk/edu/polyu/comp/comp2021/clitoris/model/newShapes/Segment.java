@@ -9,9 +9,8 @@ public class Segment {
     private final Point point1;
     private final Point point2;
 
-
     /**
-     * A segment (Straight line) out of two points
+     * A segment (straight line) out of two points
      *
      * @param point1 the first point
      * @param point2 the second point
@@ -28,7 +27,7 @@ public class Segment {
     }
 
     /**
-     * Moves the line by the given coordinates
+     * Moves the segment by the given coordinates
      *
      * @param dx the amount to be moved (rightwards) in the x-axis
      * @param dy the amount to be moved (downwards) in the y-axis
@@ -148,6 +147,44 @@ public class Segment {
         temp[3] = point1.getY().subtract(point2.getY()).abs();
 
         return temp;
+    }
+
+    /**
+     * Checks if a segment intersects this segment.
+     *
+     * @param segment the segment to be checked against
+     * @return whether the two segments intersect
+     */
+    public boolean isIntersect(Segment segment) {
+        if (
+            // If one of the end point lies on the other line
+                this.isOnSegment(segment.point1) || this.isOnSegment(segment.point2)
+                        || segment.isOnSegment(this.point1) || segment.isOnSegment(this.point2)
+        ) {
+            return true;
+        } else {
+            // General case; measure by varying spinning directions
+            return this.spinDirection(segment.point1) != this.spinDirection(segment.point2)
+                    && segment.spinDirection(this.point1) != segment.spinDirection(this.point2);
+        }
+    }
+
+    /**
+     * Measures the spin direction from the line towards the given point.
+     * The line goes point1 -> point2 -> given point.
+     * Returns true if the spinning direction is counterclockwise.
+     *
+     * @param point the point to be calculated with
+     * @return if the spinning direction is counterclockwise
+     */
+    public boolean spinDirection(Point point) {
+        return (
+                (point.getY().subtract(this.point1.getY()))
+                        .multiply(this.point2.getX().subtract(this.point1.getX()))
+        ).compareTo(
+                (this.point2.getY().subtract(this.point1.getY()))
+                        .multiply(point.getX().subtract(this.point1.getX()))
+        ) > 0;
     }
 
     /**

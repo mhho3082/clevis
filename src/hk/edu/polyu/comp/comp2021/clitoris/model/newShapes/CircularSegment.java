@@ -26,7 +26,7 @@ public class CircularSegment {
     }
 
     /**
-     * Moves the line by the given coordinates
+     * Moves the segment by the given coordinates
      *
      * @param dx the amount to be moved (rightwards) in the x-axis
      * @param dy the amount to be moved (downwards) in the y-axis
