@@ -90,7 +90,6 @@ public class PointTest {
     @Test
     public void testGetLength1() {
         Point testPoint1 = new Point(new BigDecimal("-12"), new BigDecimal("-2.213"));
-        System.out.println(p1.getLength(testPoint1));
         assertEquals("24.791155", p1.getLength(testPoint1).toString().substring(0, 9));
     }
 
