@@ -18,7 +18,7 @@ public abstract class userShape {
     /**
      * Move a shape by dx and dy.
      * @param dx the amount to be moved (rightwards) in the x-axis
-     * @param dythe amount to be moved (downwards) in the y-axis
+     * @param dy the amount to be moved (downwards) in the y-axis
      */
     public abstract void move(BigDecimal dx, BigDecimal dy);
 
