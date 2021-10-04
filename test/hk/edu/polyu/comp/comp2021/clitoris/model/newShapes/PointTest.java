@@ -25,14 +25,14 @@ public class PointTest {
 
     @Test
     public void testCreate1() {
-        assertEquals(new BigDecimal("12"), p1.getX());
-        assertEquals(new BigDecimal("4"), p1.getY());
+        assertEquals(0, new BigDecimal("12").compareTo(p1.getX()));
+        assertEquals(0, new BigDecimal("4").compareTo(p1.getY()));
     }
 
     @Test
     public void testCreate2() {
-        assertEquals(new BigDecimal("3.231"), p2.getX());
-        assertEquals(new BigDecimal("-21.31"), p2.getY());
+        assertEquals(0, new BigDecimal("3.231").compareTo(p2.getX()));
+        assertEquals(0, new BigDecimal("-21.31").compareTo(p2.getY()));
     }
 
     @Test
@@ -40,8 +40,8 @@ public class PointTest {
         // Move with positive value
         p1.move(new BigDecimal("10"), new BigDecimal("4.123"));
 
-        assertEquals(new BigDecimal("22"), p1.getX());
-        assertEquals(new BigDecimal("8.123"), p1.getY());
+        assertEquals(0, new BigDecimal("22").compareTo(p1.getX()));
+        assertEquals(0, new BigDecimal("8.123").compareTo(p1.getY()));
     }
 
     @Test
@@ -49,8 +49,8 @@ public class PointTest {
         // Move with negative value
         p1.move(new BigDecimal("-5.113"), new BigDecimal("-2"));
 
-        assertEquals(new BigDecimal("6.887"), p1.getX());
-        assertEquals(new BigDecimal("2"), p1.getY());
+        assertEquals(0, new BigDecimal("6.887").compareTo(p1.getX()));
+        assertEquals(0, new BigDecimal("2").compareTo(p1.getY()));
     }
 
     @Test
@@ -58,8 +58,8 @@ public class PointTest {
         // Move with positive value
         p2.move(new BigDecimal("10"), new BigDecimal("4.123"));
 
-        assertEquals(new BigDecimal("13.231"), p2.getX());
-        assertEquals(new BigDecimal("-17.187"), p2.getY());
+        assertEquals(0, new BigDecimal("13.231").compareTo(p2.getX()));
+        assertEquals(0, new BigDecimal("-17.187").compareTo(p2.getY()));
     }
 
     @Test
@@ -67,8 +67,8 @@ public class PointTest {
         // Move with negative value
         p2.move(new BigDecimal("-5.113"), new BigDecimal("-2"));
 
-        assertEquals(new BigDecimal("-1.882"), p2.getX());
-        assertEquals(new BigDecimal("-23.31"), p2.getY());
+        assertEquals(0, new BigDecimal("-1.882").compareTo(p2.getX()));
+        assertEquals(0, new BigDecimal("-23.31").compareTo(p2.getY()));
     }
 
     @Test
@@ -90,25 +90,25 @@ public class PointTest {
     @Test
     public void testGetLength1() {
         Point testPoint1 = new Point(new BigDecimal("-12"), new BigDecimal("-2.213"));
-        assertEquals(new BigDecimal("24.791155"), p1.getLength(testPoint1));
+        assertEquals(0, new BigDecimal("24.791155").compareTo(p1.getLength(testPoint1)));
     }
 
     @Test
     public void testGetLength2() {
         Point testPoint1 = new Point(new BigDecimal("12"), new BigDecimal("4"));
-        assertEquals(new BigDecimal("0"), p1.getLength(testPoint1));
+        assertEquals(0, new BigDecimal("0").compareTo(p1.getLength(testPoint1)));
     }
 
     @Test
     public void testGetLength3() {
         Point testPoint1 = new Point(new BigDecimal("23.412"), new BigDecimal("-21"));
-        assertEquals(new BigDecimal("20.183381"), p2.getLength(testPoint1));
+        assertEquals(0, new BigDecimal("20.183381").compareTo(p2.getLength(testPoint1)));
     }
 
     @Test
     public void testGetLength4() {
         Point testPoint1 = new Point(new BigDecimal("3.231"), new BigDecimal("-21.31"));
-        assertEquals(new BigDecimal("0"), p2.getLength(testPoint1));
+        assertEquals(0, new BigDecimal("0").compareTo(p2.getLength(testPoint1)));
     }
 
 }
