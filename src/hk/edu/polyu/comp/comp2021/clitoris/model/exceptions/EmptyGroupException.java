@@ -1,14 +1,13 @@
 package hk.edu.polyu.comp.comp2021.clitoris.model.exceptions;
 
+/**
+ * Warns that the group is empty;
+ * i.e. devoid of grouped shapes.
+ *
+ * @author Ho Man Hin
+ */
 public class EmptyGroupException extends Exception {
-    private final String groupName;
-
-    public EmptyGroupException(String name) {
+    public EmptyGroupException() {
         super("Group cannot be empty!");
-        this.groupName = name;
-    }
-
-    public String getGroupName() {
-        return this.groupName;
     }
 }
