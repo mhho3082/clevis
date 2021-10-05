@@ -1,4 +1,4 @@
-package hk.edu.polyu.comp.comp2021.clitoris.model.newShapes;
+package hk.edu.polyu.comp.comp2021.clitoris.model.shapes;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -11,8 +11,8 @@ import java.util.ArrayList;
  * @author Ho Man Hin
  */
 public abstract class UserShape {
-    protected static int zOrderHighest = 0;
-    protected final int zOrder;
+    protected static long zOrderHighest = 0;
+    protected final long zOrder;
     protected final String name;
 
     /**
@@ -36,12 +36,38 @@ public abstract class UserShape {
     public abstract void move(BigDecimal dx, BigDecimal dy);
 
     /**
-     * Checks if the two shapes intersect.
+     * Checks if this shape intersect with the line.
      *
-     * @param shape the shape to check this shape against
+     * @param line the line to check this shape against
      * @return if the two shapes intersect
      */
-    public abstract boolean isIntersect(UserShape shape);
+    public abstract boolean isIntersect(Line line);
+
+    /**
+     * Checks if this shape intersect with the circle.
+     *
+     * @param circle the circle to check this shape against
+     * @return if the two shapes intersect
+     */
+    public abstract boolean isIntersect(Circle circle);
+
+    /**
+     * Checks if this shape intersect with the rectangle.
+     * Also works for square.
+     *
+     * @param rectangle the rectangle/square to check this shape against
+     * @return if the two shapes intersect
+     */
+    public abstract boolean isIntersect(Rectangle rectangle);
+
+    /**
+     * Checks if this shape intersect with the group.
+     * Also works for square.
+     *
+     * @param group the group to check this shape against
+     * @return if the two shapes intersect
+     */
+    public abstract boolean isIntersect(Group group);
 
     /**
      * Checks if the shape "contains" the point.
@@ -54,6 +80,14 @@ public abstract class UserShape {
      * @return if the point is "contained"
      */
     public abstract boolean isContains(Point point);
+
+    /**
+     * Gives the bounding box of the shape,
+     * in the form of [xLeft, yTop, width, height].
+     *
+     * @return an array of data
+     */
+    public abstract BigDecimal[] boundingBox();
 
     /**
      * Basic listing function.

@@ -20,7 +20,7 @@ Actions:
 
 	delete [name]
 
-	"boundingbox" [name] (the minimum bounding box in [x y w h] (same as that of rectangle))
+	boundingbox [name] (the minimum bounding box in [x y w h] (same as that of rectangle))
 
 	move [name] [dx dy] (dx and dy are distance to be moved)
 

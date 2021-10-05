@@ -1,4 +1,4 @@
-package hk.edu.polyu.comp.comp2021.clitoris.model.newShapes;
+package hk.edu.polyu.comp.comp2021.clitoris.model.shapes;
 
 import hk.edu.polyu.comp.comp2021.clitoris.model.exceptions.SizeIsZeroException;
 
