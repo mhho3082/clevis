@@ -93,9 +93,10 @@ public class Segment {
      * @return whether the point is on segment
      */
     public boolean isOnSegment(Point point) {
+        MathContext m = new MathContext(33);
         BigDecimal tempA = this.point1.getLength(point);
         BigDecimal tempB = this.point2.getLength(point);
-        return tempA.add(tempB).equals(this.getLength());
+        return tempA.add(tempB).round(m).equals(this.getLength().round(m));
     }
 
     /**
