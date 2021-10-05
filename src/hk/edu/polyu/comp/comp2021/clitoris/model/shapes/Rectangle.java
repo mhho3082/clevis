@@ -175,16 +175,6 @@ public class Rectangle extends UserShape {
     }
 
     /**
-     * Basic listing function,
-     * auto-referring to list().
-     *
-     * @return A list of output for user
-     */
-    public ArrayList<String> listAll() {
-        return this.list();
-    }
-
-    /**
      * For use inside list of a group.
      * No indent included.
      *
