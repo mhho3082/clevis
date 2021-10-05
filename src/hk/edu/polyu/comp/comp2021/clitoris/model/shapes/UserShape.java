@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  * @author Ho Man Hin
  */
-public abstract class UserShape {
+public abstract class UserShape implements Comparable<UserShape> {
     protected static long zOrderHighest = 0;
     protected final long zOrder;
     protected final String name;
@@ -28,12 +28,49 @@ public abstract class UserShape {
     }
 
     /**
+     * Gets the UserShape's name.
+     * @return the name
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Changes how a collection of UserShapes is sorted.
+     * The sort now bases itself on zOrder.
+     *
+     * @param o the UserShape to compare to
+     * @return the difference between the two object's zOrder
+     */
+    public int compareTo(UserShape o) {
+        return (int) (this.zOrder - o.zOrder);
+    }
+
+    /**
      * Move a shape by dx and dy.
      *
      * @param dx the amount to be moved (rightwards) in the x-axis
      * @param dy the amount to be moved (downwards) in the y-axis
      */
     public abstract void move(BigDecimal dx, BigDecimal dy);
+
+    /**
+     * Checks if this shape intersect with the userShape.
+     *
+     * @param userShape the userShape to check this shape against
+     * @return if the two shapes intersect
+     */
+    public boolean isIntersect(UserShape userShape) {
+        if (userShape instanceof Rectangle) {
+            return this.isIntersect((Rectangle) userShape);
+        } else if (userShape instanceof Line) {
+            return this.isIntersect((Line) userShape);
+        } else if (userShape instanceof Circle) {
+            return this.isIntersect((Circle) userShape);
+        } else {
+            return this.isIntersect((Group) userShape);
+        }
+    }
 
     /**
      * Checks if this shape intersect with the line.
@@ -104,7 +141,9 @@ public abstract class UserShape {
      *
      * @return A list of output for user
      */
-    public abstract ArrayList<String> listAll();
+    public ArrayList<String> listAll() {
+        return this.list();
+    }
 
     /**
      * For use inside list of a group.
