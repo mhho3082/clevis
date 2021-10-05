@@ -187,15 +187,16 @@ public class Group extends UserShape {
     public ArrayList<String> list() {
         ArrayList<String> out = new ArrayList<>();
 
-        out.add("  Name: " + this.name);
-        out.add("  Type: " + "Group");
+        out.add("Name: " + this.name);
+        out.add("Type: " + "Group");
         out.add("");
 
-        for (UserShape userShape : userShapes) {
-            for (String temp : userShape.listShort()) {
+        for (int i = 0; i < userShapes.size(); i++) {
+            for (String temp : userShapes.get(i).listShort()) {
                 out.add(Config.INDENT + temp);
             }
-            out.add("");
+            if (i != userShapes.size() - 1)
+                out.add(Config.INDENT);
         }
 
         return out;
@@ -210,14 +211,16 @@ public class Group extends UserShape {
     public ArrayList<String> listAll() {
         ArrayList<String> out = new ArrayList<>();
 
-        out.add("  Name: " + this.name);
-        out.add("  Type: " + "Group");
+        out.add("Name: " + this.name);
+        out.add("Type: " + "Group");
+        out.add("");
 
-        for (UserShape userShape : userShapes) {
-            for (String temp : userShape.listAll()) {
+        for (int i = 0; i < userShapes.size(); i++) {
+            for (String temp : userShapes.get(i).listAll()) {
                 out.add(Config.INDENT + temp);
             }
-            out.add("");
+            if (i != userShapes.size() - 1)
+                out.add(Config.INDENT);
         }
 
         return out;

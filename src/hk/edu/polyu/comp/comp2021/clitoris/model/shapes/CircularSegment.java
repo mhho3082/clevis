@@ -3,6 +3,7 @@ package hk.edu.polyu.comp.comp2021.clitoris.model.shapes;
 import hk.edu.polyu.comp.comp2021.clitoris.model.exceptions.SizeIsZeroException;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 /**
  * A basic circular segment (circle).
