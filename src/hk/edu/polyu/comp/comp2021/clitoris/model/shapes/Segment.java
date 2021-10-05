@@ -125,11 +125,12 @@ public class Segment {
      * @return the perpendicular distance
      */
     public BigDecimal perpendicularDistance(Point point) {
-        BigDecimal lengthA = this.point1.getLength(point);
-        BigDecimal lengthB = this.point2.getLength(point);
-        BigDecimal lengthAll = this.getLength();
+        MathContext m = new MathContext(33);
+        BigDecimal lengthA = this.point1.getLength(point).round(m);
+        BigDecimal lengthB = this.point2.getLength(point).round(m);
+        BigDecimal lengthAll = this.getLength().round(m);
 
-        BigDecimal s = lengthA.add(lengthB).add(lengthAll).divide(new BigDecimal(2), MathContext.DECIMAL128);
+        BigDecimal s = (lengthA.add(lengthB).add(lengthAll)).divide(new BigDecimal(2), MathContext.DECIMAL128).round(m);
 
         return new BigDecimal(2)
                 .multiply(

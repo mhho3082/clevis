@@ -265,12 +265,16 @@ public class Clitoris {
      * @return an ArrayList of details
      */
     public ArrayList<String> listAll() {
-        this.sortZOrder();
+
+
         ArrayList<String> out = new ArrayList<>();
+
         for (UserShape userShape : shapeList) {
             ArrayList<String> temp = userShape.listAll();
             out.addAll(temp);
+            out.add("");
         }
+
         return out;
     }
 
