@@ -10,8 +10,6 @@ Shapes:
 	line [name] [x1 y1 x2 y2]
 	circle [name] [xCenter yCenter radius]
 
-    group (list of shapes that acts as a shape)
-
 Actions:
     [type of object] [name] [args] (create shape)
 
@@ -32,7 +30,7 @@ Actions:
 
     listAll (list in decreasing Z-order; indent)
 
-    quit
+    quit (requires special handling)
 
 Extra:
     GUI (w/ text field for CLI, zoom in/out)

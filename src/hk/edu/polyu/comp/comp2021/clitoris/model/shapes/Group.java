@@ -40,6 +40,22 @@ public class Group extends UserShape {
     }
 
     /**
+     * Gets all names of the shapes in the group.
+     * Calculated shallowly.
+     *
+     * @return an arraylist of names
+     */
+    public ArrayList<String> getUserShapesNames() {
+        ArrayList<String> temp = new ArrayList<>();
+
+        for (UserShape userShape : userShapes) {
+            temp.add(userShape.getName());
+        }
+
+        return temp;
+    }
+
+    /**
      * Move the group by dx and dy.
      *
      * @param dx the amount to be moved (rightwards) in the x-axis
