@@ -39,8 +39,4 @@ public class CommandUngroup extends Command {
 
         return this.parsedInput[0].equals("ungroup");
     }
-
-    public boolean undoable() {
-        return true;
-    }
 }

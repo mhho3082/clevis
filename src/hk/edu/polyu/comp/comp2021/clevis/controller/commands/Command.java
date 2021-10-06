@@ -25,7 +25,9 @@ public abstract class Command {
 
     public abstract boolean check();
 
-    public abstract boolean undoable();
+    public boolean undoable() {
+        return true;
+    }
 
     public boolean isNotNumber(String in) {
         if (in == null) {

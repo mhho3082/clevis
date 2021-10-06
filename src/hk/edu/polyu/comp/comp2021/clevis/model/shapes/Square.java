@@ -37,9 +37,9 @@ public class Square extends Rectangle {
 
         out.add("  Name: " + this.name);
         out.add("  Type: " + "Square");
-        out.add(" xLeft: " + this.segments[0].getPoint1().getX());
-        out.add("  yTop: " + this.segments[0].getPoint1().getY());
-        out.add("length: " + this.segments[0].getLength());
+        out.add(" xLeft: " + ((double) Math.round(this.segments[0].getPoint1().getX().doubleValue() * 100.0) / 100.0));
+        out.add("  yTop: " + ((double) Math.round(this.segments[0].getPoint1().getY().doubleValue() * 100.0) / 100.0));
+        out.add("length: " + ((double) Math.round(this.segments[0].getLength().doubleValue() * 100.0) / 100.0));
 
         return out;
     }

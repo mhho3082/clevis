@@ -37,8 +37,4 @@ public class CommandGroup extends Command {
 
         return this.parsedInput[0].equals("group");
     }
-
-    public boolean undoable() {
-        return true;
-    }
 }
