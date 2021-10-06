@@ -51,8 +51,4 @@ public class CommandLine extends Command {
 
         return true;
     }
-
-    public boolean undoable() {
-        return true;
-    }
 }

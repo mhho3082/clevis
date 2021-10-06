@@ -50,8 +50,4 @@ public class CommandCircle extends Command {
 
         return true;
     }
-
-    public boolean undoable() {
-        return true;
-    }
 }

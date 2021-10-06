@@ -31,8 +31,4 @@ public class CommandDelete extends Command {
 
         return this.parsedInput[0].equals("delete");
     }
-
-    public boolean undoable() {
-        return true;
-    }
 }

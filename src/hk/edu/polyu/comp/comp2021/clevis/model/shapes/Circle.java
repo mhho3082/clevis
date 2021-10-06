@@ -147,9 +147,9 @@ public class Circle extends UserShape {
 
         out.add("   Name: " + this.name);
         out.add("   Type: " + "Circle");
-        out.add("xCenter: " + this.circularSegment.getCenter().getX().toString());
-        out.add("yCenter: " + this.circularSegment.getCenter().getY().toString());
-        out.add(" radius: " + this.circularSegment.getRadius().toString());
+        out.add("xCenter: " + ((double) Math.round(this.circularSegment.getCenter().getX().doubleValue() * 100.0) / 100.0));
+        out.add("yCenter: " + ((double) Math.round(this.circularSegment.getCenter().getY().doubleValue() * 100.0) / 100.0));
+        out.add(" radius: " + ((double) Math.round(this.circularSegment.getRadius().doubleValue() * 100.0) / 100.0));
 
         return out;
     }

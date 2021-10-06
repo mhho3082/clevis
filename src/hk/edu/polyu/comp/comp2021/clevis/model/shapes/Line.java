@@ -148,10 +148,10 @@ public class Line extends UserShape {
 
         out.add("Name: " + this.name);
         out.add("Type: " + "Line");
-        out.add("  x1: " + this.segment.getPoint1().getX().toString());
-        out.add("  y1: " + this.segment.getPoint1().getY().toString());
-        out.add("  x2: " + this.segment.getPoint2().getX().toString());
-        out.add("  y2: " + this.segment.getPoint2().getY().toString());
+        out.add("  x1: " + ((double) Math.round(this.segment.getPoint1().getX().doubleValue() * 100.0) / 100.0));
+        out.add("  y1: " + ((double) Math.round(this.segment.getPoint1().getY().doubleValue() * 100.0) / 100.0));
+        out.add("  x2: " + ((double) Math.round(this.segment.getPoint2().getX().doubleValue() * 100.0) / 100.0));
+        out.add("  y2: " + ((double) Math.round(this.segment.getPoint2().getY().doubleValue() * 100.0) / 100.0));
 
         return out;
     }

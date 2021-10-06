@@ -48,8 +48,4 @@ public class CommandMove extends Command {
 
         return true;
     }
-
-    public boolean undoable() {
-        return true;
-    }
 }

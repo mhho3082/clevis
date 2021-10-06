@@ -50,8 +50,4 @@ public class CommandPickAndMove extends Command {
 
         return true;
     }
-
-    public boolean undoable() {
-        return true;
-    }
 }
