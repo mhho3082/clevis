@@ -7,7 +7,4 @@ package hk.edu.polyu.comp.comp2021.clevis.model.exceptions;
  * @author Ho Man Hin
  */
 public class EmptyGroupException extends Exception {
-    public EmptyGroupException() {
-        super("Group cannot be empty!");
-    }
 }

@@ -430,24 +430,6 @@ public class Clevis {
      * More recent ones come up first.
      *
      * @param name the name to be searched for
-     * @return the UserShape with the name
-     * @throws ShapeNotFoundException warns of no shape with that name
-     */
-    public UserShape findInBin(String name) throws ShapeNotFoundException {
-        for (int i = bin.size() - 1; i >= 0; i--) {
-            if (name.equals(bin.get(i).getName())) {
-                return bin.get(i);
-            }
-        }
-        throw new ShapeNotFoundException();
-    }
-
-    /**
-     * Finds the shape with the given name in the bin,
-     * in the order the shapes were thrown.
-     * More recent ones come up first.
-     *
-     * @param name the name to be searched for
      * @return the index of the UserShape found
      * @throws ShapeNotFoundException warns of no shape with that name
      */

@@ -6,7 +6,4 @@ package hk.edu.polyu.comp.comp2021.clevis.model.exceptions;
  * @author Ho Man Hin
  */
 public class ShapeNotFoundException extends Exception {
-    public ShapeNotFoundException() {
-        super("Cannot find any related shape!");
-    }
 }

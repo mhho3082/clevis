@@ -10,7 +10,4 @@ package hk.edu.polyu.comp.comp2021.clevis.model.exceptions;
  * @author Ho Man Hin
  */
 public class ShapeInsideGroupException extends Exception {
-    public ShapeInsideGroupException() {
-        super("Shape is inside group and cannot be accessed!");
-    }
 }

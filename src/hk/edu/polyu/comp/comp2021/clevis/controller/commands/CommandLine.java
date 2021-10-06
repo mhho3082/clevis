@@ -1,5 +1,7 @@
 package hk.edu.polyu.comp.comp2021.clevis.controller.commands;
 
+import hk.edu.polyu.comp.comp2021.clevis.controller.exceptions.NotANumberException;
+import hk.edu.polyu.comp.comp2021.clevis.controller.exceptions.WrongArgumentLengthException;
 import hk.edu.polyu.comp.comp2021.clevis.model.Clevis;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.DuplicateShapeNameException;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.ShapeInsideGroupException;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 public class CommandLine extends Command {
     // line name x1 x2 y1 y2
 
-    public CommandLine(Clevis model, String command) {
+    public CommandLine(Clevis model, String command) throws WrongArgumentLengthException, NotANumberException {
         super(model, command);
     }
 
@@ -34,21 +36,15 @@ public class CommandLine extends Command {
         model.remove(this.parsedInput[1]);
     }
 
-    public boolean check() {
+    public void check() throws WrongArgumentLengthException, NotANumberException {
         if (this.parsedInput.length != 6) {
-            return false;
-        }
-
-        if (!this.parsedInput[0].equals("line")) {
-            return false;
+            throw new WrongArgumentLengthException();
         }
 
         for (int i = 2; i < 6; i++) {
             if (isNotNumber(this.parsedInput[i])) {
-                return false;
+                throw new NotANumberException();
             }
         }
-
-        return true;
     }
 }

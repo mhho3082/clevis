@@ -1,5 +1,7 @@
 package hk.edu.polyu.comp.comp2021.clevis.controller.commands;
 
+import hk.edu.polyu.comp.comp2021.clevis.controller.exceptions.NotANumberException;
+import hk.edu.polyu.comp.comp2021.clevis.controller.exceptions.WrongArgumentLengthException;
 import hk.edu.polyu.comp.comp2021.clevis.model.Clevis;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.ShapeNotFoundException;
 
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 public class CommandPickAndMove extends Command {
     // pick-and-move x y dx dy
 
-    public CommandPickAndMove(Clevis model, String command) {
+    public CommandPickAndMove(Clevis model, String command) throws WrongArgumentLengthException, NotANumberException {
         super(model, command);
     }
 
@@ -33,21 +35,15 @@ public class CommandPickAndMove extends Command {
         );
     }
 
-    public boolean check() {
+    public void check() throws WrongArgumentLengthException, NotANumberException {
         if (this.parsedInput.length != 5) {
-            return false;
-        }
-
-        if (!this.parsedInput[0].equals("pick-and-move")) {
-            return false;
+            throw new WrongArgumentLengthException();
         }
 
         for (int i = 1; i < 5; i++) {
             if (isNotNumber(parsedInput[i])) {
-                return false;
+                throw new NotANumberException();
             }
         }
-
-        return true;
     }
 }

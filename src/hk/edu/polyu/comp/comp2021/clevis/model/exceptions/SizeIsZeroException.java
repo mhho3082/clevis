@@ -8,7 +8,4 @@ package hk.edu.polyu.comp.comp2021.clevis.model.exceptions;
  * @author Ho Man Hin
  */
 public class SizeIsZeroException extends Exception {
-    public SizeIsZeroException() {
-        super("The size of the shape cannot be zero!");
-    }
 }
