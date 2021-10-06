@@ -119,9 +119,9 @@ public class Clitoris {
      * @throws EmptyGroupException         warns of empty group
      * @throws ShapeInsideGroupException   warns of grouped shape already grouped
      */
-    public void group(String name, String... shapeNames)
+    public void group(String name, ArrayList<String> shapeNames)
             throws DuplicateShapeNameException, ShapeNotFoundException, EmptyGroupException, ShapeInsideGroupException {
-        if (shapeNames.length == 0) {
+        if (shapeNames.size() == 0) {
             throw new EmptyGroupException();
         }
 
@@ -161,7 +161,7 @@ public class Clitoris {
 
         ArrayList<UserShape> temp = ((Group) this.find(name)).getUserShapes();
 
-        this.delete(name);
+        this.remove(name);
 
         for (UserShape tempShape : temp) {
             this.add(tempShape);
@@ -284,7 +284,7 @@ public class Clitoris {
      * @param name the name of the shape
      * @throws ShapeNotFoundException warns of shape not found
      */
-    public void delete(String name)
+    public void remove(String name)
             throws ShapeNotFoundException, ShapeInsideGroupException {
         checkShallowContains(name);
 
