@@ -1,5 +1,7 @@
 package hk.edu.polyu.comp.comp2021.clevis.controller.commands;
 
+import hk.edu.polyu.comp.comp2021.clevis.controller.exceptions.NotANumberException;
+import hk.edu.polyu.comp.comp2021.clevis.controller.exceptions.WrongArgumentLengthException;
 import hk.edu.polyu.comp.comp2021.clevis.model.Clevis;
 
 import java.util.ArrayList;
@@ -7,7 +9,7 @@ import java.util.ArrayList;
 public class CommandListAll extends Command {
     // listAll
 
-    public CommandListAll(Clevis model, String command) {
+    public CommandListAll(Clevis model, String command) throws WrongArgumentLengthException, NotANumberException {
         super(model, command);
     }
 
@@ -18,12 +20,10 @@ public class CommandListAll extends Command {
     public void undo() {
     }
 
-    public boolean check() {
+    public void check() throws WrongArgumentLengthException {
         if (this.parsedInput.length != 1) {
-            return false;
+            throw new WrongArgumentLengthException();
         }
-
-        return this.parsedInput[0].equals("listAll");
     }
 
     public boolean undoable() {

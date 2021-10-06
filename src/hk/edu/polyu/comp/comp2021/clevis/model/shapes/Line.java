@@ -31,20 +31,6 @@ public class Line extends UserShape {
     }
 
     /**
-     * A line shape, defined by two points.
-     *
-     * @param name   the name
-     * @param point1 the first point
-     * @param point2 the second point
-     * @throws SizeIsZeroException warns of zero area
-     */
-    public Line(String name, Point point1, Point point2)
-            throws SizeIsZeroException {
-        super(name);
-        this.segment = new Segment(point1, point2);
-    }
-
-    /**
      * Gets the segment of this line.
      *
      * @return segment

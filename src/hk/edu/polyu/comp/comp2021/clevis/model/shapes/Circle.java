@@ -30,20 +30,6 @@ public class Circle extends UserShape {
     }
 
     /**
-     * A circle shape, defined by the center and radius.
-     *
-     * @param name   the name
-     * @param center the center
-     * @param radius the radius
-     * @throws SizeIsZeroException warns of zero area
-     */
-    public Circle(String name, Point center, BigDecimal radius)
-            throws SizeIsZeroException {
-        super(name);
-        this.circularSegment = new CircularSegment(center, radius);
-    }
-
-    /**
      * Gets the circular segment of this circle.
      *
      * @return the circular segment

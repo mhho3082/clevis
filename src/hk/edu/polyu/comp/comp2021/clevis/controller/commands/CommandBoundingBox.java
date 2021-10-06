@@ -1,17 +1,18 @@
 package hk.edu.polyu.comp.comp2021.clevis.controller.commands;
 
+import hk.edu.polyu.comp.comp2021.clevis.controller.exceptions.NotANumberException;
+import hk.edu.polyu.comp.comp2021.clevis.controller.exceptions.WrongArgumentLengthException;
 import hk.edu.polyu.comp.comp2021.clevis.model.Clevis;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.ShapeInsideGroupException;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.ShapeNotFoundException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class CommandBoundingBox extends Command {
     // boundingbox name
 
-    public CommandBoundingBox(Clevis model, String command) {
+    public CommandBoundingBox(Clevis model, String command) throws WrongArgumentLengthException, NotANumberException {
         super(model, command);
     }
 
@@ -34,12 +35,10 @@ public class CommandBoundingBox extends Command {
     public void undo() {
     }
 
-    public boolean check() {
+    public void check() throws WrongArgumentLengthException {
         if (this.parsedInput.length != 2) {
-            return false;
+            throw new WrongArgumentLengthException();
         }
-
-        return this.parsedInput[0].equals("boundingbox");
     }
 
     public boolean undoable() {
