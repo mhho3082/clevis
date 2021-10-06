@@ -23,8 +23,8 @@ public class CommandHandler {
     // The model
     private final Clevis model;
     // Commands
-    private int commandCount = 0; // for htmlOut only
     private final ArrayList<Command> commandStack = new ArrayList<>();
+    private int commandCount = 0; // for htmlOut only
     private int stackPtr = 0; // points at the location for NEXT input; == stack size when no undo
     // Outputs
     private ArrayList<String> outString; // for output by CLI or GUI message box(es)
@@ -53,6 +53,8 @@ public class CommandHandler {
             htmlOut.newLine();
             htmlOut.write("<body>");
             htmlOut.newLine();
+            htmlOut.write("  <table>");
+            htmlOut.newLine();
             htmlOut.write("    <tr>");
             htmlOut.newLine();
             htmlOut.write("      <th>Index</th>");
@@ -61,10 +63,8 @@ public class CommandHandler {
             htmlOut.newLine();
             htmlOut.write("    </tr>");
             htmlOut.newLine();
-
         } catch (IOException e) {
-            // TODO: Warn of invalid file input nicely, and quit
-            e.printStackTrace();
+            handleIOException(e);
             quit();
         }
     }
@@ -87,7 +87,7 @@ public class CommandHandler {
             htmlOut.write("    </tr>");
             htmlOut.newLine();
         } catch (IOException e) {
-            e.printStackTrace();
+            return;
         }
 
         try {
@@ -154,43 +154,35 @@ public class CommandHandler {
                 default:
                     throw new IllegalStateException("Unexpected value: " + command.split(" ")[0]);  // TODO: Handle "no command found" exception nicely
             }
-        } catch (WrongArgumentLengthException e) { // TODO: Handle this exception nicely
-            e.printStackTrace();
-            warning = true;
+        } catch (WrongArgumentLengthException e) {
+            handleWrongArgumentLengthException(e);
             return;
         } catch (NotANumberException e) {
-            e.printStackTrace();
-            warning = true;
+            handleNotANumberException(e);
             return;
         } catch (ShapeNotFoundException e) {
-            e.printStackTrace();
-            warning = true;
+            handleShapeNotFoundException(e);
             return;
         }
 
         // exec command object
         try {
             warning = false;
-            outString = object.exec(); // TODO: handle exceptions nicely
+            outString = object.exec();
         } catch (ShapeInsideGroupException e) {
-            e.printStackTrace();
-            warning = true;
+            handleShapeInsideGroupException(e);
             return;
         } catch (ShapeNotFoundException e) {
-            e.printStackTrace();
-            warning = true;
+            handleShapeNotFoundException(e);
             return;
         } catch (DuplicateShapeNameException e) {
-            e.printStackTrace();
-            warning = true;
+            handleDuplicateShapeNameException(e);
             return;
         } catch (SizeIsZeroException e) {
-            e.printStackTrace();
-            warning = true;
+            handleSizeIsZeroException(e);
             return;
         } catch (EmptyGroupException e) {
-            e.printStackTrace();
-            warning = true;
+            handleEmptyGroupException(e);
             return;
         }
 
@@ -210,53 +202,46 @@ public class CommandHandler {
     public void undo() {
         if (commandStack.size() == 0 || stackPtr == 0) {
             // no command to undo
-            // TODO: handle "no command to undo" nicely
+            // TODO: Warn of no command to undo nicely
             warning = true;
             return;
         }
 
         try {
-            commandStack.get(--stackPtr).undo(); // TODO: handle exceptions nicely
+            warning = false;
+            commandStack.get(--stackPtr).undo();
         } catch (ShapeInsideGroupException e) {
-            e.printStackTrace();
-            warning = true;
+            handleShapeInsideGroupException(e);
         } catch (EmptyGroupException e) {
-            e.printStackTrace();
-            warning = true;
+            handleEmptyGroupException(e);
         } catch (ShapeNotFoundException e) {
-            e.printStackTrace();
-            warning = true;
+            handleShapeNotFoundException(e);
         } catch (DuplicateShapeNameException e) {
-            e.printStackTrace();
-            warning = true;
+            handleDuplicateShapeNameException(e);
         }
     }
 
     public void redo() {
         if (stackPtr == commandStack.size()) {
             // no command to redo
-            // TODO: handle "no command to redo" nicely
+            // TODO: Warn of no command to redo nicely
             warning = true;
             return;
         }
 
         try {
-            commandStack.get(stackPtr++).exec(); // TODO: handle exceptions nicely
+            warning = false;
+            commandStack.get(stackPtr++).exec();
         } catch (ShapeInsideGroupException e) {
-            e.printStackTrace();
-            warning = true;
+            handleShapeInsideGroupException(e);
         } catch (ShapeNotFoundException e) {
-            e.printStackTrace();
-            warning = true;
+            handleShapeNotFoundException(e);
         } catch (DuplicateShapeNameException e) {
-            e.printStackTrace();
-            warning = true;
+            handleDuplicateShapeNameException(e);
         } catch (SizeIsZeroException e) {
-            e.printStackTrace();
-            warning = true;
+            handleSizeIsZeroException(e);
         } catch (EmptyGroupException e) {
-            e.printStackTrace();
-            warning = true;
+            handleEmptyGroupException(e);
         }
     }
 
@@ -273,11 +258,50 @@ public class CommandHandler {
             // Close writers
             htmlOut.close();
             txtOut.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException ignored) {}
 
+        warning = false;
         quitting = true;
+    }
+
+    public void handleIOException(IOException e) {
+        // TODO: Warn of invalid file nicely
+        warning = true;
+    }
+
+    public void handleNotANumberException(NotANumberException e) {
+        // TODO: Warn of not-a-number input nicely
+        warning = true;
+    }
+
+    public void handleWrongArgumentLengthException(WrongArgumentLengthException e) {
+        // TODO: Warn of wrong argument length nicely
+        warning = true;
+    }
+
+    public void handleDuplicateShapeNameException(DuplicateShapeNameException e) {
+        // TODO: Warn of duplicate shape name nicely
+        warning = true;
+    }
+
+    public void handleEmptyGroupException(EmptyGroupException e) {
+        // TODO: Warn of empty group nicely
+        warning = true;
+    }
+
+    public void handleShapeInsideGroupException(ShapeInsideGroupException e) {
+        // TODO: Warn of shape inside group nicely
+        warning = true;
+    }
+
+    public void handleShapeNotFoundException(ShapeNotFoundException e) {
+        // TODO: Warn of shape not found nicely
+        warning = true;
+    }
+
+    public void handleSizeIsZeroException(SizeIsZeroException e) {
+        // TODO: Warn of size is zero nicely
+        warning = true;
     }
 
     public ArrayList<String> getOutString() {
