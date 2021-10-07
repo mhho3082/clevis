@@ -7,7 +7,7 @@ import hk.edu.polyu.comp.comp2021.clevis.model.Clevis;
 import java.util.ArrayList;
 
 public class CommandListAll extends Command {
-    // listAll
+    private static final String template = "listAll";
 
     public CommandListAll(Clevis model, String command) throws WrongArgumentLengthException, NotANumberException {
         super(model, command);
@@ -22,7 +22,7 @@ public class CommandListAll extends Command {
 
     public void check() throws WrongArgumentLengthException {
         if (this.parsedInput.length != 1) {
-            throw new WrongArgumentLengthException();
+            throw new WrongArgumentLengthException(this.input, template);
         }
     }
 

@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class CommandSquare extends Command {
-    // rectangle name xLeft yTop length
+    private static final String template = "square name xLeft yTop length";
 
     public CommandSquare(Clevis model, String command) throws WrongArgumentLengthException, NotANumberException {
         super(model, command);
@@ -37,12 +37,12 @@ public class CommandSquare extends Command {
 
     public void check() throws WrongArgumentLengthException, NotANumberException {
         if (this.parsedInput.length != 5) {
-            throw new WrongArgumentLengthException();
+            throw new WrongArgumentLengthException(this.input, template);
         }
 
         for (int i = 2; i < 5; i++) {
             if (isNotNumber(this.parsedInput[i])) {
-                throw new NotANumberException();
+                throw new NotANumberException(this.parsedInput[i], template);
             }
         }
     }

@@ -17,3 +17,7 @@ hs_err_pid*
 out/
 
 .DS_Store
+
+# Outputs
+log.html
+log.txt

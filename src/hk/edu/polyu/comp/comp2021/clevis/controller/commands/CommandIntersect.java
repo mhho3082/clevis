@@ -9,7 +9,7 @@ import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.ShapeNotFoundException
 import java.util.ArrayList;
 
 public class CommandIntersect extends Command {
-    // intersect name1 name2
+    private static final String template = "intersect name1 name2";
 
     public CommandIntersect(Clevis model, String command) throws WrongArgumentLengthException, NotANumberException {
         super(model, command);
@@ -29,7 +29,7 @@ public class CommandIntersect extends Command {
 
     public void check() throws WrongArgumentLengthException {
         if (this.parsedInput.length != 3) {
-            throw new WrongArgumentLengthException();
+            throw new WrongArgumentLengthException(this.input, template);
         }
     }
 

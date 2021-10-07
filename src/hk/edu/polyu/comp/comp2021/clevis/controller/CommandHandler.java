@@ -27,9 +27,9 @@ public class CommandHandler {
     private int commandCount = 0; // for htmlOut only
     private int stackPtr = 0; // points at the location for NEXT input; == stack size when no undo
     // Outputs
-    private ArrayList<String> outString; // for output by CLI or GUI message box(es)
+    private ArrayList<String> outString = null; // for output by CLI or GUI message box(es)
     private boolean warning = false; // if the output is a warning (important for GUI)
-    private boolean quitting = false; // if the program is to quit or not, for Application
+    private boolean quitting = false; // whether the program is to quit or not, for Application
     // Logs
     private BufferedWriter htmlOut;
     private BufferedWriter txtOut;
@@ -45,23 +45,25 @@ public class CommandHandler {
             // Opening boilerplate for html
             htmlOut.write("<!DOCTYPE html>");
             htmlOut.newLine();
-            htmlOut.write("<head>");
+            htmlOut.write("<html>");
             htmlOut.newLine();
-            htmlOut.write("  <title>Clevis Log</title>");
+            htmlOut.write("  <head>");
             htmlOut.newLine();
-            htmlOut.write("</head>");
+            htmlOut.write("    <title>Clevis Log</title>");
             htmlOut.newLine();
-            htmlOut.write("<body>");
+            htmlOut.write("  </head>");
             htmlOut.newLine();
-            htmlOut.write("  <table>");
+            htmlOut.write("  <body>");
             htmlOut.newLine();
-            htmlOut.write("    <tr>");
+            htmlOut.write("    <table>");
             htmlOut.newLine();
-            htmlOut.write("      <th>Index</th>");
+            htmlOut.write("      <tr>");
             htmlOut.newLine();
-            htmlOut.write("      <th>Command</th>");
+            htmlOut.write("        <th>Index</th>");
             htmlOut.newLine();
-            htmlOut.write("    </tr>");
+            htmlOut.write("        <th>Command</th>");
+            htmlOut.newLine();
+            htmlOut.write("      </tr>");
             htmlOut.newLine();
         } catch (IOException e) {
             handleIOException(e);
@@ -78,18 +80,22 @@ public class CommandHandler {
             txtOut.newLine();
 
             // Store in html
-            htmlOut.write("    <tr>");
+            htmlOut.write("      <tr>");
             htmlOut.newLine();
-            htmlOut.write("      <td>" + commandCount++ + "</td>");
+            htmlOut.write("        <td>" + commandCount++ + "</td>");
             htmlOut.newLine();
-            htmlOut.write("      <td>" + command + "</td>");
+            htmlOut.write("        <td>" + command + "</td>");
             htmlOut.newLine();
-            htmlOut.write("    </tr>");
+            htmlOut.write("      </tr>");
             htmlOut.newLine();
         } catch (IOException e) {
             return;
         }
 
+        // Set outString to empty
+        outString = null;
+
+        // Create command object / handle special cases
         try {
             switch (command.split(" ")[0]) {
                 // Shapes
@@ -152,7 +158,8 @@ public class CommandHandler {
 
                 // Command not found
                 default:
-                    throw new IllegalStateException("Unexpected value: " + command.split(" ")[0]);  // TODO: Handle "no command found" exception nicely
+                    handleNoCommandFound(command.split(" ")[0]);
+                    return;
             }
         } catch (WrongArgumentLengthException e) {
             handleWrongArgumentLengthException(e);
@@ -200,15 +207,16 @@ public class CommandHandler {
     }
 
     public void undo() {
+        // Check if there is no command to undo
         if (commandStack.size() == 0 || stackPtr == 0) {
-            // no command to undo
-            // TODO: Warn of no command to undo nicely
-            warning = true;
+            handleNoUndo();
             return;
         }
 
         try {
             warning = false;
+            outString = null;
+
             commandStack.get(--stackPtr).undo();
         } catch (ShapeInsideGroupException e) {
             handleShapeInsideGroupException(e);
@@ -222,15 +230,16 @@ public class CommandHandler {
     }
 
     public void redo() {
+        // Check if there is no command to redo
         if (stackPtr == commandStack.size()) {
-            // no command to redo
-            // TODO: Warn of no command to redo nicely
-            warning = true;
+            handleNoRedo();
             return;
         }
 
         try {
             warning = false;
+            outString = null;
+
             commandStack.get(stackPtr++).exec();
         } catch (ShapeInsideGroupException e) {
             handleShapeInsideGroupException(e);
@@ -248,9 +257,9 @@ public class CommandHandler {
     public void quit() {
         try {
             // Closing boilerplate for html
-            htmlOut.write("  </table>");
+            htmlOut.write("    </table>");
             htmlOut.newLine();
-            htmlOut.write("</body>");
+            htmlOut.write("  </body>");
             htmlOut.newLine();
             htmlOut.write("</html>");
             htmlOut.newLine();
@@ -258,49 +267,88 @@ public class CommandHandler {
             // Close writers
             htmlOut.close();
             txtOut.close();
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+        }
 
+        // Set flags
         warning = false;
         quitting = true;
     }
 
+    public void handleNoCommandFound(String wrongInput) {
+        // TODO: Warn of no command found nicely
+        outString = new ArrayList<>();
+
+        warning = true;
+    }
+
+    public void handleNoUndo() {
+        // TODO: Warn of no undo nicely
+        outString = new ArrayList<>();
+
+        warning = true;
+    }
+
+    public void handleNoRedo() {
+        // TODO: Warn of no redo nicely
+        outString = new ArrayList<>();
+
+        warning = true;
+    }
+
     public void handleIOException(IOException e) {
         // TODO: Warn of invalid file nicely
+        outString = new ArrayList<>();
+
         warning = true;
     }
 
     public void handleNotANumberException(NotANumberException e) {
         // TODO: Warn of not-a-number input nicely
+        outString = new ArrayList<>();
+
         warning = true;
     }
 
     public void handleWrongArgumentLengthException(WrongArgumentLengthException e) {
         // TODO: Warn of wrong argument length nicely
+        outString = new ArrayList<>();
+
         warning = true;
     }
 
     public void handleDuplicateShapeNameException(DuplicateShapeNameException e) {
         // TODO: Warn of duplicate shape name nicely
+        outString = new ArrayList<>();
+
         warning = true;
     }
 
     public void handleEmptyGroupException(EmptyGroupException e) {
         // TODO: Warn of empty group nicely
+        outString = new ArrayList<>();
+
         warning = true;
     }
 
     public void handleShapeInsideGroupException(ShapeInsideGroupException e) {
         // TODO: Warn of shape inside group nicely
+        outString = new ArrayList<>();
+
         warning = true;
     }
 
     public void handleShapeNotFoundException(ShapeNotFoundException e) {
         // TODO: Warn of shape not found nicely
+        outString = new ArrayList<>();
+
         warning = true;
     }
 
     public void handleSizeIsZeroException(SizeIsZeroException e) {
         // TODO: Warn of size is zero nicely
+        outString = new ArrayList<>();
+
         warning = true;
     }
 

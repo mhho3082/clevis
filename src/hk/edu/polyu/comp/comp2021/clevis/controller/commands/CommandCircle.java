@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class CommandCircle extends Command {
-    // circle name xCenter yCenter radius
+    private static final String template = "circle name xCenter yCenter radius";
 
     public CommandCircle(Clevis model, String command) throws WrongArgumentLengthException, NotANumberException {
         super(model, command);
@@ -37,12 +37,12 @@ public class CommandCircle extends Command {
 
     public void check() throws WrongArgumentLengthException, NotANumberException {
         if (this.parsedInput.length != 5) {
-            throw new WrongArgumentLengthException();
+            throw new WrongArgumentLengthException(this.input, template);
         }
 
         for (int i = 2; i < 5; i++) {
             if (isNotNumber(this.parsedInput[i])) {
-                throw new NotANumberException();
+                throw new NotANumberException(this.parsedInput[i], template);
             }
         }
     }
