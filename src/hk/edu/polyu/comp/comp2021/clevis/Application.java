@@ -39,6 +39,7 @@ public class Application {
         handler.exec("rectangle hi 1 2 4 5");
         handler.exec("line yo 1 1 4 4");
         handler.exec("intersect hi yo");
+        System.out.println(handler.getOutString());
         handler.exec("listAll");
         handler.exec("quit");
     }
