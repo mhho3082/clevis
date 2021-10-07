@@ -1,5 +1,6 @@
 package hk.edu.polyu.comp.comp2021.clevis.controller;
 
+import hk.edu.polyu.comp.comp2021.clevis.Config;
 import hk.edu.polyu.comp.comp2021.clevis.controller.commands.*;
 import hk.edu.polyu.comp.comp2021.clevis.controller.exceptions.NotANumberException;
 import hk.edu.polyu.comp.comp2021.clevis.controller.exceptions.WrongArgumentLengthException;
@@ -27,7 +28,7 @@ public class CommandHandler {
     private final ArrayList<Command> commandStack = new ArrayList<>();
     // Commands
     private String inString; // For exception warning
-    private int commandCount = 0; // for htmlOut only
+    private int commandCount = Config.HTML_INDEX_BEGIN; // for htmlOut only
     private int stackPtr = 0; // points at the location for NEXT input; == stack size when no undo
     // Outputs
     private ArrayList<String> outString = null; // for output by CLI or GUI message box(es)
@@ -52,7 +53,7 @@ public class CommandHandler {
             this.htmlOut = new BufferedWriter(new FileWriter(htmlFile));
             this.txtOut = new BufferedWriter(new FileWriter(txtFile));
 
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(Config.HTML_DATE_TIME_FORMAT);
             LocalDateTime now = LocalDateTime.now();
 
             // Opening boilerplate for html
