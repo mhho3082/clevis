@@ -1,12 +1,12 @@
 package hk.edu.polyu.comp.comp2021.clevis;
 
 import hk.edu.polyu.comp.comp2021.clevis.controller.CommandHandler;
-import hk.edu.polyu.comp.comp2021.clevis.model.*;
+import hk.edu.polyu.comp.comp2021.clevis.model.Clevis;
 
 import java.io.File;
 
 public class Application {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         // Variables
         File html = null;
         File txt = null;
@@ -15,9 +15,9 @@ public class Application {
         // Handle flags
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-html") && i + 1 < args.length) {
-                html = new File(args[i+1]);
+                html = new File(args[i + 1]);
             } else if (args[i].equals("-txt") && i + 1 < args.length) {
-                txt = new File(args[i+1]);
+                txt = new File(args[i + 1]);
             } else if (args[i].equals("-gui")) {
                 useGUI = true;
             }
@@ -36,11 +36,40 @@ public class Application {
 
         // FIXME: For testing only
         // For Nathan: Feel free to do integration testing here
-        handler.exec("rectangle hi 1 2 4 5");
-        handler.exec("line yo 1 1 4 4");
-        handler.exec("intersect hi yo");
-        System.out.println(handler.getOutString());
-        handler.exec("listAll");
-        handler.exec("quit");
+        // The concept for this code should be used in CLI view instead, to be honest...
+        // The colours down there is set just for fun, feel free to change it
+        String[] testCommandList = {
+                "rectangle hi 1 2 4 5",
+                "line yo 1 1 4 4",
+                "intersect hi yo",
+                "group x hi yo",
+                "circle k 3 4 5",
+                "list k",
+                "undo",
+                "listAll",
+                "redo",
+                "listAll",
+                "quit",
+        };
+        for (String testCommand : testCommandList) {
+            handler.exec(testCommand);
+            if (handler.getOutString() != null) {
+                // For the ANSI escape code for colours:
+                // https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
+
+                if (handler.getWarning()) {
+                    System.out.print("\u001B[33m"); // Yellow
+                } else {
+                    System.out.print("\u001B[34m"); // Blue
+                }
+
+                for (String out : handler.getOutString()) {
+                    System.out.println(out);
+                }
+
+                System.out.print("\u001B[0m"); // Reset colour
+                System.out.println();
+            }
+        }
     }
 }

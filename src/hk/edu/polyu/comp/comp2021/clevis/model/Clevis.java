@@ -269,10 +269,12 @@ public class Clevis {
 
         ArrayList<String> out = new ArrayList<>();
 
-        for (UserShape userShape : shapeList) {
-            ArrayList<String> temp = userShape.listAll();
+        for (int i = 0; i < shapeList.size(); i++) {
+            ArrayList<String> temp = shapeList.get(i).listAll();
             out.addAll(temp);
-            out.add("");
+            if (i + 1 < shapeList.size()) {
+                out.add("");
+            }
         }
 
         return out;

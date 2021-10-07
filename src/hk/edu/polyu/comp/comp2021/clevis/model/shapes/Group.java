@@ -1,10 +1,11 @@
 package hk.edu.polyu.comp.comp2021.clevis.model.shapes;
 
-import hk.edu.polyu.comp.comp2021.clevis.model.Config;
+import hk.edu.polyu.comp.comp2021.clevis.Config;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.EmptyGroupException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * A group shape.
@@ -28,6 +29,7 @@ public class Group extends UserShape {
             throw new EmptyGroupException();
         }
         this.userShapes = userShapes;
+        sortZOrder();
     }
 
     /**
@@ -255,5 +257,13 @@ public class Group extends UserShape {
         out.add("Type: " + "Group");
 
         return out;
+    }
+
+    /**
+     * Sorts the list of shapes by decreasing zOrder.
+     */
+    private void sortZOrder() {
+        Collections.sort(this.userShapes);
+        Collections.reverse(this.userShapes);
     }
 }
