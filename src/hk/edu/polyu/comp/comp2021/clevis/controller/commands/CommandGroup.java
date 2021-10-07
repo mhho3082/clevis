@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class CommandGroup extends Command {
-    private static final String template = "group name n1 n2 ...";
+    private static final String template = "group name shapeName...";
 
     public CommandGroup(Clevis model, String command) throws WrongArgumentLengthException, NotANumberException {
         super(model, command);
@@ -34,7 +34,7 @@ public class CommandGroup extends Command {
 
     public void check() throws WrongArgumentLengthException {
         if (this.parsedInput.length < 3) {
-            throw new WrongArgumentLengthException(this.input, template);
+            throw new WrongArgumentLengthException(template);
         }
     }
 }

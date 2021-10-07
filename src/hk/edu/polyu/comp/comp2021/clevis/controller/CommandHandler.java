@@ -23,6 +23,7 @@ public class CommandHandler {
     // The model
     private final Clevis model;
     // Commands
+    private String inString; // For exception warning
     private final ArrayList<Command> commandStack = new ArrayList<>();
     private int commandCount = 0; // for htmlOut only
     private int stackPtr = 0; // points at the location for NEXT input; == stack size when no undo
@@ -66,13 +67,15 @@ public class CommandHandler {
             htmlOut.write("      </tr>");
             htmlOut.newLine();
         } catch (IOException e) {
-            handleIOException(e);
+            handleIOException();
             quit();
         }
     }
 
     public void exec(String command) {
         Command object;
+
+        inString = command;
 
         try {
             // Store in txt
@@ -186,11 +189,13 @@ public class CommandHandler {
             handleDuplicateShapeNameException(e);
             return;
         } catch (SizeIsZeroException e) {
-            handleSizeIsZeroException(e);
+            handleSizeIsZeroException();
             return;
         } catch (EmptyGroupException e) {
-            handleEmptyGroupException(e);
+            handleEmptyGroupException();
             return;
+        } catch (NoShapeContainsPointException e) {
+            handleNoShapeContainsPointException();
         }
 
         // Put in stack if undoable
@@ -221,11 +226,13 @@ public class CommandHandler {
         } catch (ShapeInsideGroupException e) {
             handleShapeInsideGroupException(e);
         } catch (EmptyGroupException e) {
-            handleEmptyGroupException(e);
+            handleEmptyGroupException();
         } catch (ShapeNotFoundException e) {
             handleShapeNotFoundException(e);
         } catch (DuplicateShapeNameException e) {
             handleDuplicateShapeNameException(e);
+        } catch (NoShapeContainsPointException e) {
+            handleNoShapeContainsPointException();
         }
     }
 
@@ -248,9 +255,11 @@ public class CommandHandler {
         } catch (DuplicateShapeNameException e) {
             handleDuplicateShapeNameException(e);
         } catch (SizeIsZeroException e) {
-            handleSizeIsZeroException(e);
+            handleSizeIsZeroException();
         } catch (EmptyGroupException e) {
-            handleEmptyGroupException(e);
+            handleEmptyGroupException();
+        } catch (NoShapeContainsPointException e) {
+            handleNoShapeContainsPointException();
         }
     }
 
@@ -275,79 +284,146 @@ public class CommandHandler {
         quitting = true;
     }
 
+    // TODO: Add help()
+
+    // TODO: Add info()
+
     public void handleNoCommandFound(String wrongInput) {
-        // TODO: Warn of no command found nicely
+        // Warn of no command found nicely
         outString = new ArrayList<>();
+
+        outString.add(wrongInput + " is not a command!");
+        outString.add("");
+        outString.add("You inputted: " + inString);
+        // TODO: Give correct command list
 
         warning = true;
     }
 
     public void handleNoUndo() {
-        // TODO: Warn of no undo nicely
+        // Warn of no undo nicely
         outString = new ArrayList<>();
+
+        outString.add("There are no commands to undo!");
 
         warning = true;
     }
 
     public void handleNoRedo() {
-        // TODO: Warn of no redo nicely
+        // Warn of no redo nicely
         outString = new ArrayList<>();
+
+        outString.add("There are no commands to redo!");
 
         warning = true;
     }
 
-    public void handleIOException(IOException e) {
-        // TODO: Warn of invalid file nicely
+    public void handleIOException() {
+        // Warn of invalid file nicely
         outString = new ArrayList<>();
+
+        outString.add("The file path(s) you gave cannot be written to.");
+        outString.add("It may mean that you gave path(s) to directory(ies) instead.");
+        outString.add("Please double-check your paths, then re-init the program.");
 
         warning = true;
     }
 
     public void handleNotANumberException(NotANumberException e) {
-        // TODO: Warn of not-a-number input nicely
+        // Warn of not-a-number input nicely
         outString = new ArrayList<>();
+
+        outString.add("You have inputted one (or more) non-number inputs in number argument fields!");
+        outString.add("");
+        outString.add("     Expected template: " + e.getTemplate());
+        outString.add("          You inputted: " + inString);
+        outString.add("One of the wrong input: " + e.getWrongInput());
 
         warning = true;
     }
 
     public void handleWrongArgumentLengthException(WrongArgumentLengthException e) {
-        // TODO: Warn of wrong argument length nicely
+        // Warn of wrong argument length nicely
         outString = new ArrayList<>();
+
+        outString.add("You have inputted the command with a wrong argument count!");
+        outString.add("");
+        outString.add("Expected template: " + e.getTemplate());
+        outString.add("     You inputted: " + inString);
+        outString.add("");
+        outString.add("Expected argument count: " + (e.getTemplate().split(" ").length - 1));
+        outString.add("  Actual argument count: " + (inString.split(" ").length - 1));
 
         warning = true;
     }
 
     public void handleDuplicateShapeNameException(DuplicateShapeNameException e) {
-        // TODO: Warn of duplicate shape name nicely
+        // Warn of duplicate shape name nicely
         outString = new ArrayList<>();
+
+        outString.add("The name you inputted had been used by another shape already!");
+        outString.add("");
+        outString.add("You inputted: " + inString);
+        outString.add("    The name: " + e.getName());
 
         warning = true;
     }
 
-    public void handleEmptyGroupException(EmptyGroupException e) {
-        // TODO: Warn of empty group nicely
+    public void handleEmptyGroupException() {
+        // Warn of empty group nicely
         outString = new ArrayList<>();
+
+        outString.add("You have tried to create an empty group, which is invalid!");
+        outString.add("Please confirm that you have inputted shapes to be grouped.");
+        outString.add("");
+        outString.add("You inputted: " + inString);
 
         warning = true;
     }
 
     public void handleShapeInsideGroupException(ShapeInsideGroupException e) {
-        // TODO: Warn of shape inside group nicely
+        // Warn of shape inside group nicely
         outString = new ArrayList<>();
+
+        outString.add("One (or more) of the shapes you inputted is currently grouped!");
+        outString.add("Shape(s) inside group(s) cannot be directly accessed.");
+        outString.add("");
+        outString.add("             You inputted: " + inString);
+        outString.add("One of the grouped shapes: " + e.getShapeName());
 
         warning = true;
     }
 
     public void handleShapeNotFoundException(ShapeNotFoundException e) {
-        // TODO: Warn of shape not found nicely
+        // Warn of shape not found nicely
         outString = new ArrayList<>();
+
+        outString.add("One (or more) of the shapes you inputted cannot be found!");
+        outString.add("");
+        outString.add("You inputted: " + inString);
+        outString.add("One of the shapes not found: " + e.getName());
 
         warning = true;
     }
 
-    public void handleSizeIsZeroException(SizeIsZeroException e) {
-        // TODO: Warn of size is zero nicely
+    public void handleSizeIsZeroException() {
+        // Warn of size is zero nicely
         outString = new ArrayList<>();
+
+        outString.add("The shape you are trying to create has zero area!");
+        outString.add("");
+        outString.add("You inputted: " + inString);
+
+        warning = true;
+    }
+
+    public void handleNoShapeContainsPointException() {
+        // Warn of no shape contains point nicely
+        outString = new ArrayList<>();
+
+        outString.add("No shape contains the specified point!");
+        outString.add("");
+        outString.add("You inputted: " + inString);
 
         warning = true;
     }

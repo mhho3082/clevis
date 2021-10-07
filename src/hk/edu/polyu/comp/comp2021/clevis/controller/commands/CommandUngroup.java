@@ -36,7 +36,7 @@ public class CommandUngroup extends Command {
 
     public void check() throws WrongArgumentLengthException {
         if (this.parsedInput.length != 2) {
-            throw new WrongArgumentLengthException(this.input, template);
+            throw new WrongArgumentLengthException(template);
         }
     }
 }

@@ -35,7 +35,7 @@ public class CommandMove extends Command {
 
     public void check() throws WrongArgumentLengthException, NotANumberException {
         if (this.parsedInput.length != 4) {
-            throw new WrongArgumentLengthException(this.input, template);
+            throw new WrongArgumentLengthException(template);
         }
 
         for (int i = 2; i < 4; i++) {

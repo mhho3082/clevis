@@ -20,10 +20,10 @@ public abstract class Command {
     }
 
     public abstract ArrayList<String> exec()
-            throws ShapeInsideGroupException, ShapeNotFoundException, DuplicateShapeNameException, SizeIsZeroException, EmptyGroupException;
+            throws ShapeInsideGroupException, ShapeNotFoundException, DuplicateShapeNameException, SizeIsZeroException, EmptyGroupException, NoShapeContainsPointException;
 
     public abstract void undo()
-            throws ShapeInsideGroupException, EmptyGroupException, ShapeNotFoundException, DuplicateShapeNameException;
+            throws ShapeInsideGroupException, EmptyGroupException, ShapeNotFoundException, DuplicateShapeNameException, NoShapeContainsPointException;
 
     public abstract void check() throws WrongArgumentLengthException, NotANumberException;
 
