@@ -2,6 +2,7 @@ package hk.edu.polyu.comp.comp2021.clevis;
 
 import hk.edu.polyu.comp.comp2021.clevis.controller.CommandHandler;
 import hk.edu.polyu.comp.comp2021.clevis.model.Clevis;
+import hk.edu.polyu.comp.comp2021.clevis.view.CLIView;
 
 import java.io.File;
 
@@ -14,7 +15,7 @@ import java.io.File;
 public class Application {
     /**
      * The main function for the whole project.
-     * @param args the CLI arguments
+     * @param args the CLI arguments, e.g. -html, -txt, -gui
      */
     public static void main(String[] args) {
         // Variables
@@ -24,9 +25,19 @@ public class Application {
 
         // Handle flags
         for (int i = 0; i < args.length; i++) {
-            if (args[i].equals("-html") && i + 1 < args.length) {
+            if (args[i].equals("-html")
+                    && i + 1 < args.length
+                    && !args[i + 1].equals("-html")
+                    && !args[i + 1].equals("-txt")
+                    && !args[i + 1].equals("-gui")
+            ) {
                 html = new File(args[i + 1]);
-            } else if (args[i].equals("-txt") && i + 1 < args.length) {
+            } else if (args[i].equals("-txt")
+                    && i + 1 < args.length
+                    && !args[i + 1].equals("-html")
+                    && !args[i + 1].equals("-txt")
+                    && !args[i + 1].equals("-gui")
+            ) {
                 txt = new File(args[i + 1]);
             } else if (args[i].equals("-gui")) {
                 useGUI = true;
@@ -40,59 +51,13 @@ public class Application {
         }
 
         // Initialize and utilize the system
-        // TODO: Add view
+        // TODO: Add GUI controller and GUI view
         Clevis clevis = new Clevis();
         CommandHandler handler = new CommandHandler(clevis, html, txt);
-
-        // FIXME: For testing only
-        // For Nathan: Feel free to do integration testing here
-        // The concept for this code should be used in CLI view instead, to be honest...
-        // The colours down there is set just for fun, feel free to change it
-        String[] testCommandList = {
-                "rectangle hi 1 2 4 5",
-                "line yo 1 1 4 4",
-                "intersect hi yo",
-                "group x hi yo",
-                "circle k 3 4 5",
-                "list k",
-                "undo",
-                "listAll",
-                "redo",
-                "listAll",
-                "quit",
-        };
-
-        for (String testCommand : testCommandList) {
-            // Call command
-            handler.exec(testCommand);
-
-            // Print output
-            if (handler.getOutString() != null) {
-                // For the ANSI escape code for colours:
-                // https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
-
-                // Change output colour
-                // Add Warning sign
-                if (handler.getWarning()) {
-                    System.out.print("\u001B[33m"); // Yellow
-                    System.out.println("Warning:");
-                } else {
-                    System.out.print("\u001B[34m"); // Blue
-                }
-
-                for (String out : handler.getOutString()) {
-                    System.out.println(out);
-                }
-
-                // Set input colour
-                System.out.print("\u001B[0m"); // Reset colour
-                System.out.println();
-            }
-
-            // Auto-quit
-            if (handler.getQuitting()) {
-                return;
-            }
+        if (useGUI) {
+        } else {
+            CLIView cliView = new CLIView(handler);
+            cliView.exec();
         }
     }
 }
