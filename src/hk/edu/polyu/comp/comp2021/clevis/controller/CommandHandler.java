@@ -6,6 +6,9 @@ import hk.edu.polyu.comp.comp2021.clevis.controller.exceptions.WrongArgumentLeng
 import hk.edu.polyu.comp.comp2021.clevis.model.Clevis;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.*;
 
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;    
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -43,6 +46,9 @@ public class CommandHandler {
             this.htmlOut = new BufferedWriter(new FileWriter(htmlFile));
             this.txtOut = new BufferedWriter(new FileWriter(txtFile));
 
+            DateTimeFormatter dtfm = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now(); 
+
             // Opening boilerplate for html
             htmlOut.write("<!DOCTYPE html>");
             htmlOut.newLine();
@@ -56,13 +62,19 @@ public class CommandHandler {
             htmlOut.newLine();
             htmlOut.write("  <body>");
             htmlOut.newLine();
+            htmlOut.write("<h1>GROUP 32 </h1>");
+            htmlOut.newLine();
+            htmlOut.write("<h3><i> ~Log start  < "+dtfm.format(now)+" > </i>~</h3>");
+            htmlOut.newLine();
             htmlOut.write("    <table>");
+            htmlOut.newLine();
+            htmlOut.write("<table style=\"border:1px #FFD382 dashed;\" cellpadding=\"10\" border='1'>");
             htmlOut.newLine();
             htmlOut.write("      <tr>");
             htmlOut.newLine();
-            htmlOut.write("        <th>Index</th>");
+            htmlOut.write("        <th bgcolor=\"yellow\">Index</th>");
             htmlOut.newLine();
-            htmlOut.write("        <th>Command</th>");
+            htmlOut.write("        <th bgcolor=\"yellow\">Command</th>");
             htmlOut.newLine();
             htmlOut.write("      </tr>");
             htmlOut.newLine();
@@ -85,9 +97,9 @@ public class CommandHandler {
             // Store in html
             htmlOut.write("      <tr>");
             htmlOut.newLine();
-            htmlOut.write("        <td>" + commandCount++ + "</td>");
+            htmlOut.write("        <td bgcolor=#ACBBFE>" + commandCount++ + "</td>");
             htmlOut.newLine();
-            htmlOut.write("        <td>" + command + "</td>");
+            htmlOut.write("        <td bgcolor=#cfd5ea>" + command + "</td>");
             htmlOut.newLine();
             htmlOut.write("      </tr>");
             htmlOut.newLine();
