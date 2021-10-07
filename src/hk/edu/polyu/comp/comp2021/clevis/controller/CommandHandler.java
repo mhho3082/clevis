@@ -286,16 +286,26 @@ public class CommandHandler {
 
     // TODO: Add help()
 
+    // TODO: Add help(command)
+
     // TODO: Add info()
 
     public void handleNoCommandFound(String wrongInput) {
         // Warn of no command found nicely
         outString = new ArrayList<>();
 
-        outString.add(wrongInput + " is not a command!");
+        outString.add("\"" + wrongInput + "\" is not a command!");
         outString.add("");
         outString.add("You inputted: " + inString);
-        // TODO: Give correct command list
+        outString.add("");
+        outString.add("List of commands:");
+        outString.add(" Shapes: rectangle, line circle, square");
+        outString.add(" Groups: group, ungroup");
+        outString.add("   Info: boundingbox, intersect, list, listALl");
+        outString.add(" Change: move, pick-and-move, delete");
+        outString.add("Special: undo, redo, quit");
+        outString.add("");
+        outString.add("(To see a command's argument list, type help [command])");
 
         warning = true;
     }
@@ -335,7 +345,7 @@ public class CommandHandler {
 
         outString.add("You have inputted one (or more) non-number inputs in number argument fields!");
         outString.add("");
-        outString.add("     Expected template: " + e.getTemplate());
+        outString.add("     Argument template: " + e.getTemplate());
         outString.add("          You inputted: " + inString);
         outString.add("One of the wrong input: " + e.getWrongInput());
 
@@ -348,7 +358,7 @@ public class CommandHandler {
 
         outString.add("You have inputted the command with a wrong argument count!");
         outString.add("");
-        outString.add("Expected template: " + e.getTemplate());
+        outString.add("Argument template: " + e.getTemplate());
         outString.add("     You inputted: " + inString);
         outString.add("");
         outString.add("Expected argument count: " + (e.getTemplate().split(" ").length - 1));
@@ -400,7 +410,7 @@ public class CommandHandler {
 
         outString.add("One (or more) of the shapes you inputted cannot be found!");
         outString.add("");
-        outString.add("You inputted: " + inString);
+        outString.add("               You inputted: " + inString);
         outString.add("One of the shapes not found: " + e.getName());
 
         warning = true;
