@@ -15,6 +15,7 @@ import java.io.File;
 public class Application {
     /**
      * The main function for the whole project.
+     *
      * @param args the CLI arguments, e.g. -html, -txt, -gui
      */
     public static void main(String[] args) {
@@ -46,7 +47,7 @@ public class Application {
 
         // Quit if invalid inputs
         if (html == null || txt == null) {
-            // TODO: Halt if invalid inputs, warn nicely with System.out
+            // TODO: Warn of invalid inputs nicely with System.out, then halt
             return;
         }
 

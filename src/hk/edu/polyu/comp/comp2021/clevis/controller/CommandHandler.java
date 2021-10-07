@@ -6,13 +6,12 @@ import hk.edu.polyu.comp.comp2021.clevis.controller.exceptions.WrongArgumentLeng
 import hk.edu.polyu.comp.comp2021.clevis.model.Clevis;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.*;
 
-import java.time.format.DateTimeFormatter;  
-import java.time.LocalDateTime;    
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -25,9 +24,9 @@ import java.util.ArrayList;
 public class CommandHandler {
     // The model
     private final Clevis model;
+    private final ArrayList<Command> commandStack = new ArrayList<>();
     // Commands
     private String inString; // For exception warning
-    private final ArrayList<Command> commandStack = new ArrayList<>();
     private int commandCount = 0; // for htmlOut only
     private int stackPtr = 0; // points at the location for NEXT input; == stack size when no undo
     // Outputs
@@ -38,6 +37,13 @@ public class CommandHandler {
     private BufferedWriter htmlOut;
     private BufferedWriter txtOut;
 
+    /**
+     * Creates a command handler.
+     *
+     * @param model    the model to run commands
+     * @param htmlFile the html file to log commands
+     * @param txtFile  the txt file to log commands
+     */
     public CommandHandler(Clevis model, File htmlFile, File txtFile) {
         this.model = model;
 
@@ -46,8 +52,8 @@ public class CommandHandler {
             this.htmlOut = new BufferedWriter(new FileWriter(htmlFile));
             this.txtOut = new BufferedWriter(new FileWriter(txtFile));
 
-            DateTimeFormatter dtfm = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-            LocalDateTime now = LocalDateTime.now(); 
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
 
             // Opening boilerplate for html
             htmlOut.write("<!DOCTYPE html>");
@@ -62,13 +68,11 @@ public class CommandHandler {
             htmlOut.newLine();
             htmlOut.write("  <body>");
             htmlOut.newLine();
-            htmlOut.write("<h1>GROUP 32 </h1>");
+            htmlOut.write("    <h1>CLEVIS LOG</h1>");
             htmlOut.newLine();
-            htmlOut.write("<h3><i> ~Log start  < "+dtfm.format(now)+" > </i>~</h3>");
+            htmlOut.write("    <h3> <tt> Log start at " + dateTimeFormatter.format(now) + " </tt> </h3>");
             htmlOut.newLine();
-            htmlOut.write("    <table>");
-            htmlOut.newLine();
-            htmlOut.write("<table style=\"border:1px #FFD382 dashed;\" cellpadding=\"10\" border='1'>");
+            htmlOut.write("    <table style=\"border:1px #FFD382 dashed;\" cellpadding=\"10\" border='1'>");
             htmlOut.newLine();
             htmlOut.write("      <tr>");
             htmlOut.newLine();
@@ -84,6 +88,11 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Executes the given command.
+     *
+     * @param command A string of user-input command
+     */
     public void exec(String command) {
         Command object;
 
@@ -99,7 +108,7 @@ public class CommandHandler {
             htmlOut.newLine();
             htmlOut.write("        <td bgcolor=#ACBBFE>" + commandCount++ + "</td>");
             htmlOut.newLine();
-            htmlOut.write("        <td bgcolor=#cfd5ea>" + command + "</td>");
+            htmlOut.write("        <td bgcolor=#cfd5ea><tt>" + command + "</tt></td>");
             htmlOut.newLine();
             htmlOut.write("      </tr>");
             htmlOut.newLine();
@@ -170,6 +179,9 @@ public class CommandHandler {
                 case "quit":
                     quit();
                     return;
+                case "exit":
+                    exit();
+                    return;
 
                 // Command not found
                 default:
@@ -223,6 +235,9 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Handles undo command.
+     */
     public void undo() {
         // Check if there is no command to undo
         if (commandStack.size() == 0 || stackPtr == 0) {
@@ -248,6 +263,9 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Handles redo command.
+     */
     public void redo() {
         // Check if there is no command to redo
         if (stackPtr == commandStack.size()) {
@@ -275,10 +293,23 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Handles quit command (and auto-quit).
+     */
     public void quit() {
         try {
             // Closing boilerplate for html
             htmlOut.write("    </table>");
+            htmlOut.newLine();
+            htmlOut.write("    <footer>");
+            htmlOut.newLine();
+            htmlOut.write("      <p> <tt>clevis</tt> by Group 32 </p>");
+            htmlOut.newLine();
+            htmlOut.write("      <p> COMP2021, Autumn 2021 </p>");
+            htmlOut.newLine();
+            htmlOut.write("      <p> The Hong Kong Polytechnic University </p>");
+            htmlOut.newLine();
+            htmlOut.write("    </footer>");
             htmlOut.newLine();
             htmlOut.write("  </body>");
             htmlOut.newLine();
@@ -296,12 +327,25 @@ public class CommandHandler {
         quitting = true;
     }
 
-    // TODO: Add help()
+    public void exit() {
+        outString = new ArrayList<>();
 
-    // TODO: Add help(command)
+        outString.add("\"exit\" is deprecated.");
+        outString.add("Please use \"quit\" to quit.");
+
+        // Set flags
+        warning = true;
+    }
+
+    // TODO: Add help()
 
     // TODO: Add info()
 
+    /**
+     * Handles no command found exception.
+     *
+     * @param wrongInput the wrong command
+     */
     public void handleNoCommandFound(String wrongInput) {
         // Warn of no command found nicely
         outString = new ArrayList<>();
@@ -311,17 +355,20 @@ public class CommandHandler {
         outString.add("You inputted: " + inString);
         outString.add("");
         outString.add("List of commands:");
-        outString.add(" Shapes: rectangle, line circle, square");
-        outString.add(" Groups: group, ungroup");
-        outString.add("   Info: boundingbox, intersect, list, listALl");
-        outString.add(" Change: move, pick-and-move, delete");
-        outString.add("Special: undo, redo, quit");
+        outString.add("Shapes: rectangle, line circle, square");
+        outString.add("Groups: group, ungroup");
+        outString.add("  Info: boundingbox, intersect, list, listALl");
+        outString.add("Change: move, pick-and-move, delete");
+        outString.add("  Meta: undo, redo, quit");
         outString.add("");
         outString.add("(To see a command's argument list, type help [command])");
 
         warning = true;
     }
 
+    /**
+     * Handles no undo exception.
+     */
     public void handleNoUndo() {
         // Warn of no undo nicely
         outString = new ArrayList<>();
@@ -331,6 +378,9 @@ public class CommandHandler {
         warning = true;
     }
 
+    /**
+     * Handles no redo exception.
+     */
     public void handleNoRedo() {
         // Warn of no redo nicely
         outString = new ArrayList<>();
@@ -340,6 +390,9 @@ public class CommandHandler {
         warning = true;
     }
 
+    /**
+     * Handles IOException.
+     */
     public void handleIOException() {
         // Warn of invalid file nicely
         outString = new ArrayList<>();
@@ -351,6 +404,11 @@ public class CommandHandler {
         warning = true;
     }
 
+    /**
+     * Handles not a number exception.
+     *
+     * @param e the exception
+     */
     public void handleNotANumberException(NotANumberException e) {
         // Warn of not-a-number input nicely
         outString = new ArrayList<>();
@@ -364,6 +422,11 @@ public class CommandHandler {
         warning = true;
     }
 
+    /**
+     * Handles wrong argument length exception.
+     *
+     * @param e the exception
+     */
     public void handleWrongArgumentLengthException(WrongArgumentLengthException e) {
         // Warn of wrong argument length nicely
         outString = new ArrayList<>();
@@ -379,6 +442,11 @@ public class CommandHandler {
         warning = true;
     }
 
+    /**
+     * Handles duplicate shape name exception.
+     *
+     * @param e the exception
+     */
     public void handleDuplicateShapeNameException(DuplicateShapeNameException e) {
         // Warn of duplicate shape name nicely
         outString = new ArrayList<>();
@@ -391,6 +459,9 @@ public class CommandHandler {
         warning = true;
     }
 
+    /**
+     * Handles empty group exception.
+     */
     public void handleEmptyGroupException() {
         // Warn of empty group nicely
         outString = new ArrayList<>();
@@ -403,6 +474,11 @@ public class CommandHandler {
         warning = true;
     }
 
+    /**
+     * Handles shape inside group exception.
+     *
+     * @param e the exception
+     */
     public void handleShapeInsideGroupException(ShapeInsideGroupException e) {
         // Warn of shape inside group nicely
         outString = new ArrayList<>();
@@ -416,6 +492,11 @@ public class CommandHandler {
         warning = true;
     }
 
+    /**
+     * Handles shape not found exception.
+     *
+     * @param e the exception
+     */
     public void handleShapeNotFoundException(ShapeNotFoundException e) {
         // Warn of shape not found nicely
         outString = new ArrayList<>();
@@ -428,6 +509,9 @@ public class CommandHandler {
         warning = true;
     }
 
+    /**
+     * Handles size is zero exception.
+     */
     public void handleSizeIsZeroException() {
         // Warn of size is zero nicely
         outString = new ArrayList<>();
@@ -439,6 +523,9 @@ public class CommandHandler {
         warning = true;
     }
 
+    /**
+     * Handles no shape contains point exception.
+     */
     public void handleNoShapeContainsPointException() {
         // Warn of no shape contains point nicely
         outString = new ArrayList<>();
@@ -450,14 +537,29 @@ public class CommandHandler {
         warning = true;
     }
 
+    /**
+     * Gets the output strings.
+     *
+     * @return the output
+     */
     public ArrayList<String> getOutString() {
         return this.outString;
     }
 
+    /**
+     * Gets whether the output is a warning.
+     *
+     * @return if the output is a warning
+     */
     public boolean getWarning() {
         return this.warning;
     }
 
+    /**
+     * Gets whether the program is to quit.
+     *
+     * @return if the program is to quit
+     */
     public boolean getQuitting() {
         return this.quitting;
     }

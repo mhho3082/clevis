@@ -93,7 +93,7 @@ public class Line extends UserShape {
      * @return if the two shapes intersect
      */
     public boolean isIntersect(Group group) {
-        for(UserShape userShape : group.getUserShapes()) {
+        for (UserShape userShape : group.getUserShapes()) {
             if (userShape.isIntersect(this)) {
                 return true;
             }

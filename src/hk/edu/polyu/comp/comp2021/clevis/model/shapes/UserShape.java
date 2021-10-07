@@ -29,6 +29,7 @@ public abstract class UserShape implements Comparable<UserShape> {
 
     /**
      * Gets the UserShape's name.
+     *
      * @return the name
      */
     public String getName() {

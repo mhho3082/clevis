@@ -9,13 +9,33 @@ import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.ShapeNotFoundException
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+/**
+ * A command to call for "move".
+ *
+ * @author Ho Man Hin
+ */
 public class CommandMove extends Command {
     private static final String template = "move name dx dy";
 
+    /**
+     * Creates a command calling move().
+     *
+     * @param model   the model to call command to
+     * @param command the command to call
+     * @throws WrongArgumentLengthException warns of wrong argument length
+     * @throws NotANumberException          warns of not-a-number arguments
+     */
     public CommandMove(Clevis model, String command) throws WrongArgumentLengthException, NotANumberException {
         super(model, command);
     }
 
+    /**
+     * Calls the command for execution.
+     *
+     * @return null
+     * @throws ShapeInsideGroupException warns of one (or more) of shape inside group
+     * @throws ShapeNotFoundException    warns of one (or more) of shape not found
+     */
     public ArrayList<String> exec()
             throws ShapeInsideGroupException, ShapeNotFoundException {
         model.move(parsedInput[1],
@@ -25,6 +45,12 @@ public class CommandMove extends Command {
         return null;
     }
 
+    /**
+     * Undo the command.
+     *
+     * @throws ShapeInsideGroupException warns of one (or more) of shape inside group
+     * @throws ShapeNotFoundException    warns of one (or more) of shape not found
+     */
     public void undo()
             throws ShapeInsideGroupException, ShapeNotFoundException {
         model.move(parsedInput[1],
@@ -33,6 +59,12 @@ public class CommandMove extends Command {
         );
     }
 
+    /**
+     * Checks the command for validity.
+     *
+     * @throws WrongArgumentLengthException warns of wrong argument length (i.e. count)
+     * @throws NotANumberException          warns of not-a-number argument
+     */
     public void check() throws WrongArgumentLengthException, NotANumberException {
         if (this.parsedInput.length != 4) {
             throw new WrongArgumentLengthException(template);
