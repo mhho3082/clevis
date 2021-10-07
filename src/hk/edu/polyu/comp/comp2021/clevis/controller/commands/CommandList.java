@@ -9,7 +9,7 @@ import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.ShapeNotFoundException
 import java.util.ArrayList;
 
 public class CommandList extends Command {
-    // list name
+    private static final String template = "list name";
 
     public CommandList(Clevis model, String command) throws WrongArgumentLengthException, NotANumberException {
         super(model, command);
@@ -24,7 +24,7 @@ public class CommandList extends Command {
 
     public void check() throws WrongArgumentLengthException {
         if (this.parsedInput.length != 2) {
-            throw new WrongArgumentLengthException();
+            throw new WrongArgumentLengthException(this.input, template);
         }
     }
 

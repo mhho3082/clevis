@@ -12,7 +12,7 @@ import hk.edu.polyu.comp.comp2021.clevis.model.shapes.Group;
 import java.util.ArrayList;
 
 public class CommandUngroup extends Command {
-    // ungroup name
+    private static final String template = "ungroup name";
 
     private final ArrayList<String> GroupedNames;
 
@@ -36,7 +36,7 @@ public class CommandUngroup extends Command {
 
     public void check() throws WrongArgumentLengthException {
         if (this.parsedInput.length != 2) {
-            throw new WrongArgumentLengthException();
+            throw new WrongArgumentLengthException(this.input, template);
         }
     }
 }

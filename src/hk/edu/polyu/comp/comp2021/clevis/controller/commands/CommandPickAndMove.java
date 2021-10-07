@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class CommandPickAndMove extends Command {
-    // pick-and-move x y dx dy
+    private static final String template = "pick-and-move x y dx dy";
 
     public CommandPickAndMove(Clevis model, String command) throws WrongArgumentLengthException, NotANumberException {
         super(model, command);
@@ -37,12 +37,12 @@ public class CommandPickAndMove extends Command {
 
     public void check() throws WrongArgumentLengthException, NotANumberException {
         if (this.parsedInput.length != 5) {
-            throw new WrongArgumentLengthException();
+            throw new WrongArgumentLengthException(this.input, template);
         }
 
         for (int i = 1; i < 5; i++) {
             if (isNotNumber(parsedInput[i])) {
-                throw new NotANumberException();
+                throw new NotANumberException(this.parsedInput[i], template);
             }
         }
     }

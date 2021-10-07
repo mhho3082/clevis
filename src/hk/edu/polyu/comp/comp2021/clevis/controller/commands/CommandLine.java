@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class CommandLine extends Command {
-    // line name x1 x2 y1 y2
+    private static final String template = "line name x1 x2 y1 y2";
 
     public CommandLine(Clevis model, String command) throws WrongArgumentLengthException, NotANumberException {
         super(model, command);
@@ -38,12 +38,12 @@ public class CommandLine extends Command {
 
     public void check() throws WrongArgumentLengthException, NotANumberException {
         if (this.parsedInput.length != 6) {
-            throw new WrongArgumentLengthException();
+            throw new WrongArgumentLengthException(this.input, template);
         }
 
         for (int i = 2; i < 6; i++) {
             if (isNotNumber(this.parsedInput[i])) {
-                throw new NotANumberException();
+                throw new NotANumberException(this.parsedInput[i], template);
             }
         }
     }

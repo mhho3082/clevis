@@ -37,7 +37,7 @@ public abstract class Command {
         } else {
             try {
                 Double.parseDouble(in);
-            } catch (NumberFormatException nfe) {
+            } catch (NumberFormatException e) {
                 return true;
             }
             return false;

@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class CommandBoundingBox extends Command {
-    // boundingbox name
+    private static final String template =  "boundingbox name";
 
     public CommandBoundingBox(Clevis model, String command) throws WrongArgumentLengthException, NotANumberException {
         super(model, command);
@@ -37,7 +37,7 @@ public class CommandBoundingBox extends Command {
 
     public void check() throws WrongArgumentLengthException {
         if (this.parsedInput.length != 2) {
-            throw new WrongArgumentLengthException();
+            throw new WrongArgumentLengthException(this.input, template);
         }
     }
 

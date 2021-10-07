@@ -10,7 +10,7 @@ import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.ShapeNotFoundException
 import java.util.ArrayList;
 
 public class CommandDelete extends Command {
-    // delete name
+    private static final String template = "delete name";
 
     public CommandDelete(Clevis model, String command) throws WrongArgumentLengthException, NotANumberException {
         super(model, command);
@@ -28,7 +28,7 @@ public class CommandDelete extends Command {
 
     public void check() throws WrongArgumentLengthException {
         if (this.parsedInput.length != 2) {
-            throw new WrongArgumentLengthException();
+            throw new WrongArgumentLengthException(this.input, template);
         }
     }
 }

@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class CommandMove extends Command {
-    // move name dx dy
+    private static final String template = "move name dx dy";
 
     public CommandMove(Clevis model, String command) throws WrongArgumentLengthException, NotANumberException {
         super(model, command);
@@ -35,12 +35,12 @@ public class CommandMove extends Command {
 
     public void check() throws WrongArgumentLengthException, NotANumberException {
         if (this.parsedInput.length != 4) {
-            throw new WrongArgumentLengthException();
+            throw new WrongArgumentLengthException(this.input, template);
         }
 
         for (int i = 2; i < 4; i++) {
             if (isNotNumber(this.parsedInput[i])) {
-                throw new NotANumberException();
+                throw new NotANumberException(this.parsedInput[i], template);
             }
         }
     }
