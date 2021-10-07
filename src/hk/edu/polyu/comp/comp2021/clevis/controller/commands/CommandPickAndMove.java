@@ -3,6 +3,7 @@ package hk.edu.polyu.comp.comp2021.clevis.controller.commands;
 import hk.edu.polyu.comp.comp2021.clevis.controller.exceptions.NotANumberException;
 import hk.edu.polyu.comp.comp2021.clevis.controller.exceptions.WrongArgumentLengthException;
 import hk.edu.polyu.comp.comp2021.clevis.model.Clevis;
+import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.NoShapeContainsPointException;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.ShapeNotFoundException;
 
 import java.math.BigDecimal;
@@ -15,7 +16,7 @@ public class CommandPickAndMove extends Command {
         super(model, command);
     }
 
-    public ArrayList<String> exec() throws ShapeNotFoundException {
+    public ArrayList<String> exec() throws ShapeNotFoundException, NoShapeContainsPointException {
         model.pickAndMove(
                 new BigDecimal(parsedInput[1]),
                 new BigDecimal(parsedInput[2]),
@@ -26,7 +27,7 @@ public class CommandPickAndMove extends Command {
         return null;
     }
 
-    public void undo() throws ShapeNotFoundException {
+    public void undo() throws ShapeNotFoundException, NoShapeContainsPointException {
         model.pickAndMove(
                 new BigDecimal(parsedInput[1]),
                 new BigDecimal(parsedInput[2]),
@@ -37,7 +38,7 @@ public class CommandPickAndMove extends Command {
 
     public void check() throws WrongArgumentLengthException, NotANumberException {
         if (this.parsedInput.length != 5) {
-            throw new WrongArgumentLengthException(this.input, template);
+            throw new WrongArgumentLengthException(template);
         }
 
         for (int i = 1; i < 5; i++) {

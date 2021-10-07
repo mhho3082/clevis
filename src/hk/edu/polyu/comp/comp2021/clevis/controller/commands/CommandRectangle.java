@@ -38,7 +38,7 @@ public class CommandRectangle extends Command {
 
     public void check() throws NotANumberException, WrongArgumentLengthException {
         if (this.parsedInput.length != 6) {
-            throw new WrongArgumentLengthException(this.input, template);
+            throw new WrongArgumentLengthException(template);
         }
 
         for (int i = 2; i < 6; i++) {

@@ -22,7 +22,7 @@ public class CommandListAll extends Command {
 
     public void check() throws WrongArgumentLengthException {
         if (this.parsedInput.length != 1) {
-            throw new WrongArgumentLengthException(this.input, template);
+            throw new WrongArgumentLengthException(template);
         }
     }
 

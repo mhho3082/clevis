@@ -5,7 +5,17 @@ import hk.edu.polyu.comp.comp2021.clevis.model.Clevis;
 
 import java.io.File;
 
+/**
+ * The main class for the whole project.
+ * The main class for .jar files.
+ *
+ * @author Ho Man Hin
+ */
 public class Application {
+    /**
+     * The main function for the whole project.
+     * @param args the CLI arguments
+     */
     public static void main(String[] args) {
         // Variables
         File html = null;
@@ -25,7 +35,7 @@ public class Application {
 
         // Quit if invalid inputs
         if (html == null || txt == null) {
-            // TODO: Halt if invalid inputs, warn with System.out
+            // TODO: Halt if invalid inputs, warn nicely with System.out
             return;
         }
 
@@ -51,14 +61,21 @@ public class Application {
                 "listAll",
                 "quit",
         };
+
         for (String testCommand : testCommandList) {
+            // Call command
             handler.exec(testCommand);
+
+            // Print output
             if (handler.getOutString() != null) {
                 // For the ANSI escape code for colours:
                 // https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
 
+                // Change output colour
+                // Add Warning sign
                 if (handler.getWarning()) {
                     System.out.print("\u001B[33m"); // Yellow
+                    System.out.println("Warning:");
                 } else {
                     System.out.print("\u001B[34m"); // Blue
                 }
@@ -67,8 +84,14 @@ public class Application {
                     System.out.println(out);
                 }
 
+                // Set input colour
                 System.out.print("\u001B[0m"); // Reset colour
                 System.out.println();
+            }
+
+            // Auto-quit
+            if (handler.getQuitting()) {
+                return;
             }
         }
     }

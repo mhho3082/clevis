@@ -10,4 +10,14 @@ package hk.edu.polyu.comp.comp2021.clevis.model.exceptions;
  * @author Ho Man Hin
  */
 public class ShapeInsideGroupException extends Exception {
+    private final String shapeName;
+
+    public ShapeInsideGroupException(String shapeName) {
+        super();
+        this.shapeName = shapeName;
+    }
+
+    public String getShapeName() {
+        return shapeName;
+    }
 }

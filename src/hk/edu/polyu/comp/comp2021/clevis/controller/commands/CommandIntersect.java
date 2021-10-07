@@ -29,7 +29,7 @@ public class CommandIntersect extends Command {
 
     public void check() throws WrongArgumentLengthException {
         if (this.parsedInput.length != 3) {
-            throw new WrongArgumentLengthException(this.input, template);
+            throw new WrongArgumentLengthException(template);
         }
     }
 

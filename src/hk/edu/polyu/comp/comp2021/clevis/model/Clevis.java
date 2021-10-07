@@ -38,7 +38,7 @@ public class Clevis {
             this.shapeList.add(userShape);
             this.sortZOrder();
         } else {
-            throw new DuplicateShapeNameException();
+            throw new DuplicateShapeNameException(userShape.getName());
         }
     }
 
@@ -126,7 +126,7 @@ public class Clevis {
         }
 
         if (this.deepContains(name)) {
-            throw new DuplicateShapeNameException();
+            throw new DuplicateShapeNameException(name);
         }
 
         for (String tempString : shapeNames) {
@@ -210,10 +210,10 @@ public class Clevis {
      * @param y  the y-coordinate of the point
      * @param dx the amount to move rightwards
      * @param dy the amount to move downwards
-     * @throws ShapeNotFoundException warns of shape not found
+     * @throws NoShapeContainsPointException warns of no shape containing specified point
      */
     public void pickAndMove(BigDecimal x, BigDecimal y, BigDecimal dx, BigDecimal dy)
-            throws ShapeNotFoundException {
+            throws NoShapeContainsPointException {
         this.sortZOrder();
         Point point = new Point(x, y);
 
@@ -224,7 +224,7 @@ public class Clevis {
             }
         }
 
-        throw new ShapeNotFoundException();
+        throw new NoShapeContainsPointException();
     }
 
     /**
@@ -311,7 +311,7 @@ public class Clevis {
             this.bin.remove(i);
             this.sortZOrder();
         } else {
-            throw new ShapeNotFoundException();
+            throw new ShapeNotFoundException(name);
         }
     }
 
@@ -328,10 +328,10 @@ public class Clevis {
             throws ShapeInsideGroupException, ShapeNotFoundException {
         if (!this.shallowContains(name)) {
             if (this.deepContains(name)) {
-                throw new ShapeInsideGroupException();
+                throw new ShapeInsideGroupException(name);
             }
 
-            throw new ShapeNotFoundException();
+            throw new ShapeNotFoundException(name);
         }
     }
 
@@ -406,7 +406,7 @@ public class Clevis {
                 return userShape;
             }
         }
-        throw new ShapeNotFoundException();
+        throw new ShapeNotFoundException(name);
     }
 
     /**
@@ -423,7 +423,7 @@ public class Clevis {
                 return i;
             }
         }
-        throw new ShapeNotFoundException();
+        throw new ShapeNotFoundException(name);
     }
 
     /**
@@ -441,7 +441,7 @@ public class Clevis {
                 return i;
             }
         }
-        throw new ShapeNotFoundException();
+        throw new ShapeNotFoundException(name);
     }
 
     /**
