@@ -182,4 +182,117 @@ public class SegmentTest {
         // Not contain
         assertFalse(s2.isContains(new Point("11.9", "5.7")));
     }
+
+    @Test
+    public void testBoundingBox1() {
+        BigDecimal[] out = new BigDecimal[4];
+
+        out[0] = new BigDecimal("2");
+        out[1] = new BigDecimal("3");
+        out[2] = new BigDecimal("6");
+        out[3] = new BigDecimal("3");
+        assertArrayEquals(out, s1.boundingBox());
+    }
+
+    @Test
+    public void testBoundingBox2() {
+        BigDecimal[] out = new BigDecimal[4];
+
+        out[0] = new BigDecimal("2.7");
+        out[1] = new BigDecimal("5.7");
+        out[2] = new BigDecimal("7.9");
+        out[3] = new BigDecimal("0.0");
+        assertArrayEquals(out, s2.boundingBox());
+    }
+
+    @Test
+    public void testIsIntersect1() throws SizeIsZeroException {
+        Segment test1 = new Segment(new Point("2", "7"), new Point("9", "5"));
+        assertTrue(s1.isIntersect(test1));
+    }
+
+    @Test
+    public void testIsIntersect2() throws SizeIsZeroException {
+        Segment test1 = new Segment(new Point("1", "4"), new Point("3", "2"));
+        assertTrue(s1.isIntersect(test1));
+    }
+
+    @Test
+    public void testIsIntersect3() throws SizeIsZeroException {
+        Segment test1 = new Segment(new Point("10", "4"), new Point("2", "0"));
+        assertFalse(s1.isIntersect(test1));
+    }
+
+    @Test
+    public void testIsIntersect4() throws SizeIsZeroException {
+        Segment test1 = new Segment(new Point("5.38", "3.06"), new Point("7.0901", "-3.3542"));
+        assertFalse(s1.isIntersect(test1));
+    }
+
+    @Test
+    public void testIsIntersect5() throws SizeIsZeroException {
+        Segment test1 = new Segment(new Point("2", "-1.312"), new Point("2", "2.5"));
+        assertFalse(s1.isIntersect(test1));
+    }
+
+    @Test
+    public void testIsIntersect6() throws SizeIsZeroException {
+        Segment test1 = new Segment(new Point("2.7","2.2444043940538"), new Point("2.7", "6.6505436797202"));
+        assertTrue(s2.isIntersect(test1));
+    }
+
+    @Test
+    public void testIsIntersect7() throws SizeIsZeroException {
+        Segment test1 = new Segment(new Point("10.6334555381729", "4.213"), new Point("0.6155883675046", "4.213"));
+        assertFalse(s2.isIntersect(test1));
+    }
+
+    @Test
+    public void testIsIntersect8() throws SizeIsZeroException {
+        Segment test1 = new Segment(new Point("4", "3"), new Point("5", "5"));
+        assertFalse(s2.isIntersect(test1));
+    }
+
+    @Test
+    public void testIsIntersect9() throws SizeIsZeroException {
+        Segment test1 = new Segment(new Point("2.7","5.7213123123"), new Point("2.7", "6.6505436797202"));
+        assertFalse(s2.isIntersect(test1));
+    }
+
+    @Test
+    public void testIsIntersect10() throws SizeIsZeroException {
+        CircularSegment test1 = new CircularSegment(new Point("4","6"), new BigDecimal("1.8"));
+        assertTrue(s1.isIntersect(test1));
+    }
+
+    @Test
+    public void testIsIntersect11() throws SizeIsZeroException {
+        CircularSegment test1 = new CircularSegment(new Point("4","6"), new BigDecimal("2.7"));
+        assertTrue(s1.isIntersect(test1));
+    }
+
+    @Test
+    public void testIsIntersect12() throws SizeIsZeroException {
+        CircularSegment test1 = new CircularSegment(new Point("4","6"), new BigDecimal("0.3123"));
+        assertFalse(s1.isIntersect(test1));
+    }
+
+    @Test
+    public void testIsIntersect13() throws SizeIsZeroException {
+        CircularSegment test1 = new CircularSegment(new Point("6.59482", "8.67821"), new BigDecimal("3"));
+        assertTrue(s2.isIntersect(test1));
+    }
+
+    @Test
+    public void testIsIntersect14() throws SizeIsZeroException {
+        CircularSegment test1 = new CircularSegment(new Point("6.59482", "8.67821"), new BigDecimal("3.3213123"));
+        assertTrue(s2.isIntersect(test1));
+    }
+
+    @Test
+    public void testIsIntersect15() throws SizeIsZeroException {
+        CircularSegment test1 = new CircularSegment(new Point("6.59482", "8.67821"), new BigDecimal("1.321312"));
+        assertFalse(s2.isIntersect(test1));
+    }
+
 }
