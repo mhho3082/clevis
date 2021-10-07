@@ -11,13 +11,33 @@ import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.SizeIsZeroException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+/**
+ * A command to call for "square"
+ *
+ * @author Ho Man Hin
+ */
 public class CommandSquare extends Command {
     private static final String template = "square name xLeft yTop length";
 
+    /**
+     * Creates a command calling addSquare().
+     *
+     * @param model   the model to call command to
+     * @param command the command to call
+     * @throws WrongArgumentLengthException warns of wrong argument length
+     * @throws NotANumberException          warns of not-a-number arguments
+     */
     public CommandSquare(Clevis model, String command) throws WrongArgumentLengthException, NotANumberException {
         super(model, command);
     }
 
+    /**
+     * Calls the command for execution.
+     *
+     * @return null
+     * @throws SizeIsZeroException         warns of zero-area shape
+     * @throws DuplicateShapeNameException warns of duplicate shape name
+     */
     public ArrayList<String> exec()
             throws SizeIsZeroException, DuplicateShapeNameException {
         model.addSquare(
@@ -30,11 +50,23 @@ public class CommandSquare extends Command {
         return null;
     }
 
+    /**
+     * Undo the command
+     *
+     * @throws ShapeInsideGroupException warns of shape inside group
+     * @throws ShapeNotFoundException    warns of shape not found
+     */
     public void undo()
             throws ShapeInsideGroupException, ShapeNotFoundException {
         model.remove(this.parsedInput[1]);
     }
 
+    /**
+     * Checks the command for validity.
+     *
+     * @throws WrongArgumentLengthException warns of wrong argument length (i.e. count)
+     * @throws NotANumberException          warns of not-a-number argument
+     */
     public void check() throws WrongArgumentLengthException, NotANumberException {
         if (this.parsedInput.length != 5) {
             throw new WrongArgumentLengthException(template);

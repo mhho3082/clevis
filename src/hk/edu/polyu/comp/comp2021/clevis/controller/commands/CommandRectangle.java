@@ -11,13 +11,33 @@ import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.SizeIsZeroException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+/**
+ * A command to call for "rectangle".
+ *
+ * @author Ho Man Hin
+ */
 public class CommandRectangle extends Command {
     private static final String template = "rectangle name xLeft yTop width height";
 
+    /**
+     * Creates a command calling addRectangle().
+     *
+     * @param model   the model to call command to
+     * @param command the command to call
+     * @throws WrongArgumentLengthException warns of wrong argument length
+     * @throws NotANumberException          warns of not-a-number arguments
+     */
     public CommandRectangle(Clevis model, String command) throws WrongArgumentLengthException, NotANumberException {
         super(model, command);
     }
 
+    /**
+     * Calls the command for execution.
+     *
+     * @return null
+     * @throws SizeIsZeroException         warns of zero-area shape
+     * @throws DuplicateShapeNameException warns of duplicate shape name
+     */
     public ArrayList<String> exec()
             throws SizeIsZeroException, DuplicateShapeNameException {
         model.addRectangle(
@@ -31,11 +51,23 @@ public class CommandRectangle extends Command {
         return null;
     }
 
+    /**
+     * Undo the command.
+     *
+     * @throws ShapeInsideGroupException warns of shape inside group
+     * @throws ShapeNotFoundException    warns of shape not found
+     */
     public void undo()
             throws ShapeInsideGroupException, ShapeNotFoundException {
         model.remove(this.parsedInput[1]);
     }
 
+    /**
+     * Checks the command for validity.
+     *
+     * @throws NotANumberException          warns of not-a-number argument
+     * @throws WrongArgumentLengthException warns of wrong argument length (i.e. count)
+     */
     public void check() throws NotANumberException, WrongArgumentLengthException {
         if (this.parsedInput.length != 6) {
             throw new WrongArgumentLengthException(template);
