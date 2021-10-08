@@ -20,7 +20,7 @@ public class CLIView {
         this.in = new BufferedReader(new InputStreamReader(System.in));
         this.handler = handler;
 
-        copyright();
+        beginMessage();
     }
 
     /**
@@ -76,8 +76,8 @@ public class CLIView {
     /**
      * Prints the copyright to the output.
      */
-    public void copyright() {
-        // TODO: Print copyright
+    public void beginMessage() {
+        // TODO: Print info about us
         // TODO: Add note to how to quit
     }
 }

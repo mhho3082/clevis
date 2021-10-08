@@ -203,24 +203,20 @@ public class Clevis {
     }
 
     /**
-     * Finds the uppermost shape "containing" the given point (in terms of zOrder)
-     * and moves it.
+     * Finds the uppermost shape "containing" the given point (in terms of zOrder).
      *
-     * @param x  the x-coordinate of the point
-     * @param y  the y-coordinate of the point
-     * @param dx the amount to move rightwards
-     * @param dy the amount to move downwards
+     * @param x the x-coordinate of the point
+     * @param y the y-coordinate of the point
      * @throws NoShapeContainsPointException warns of no shape containing specified point
      */
-    public void pickAndMove(BigDecimal x, BigDecimal y, BigDecimal dx, BigDecimal dy)
+    public UserShape pick(BigDecimal x, BigDecimal y)
             throws NoShapeContainsPointException {
         this.sortZOrder();
         Point point = new Point(x, y);
 
         for (UserShape shape : shapeList) {
             if (shape.isContains(point)) {
-                shape.move(dx, dy);
-                return;
+                return shape;
             }
         }
 

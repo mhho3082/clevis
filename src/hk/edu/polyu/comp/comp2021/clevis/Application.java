@@ -5,6 +5,9 @@ import hk.edu.polyu.comp.comp2021.clevis.model.Clevis;
 import hk.edu.polyu.comp.comp2021.clevis.view.CLIView;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * The main class for the whole project.
@@ -13,6 +16,12 @@ import java.io.File;
  * @author Ho Man Hin
  */
 public class Application {
+    private static final String[] arguments = {
+            "-html", // -html file : for html log
+            "-txt", // -txt file : for txt log
+            "-gui" // -gui : for GUI
+    };
+
     /**
      * The main function for the whole project.
      *
@@ -24,20 +33,16 @@ public class Application {
         File txt = null;
         boolean useGUI = false;
 
-        // Handle flags
+        // Handle command line arguments
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-html")
                     && i + 1 < args.length
-                    && !args[i + 1].equals("-html")
-                    && !args[i + 1].equals("-txt")
-                    && !args[i + 1].equals("-gui")
+                    && !Arrays.asList(arguments).contains(args[i + 1])
             ) {
                 html = new File(args[i + 1]);
             } else if (args[i].equals("-txt")
                     && i + 1 < args.length
-                    && !args[i + 1].equals("-html")
-                    && !args[i + 1].equals("-txt")
-                    && !args[i + 1].equals("-gui")
+                    && !Arrays.asList(arguments).contains(args[i + 1])
             ) {
                 txt = new File(args[i + 1]);
             } else if (args[i].equals("-gui")) {
@@ -45,20 +50,55 @@ public class Application {
             }
         }
 
-        // Quit if invalid inputs
+        // Check that both paths are given
         if (html == null || txt == null) {
-            // TODO: Warn of invalid inputs nicely with System.out, then halt
+            handleLackOfPaths();
+            return;
+        }
+
+        // Check that the paths can be written to
+        try {
+            new FileWriter(html);
+            new FileWriter(txt);
+        } catch (IOException e) {
+            handleBadPath();
             return;
         }
 
         // Initialize and utilize the system
-        // TODO: Add GUI controller and GUI view
         Clevis clevis = new Clevis();
         CommandHandler handler = new CommandHandler(clevis, html, txt);
+        // TODO: Add GUI controller
         if (useGUI) {
+            // TODO: Add GUI view
+            System.out.println(Config.CLI_COLOUR_ERROR + "Sorry, but GUI is not ready yet." + Config.CLI_COLOUR_INPUT);
         } else {
             CLIView cliView = new CLIView(handler);
             cliView.exec();
         }
+    }
+
+    private static void handleLackOfPaths() {
+        System.out.print(Config.CLI_COLOUR_ERROR);
+        System.out.println(Config.CLI_ERROR_BEGIN);
+        System.out.println("You have not gave paths to log files in html and/or txt formats.");
+        System.out.println("Please make sure that you have gave both paths, then re-init the program.");
+        System.out.println();
+        System.out.println("Format:");
+        System.out.println("java Clevis -html [html file name] -txt [txt file name]");
+        System.out.print(Config.CLI_COLOUR_INPUT);
+    }
+
+    private static void handleBadPath() {
+        System.out.print(Config.CLI_COLOUR_ERROR);
+        System.out.println(Config.CLI_ERROR_BEGIN);
+        System.out.println("The file path(s) you gave cannot be written to.");
+        System.out.println("It may mean that you gave path(s) to directory(ies) instead.");
+        System.out.println("Please double-check your paths,");
+        System.out.println("then re-init the program with the proper paths.");
+        System.out.println();
+        System.out.println("Format:");
+        System.out.println("java Clevis -html [html file name] -txt [txt file name]");
+        System.out.print(Config.CLI_COLOUR_INPUT);
     }
 }
