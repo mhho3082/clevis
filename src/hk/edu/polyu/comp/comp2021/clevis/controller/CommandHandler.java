@@ -85,7 +85,6 @@ public class CommandHandler {
             htmlOut.newLine();
         } catch (IOException e) {
             handleIOException();
-            quit();
         }
     }
 
@@ -114,6 +113,7 @@ public class CommandHandler {
             htmlOut.write("      </tr>");
             htmlOut.newLine();
         } catch (IOException e) {
+            handleIOException();
             return;
         }
 
@@ -197,6 +197,9 @@ public class CommandHandler {
             return;
         } catch (ShapeNotFoundException e) {
             handleShapeNotFoundException(e);
+            return;
+        } catch (NoShapeContainsPointException e) {
+            handleNoShapeContainsPointException();
             return;
         }
 
@@ -328,6 +331,9 @@ public class CommandHandler {
         quitting = true;
     }
 
+    /**
+     * Handles "exit", which is deprecated (i.e. invalid).
+     */
     public void exit() {
         outString = new ArrayList<>();
 
@@ -400,7 +406,8 @@ public class CommandHandler {
 
         outString.add("The file path(s) you gave cannot be written to.");
         outString.add("It may mean that you gave path(s) to directory(ies) instead.");
-        outString.add("Please double-check your paths, then re-init the program.");
+        outString.add("We advise you to double-check your paths,");
+        outString.add("then re-init the program with the proper paths.");
 
         warning = true;
     }

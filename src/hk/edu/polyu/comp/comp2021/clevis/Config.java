@@ -24,6 +24,9 @@ public class Config {
     // Sentence to begin warning message
     public static final String CLI_WARNING_BEGIN = "Warning:";
 
+    // Sentence to begin error message
+    public static final String CLI_ERROR_BEGIN = "Error:";
+
     // For the ANSI escape code for colours:
     // https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
 
@@ -38,6 +41,9 @@ public class Config {
 
     // Colour for warning CLI output
     public static final String CLI_COLOUR_WARNING = "\u001B[33m"; // Yellow
+
+    // Colour for error CLI output
+    public static final String CLI_COLOUR_ERROR = "\u001B[31m"; // Red
 
     // Colour for CLI input
     public static final String CLI_COLOUR_INPUT = "\u001B[0m"; // Reset
