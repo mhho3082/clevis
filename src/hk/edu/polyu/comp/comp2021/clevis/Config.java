@@ -20,6 +20,11 @@ public class Config {
     public static final int ROUND_BIG_DECIMAL = 33;
 
     /**
+     * Number for BigDecimal setScale
+     */
+    public static final int SCALE_SIZE = 30;
+
+    /**
      * Indentation for list and listAll
      */
     public static final String INDENT = "   |"; // 4 spaces
