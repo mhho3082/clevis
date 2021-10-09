@@ -1,8 +1,10 @@
 package hk.edu.polyu.comp.comp2021.clevis.model.shapes;
 
+import hk.edu.polyu.comp.comp2021.clevis.Config;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.SizeIsZeroException;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 /**
  * A basic circular segment (circle).
@@ -97,9 +99,18 @@ public class CircularSegment {
      * @return whether the two segments intersect
      */
     public boolean isIntersect(CircularSegment circularSegment) {
-        BigDecimal diff = this.center.getLength(circularSegment.getCenter());
+        MathContext m = new MathContext(Config.ROUND_BIG_DECIMAL);
+        BigDecimal cDiff = this.center.getLength(circularSegment.getCenter());
+        BigDecimal rDiff = this.radius.add(circularSegment.getRadius());
 
-        return diff.compareTo(this.radius.add(circularSegment.getRadius())) <= 0;
+        // Inside without touching
+        if (cDiff.add(this.radius).compareTo(circularSegment.getRadius()) < 0) {
+            return false;
+        } else if (cDiff.add(circularSegment.getRadius()).compareTo(this.radius) < 0) {
+            return false;
+        }
+
+        return cDiff.round(m).compareTo(rDiff.round(m)) <= 0;
     }
 
     /**
@@ -109,8 +120,15 @@ public class CircularSegment {
      * @return whether the two segments intersect
      */
     public boolean isIntersect(Segment segment) {
-        BigDecimal diff = segment.perpendicularDistance(this.center);
+        MathContext m = new MathContext(Config.ROUND_BIG_DECIMAL);
+        BigDecimal perpendicularDistance = segment.perpendicularDistance(this.center);
 
-        return diff.compareTo(this.radius) <= 0;
+        // Too far away
+        if (perpendicularDistance.round(m).compareTo(this.radius.round(m)) > 0) {
+            return false;
+        }
+
+        return this.center.getLength(segment.getPoint1()).round(m).compareTo(this.radius.round(m)) >= 0
+                || this.center.getLength(segment.getPoint2()).round(m).compareTo(this.radius.round(m)) >= 0;
     }
 }

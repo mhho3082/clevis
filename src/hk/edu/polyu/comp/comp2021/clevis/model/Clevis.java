@@ -281,7 +281,7 @@ public class Clevis {
      * Disposes the UserShape specified into the bin.
      *
      * @param name the name of the shape
-     * @throws ShapeNotFoundException warns of shape not found
+     * @throws ShapeNotFoundException    warns of shape not found
      * @throws ShapeInsideGroupException warns of shape inside group
      */
     public void remove(String name)
