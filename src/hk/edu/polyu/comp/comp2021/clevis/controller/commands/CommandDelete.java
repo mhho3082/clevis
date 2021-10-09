@@ -32,7 +32,7 @@ public class CommandDelete extends Command {
     /**
      * Calls the command for execution.
      *
-     * @return null
+     * @return empty output
      * @throws ShapeInsideGroupException warns of shape inside group(s)
      * @throws ShapeNotFoundException    warns of shape not found
      */
@@ -40,7 +40,7 @@ public class CommandDelete extends Command {
     public ArrayList<String> exec() throws ShapeInsideGroupException, ShapeNotFoundException {
         model.remove(parsedInput[1]);
 
-        return null;
+        return new ArrayList<>();
     }
 
     /**

@@ -39,7 +39,7 @@ public class CommandUngroup extends Command {
     /**
      * Executes the command
      *
-     * @return null
+     * @return empty output
      * @throws ShapeInsideGroupException   warns of shape inside group
      * @throws ShapeNotFoundException      warns of shape not found
      * @throws DuplicateShapeNameException warns of duplicate shape name
@@ -49,7 +49,7 @@ public class CommandUngroup extends Command {
             throws ShapeInsideGroupException, ShapeNotFoundException, DuplicateShapeNameException {
         model.ungroup(parsedInput[1]);
 
-        return null;
+        return new ArrayList<>();
     }
 
     /**

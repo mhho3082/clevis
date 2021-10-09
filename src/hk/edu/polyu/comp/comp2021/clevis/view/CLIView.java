@@ -59,7 +59,7 @@ public class CLIView {
                     }
 
                     // Print output
-                    if (handler.getOutString() != null) {
+                    if (!handler.getOutString().isEmpty()) {
                         for (String out : handler.getOutString()) {
                             System.out.println(out);
                         }

@@ -118,7 +118,7 @@ public class CommandHandler {
         }
 
         // Set outString to empty
-        outString = null;
+        outString = new ArrayList<>();
 
         // Create command object / handle special cases
         try {
@@ -249,7 +249,7 @@ public class CommandHandler {
 
         try {
             warning = false;
-            outString = null;
+            outString = new ArrayList<>();
 
             commandStack.get(--stackPtr).undo();
         } catch (ShapeInsideGroupException e) {
@@ -275,7 +275,7 @@ public class CommandHandler {
 
         try {
             warning = false;
-            outString = null;
+            outString = new ArrayList<>();
 
             commandStack.get(stackPtr++).exec();
         } catch (ShapeInsideGroupException e) {

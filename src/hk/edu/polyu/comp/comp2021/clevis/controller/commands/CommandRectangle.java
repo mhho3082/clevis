@@ -34,7 +34,7 @@ public class CommandRectangle extends Command {
     /**
      * Calls the command for execution.
      *
-     * @return null
+     * @return empty output
      * @throws SizeIsZeroException         warns of zero-area shape
      * @throws DuplicateShapeNameException warns of duplicate shape name
      */
@@ -49,7 +49,7 @@ public class CommandRectangle extends Command {
                 new BigDecimal(this.parsedInput[5])
         );
 
-        return null;
+        return new ArrayList<>();
     }
 
     /**
