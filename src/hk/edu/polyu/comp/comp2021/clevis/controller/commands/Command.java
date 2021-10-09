@@ -47,11 +47,11 @@ public abstract class Command {
      * Calls the command for execution.
      *
      * @return a list of output
-     * @throws ShapeInsideGroupException     warns of one (or more) of shape inside group(s)
-     * @throws ShapeNotFoundException        warns of one (or more) of shape not found
-     * @throws DuplicateShapeNameException   warns of duplicate shape name
-     * @throws SizeIsZeroException           warns of zero area shapes
-     * @throws EmptyGroupException           warns of empty group
+     * @throws ShapeInsideGroupException   warns of one (or more) of shape inside group(s)
+     * @throws ShapeNotFoundException      warns of one (or more) of shape not found
+     * @throws DuplicateShapeNameException warns of duplicate shape name
+     * @throws SizeIsZeroException         warns of zero area shapes
+     * @throws EmptyGroupException         warns of empty group
      */
     public abstract ArrayList<String> exec()
             throws ShapeInsideGroupException, ShapeNotFoundException, DuplicateShapeNameException, SizeIsZeroException, EmptyGroupException;
@@ -59,10 +59,10 @@ public abstract class Command {
     /**
      * Undo the command (if undoable).
      *
-     * @throws ShapeInsideGroupException     warns of one (or more) of shape inside group(s)
-     * @throws EmptyGroupException           warns of empty group
-     * @throws ShapeNotFoundException        warns one (or more) of shape not found
-     * @throws DuplicateShapeNameException   warns of duplicate shape name
+     * @throws ShapeInsideGroupException   warns of one (or more) of shape inside group(s)
+     * @throws EmptyGroupException         warns of empty group
+     * @throws ShapeNotFoundException      warns one (or more) of shape not found
+     * @throws DuplicateShapeNameException warns of duplicate shape name
      */
     public abstract void undo()
             throws ShapeInsideGroupException, EmptyGroupException, ShapeNotFoundException, DuplicateShapeNameException;

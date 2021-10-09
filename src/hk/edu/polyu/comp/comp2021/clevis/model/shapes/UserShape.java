@@ -60,6 +60,7 @@ public abstract class UserShape implements Comparable<UserShape> {
 
     /**
      * Gets the z order.
+     *
      * @return the zOrder
      */
     public long getzOrder() {
