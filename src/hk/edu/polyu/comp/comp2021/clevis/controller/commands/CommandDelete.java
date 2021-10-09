@@ -36,6 +36,7 @@ public class CommandDelete extends Command {
      * @throws ShapeInsideGroupException warns of shape inside group(s)
      * @throws ShapeNotFoundException    warns of shape not found
      */
+    @Override
     public ArrayList<String> exec() throws ShapeInsideGroupException, ShapeNotFoundException {
         model.remove(parsedInput[1]);
 
@@ -48,6 +49,7 @@ public class CommandDelete extends Command {
      * @throws ShapeNotFoundException      warns of shape not found
      * @throws DuplicateShapeNameException warns of duplicate shape name
      */
+    @Override
     public void undo() throws ShapeNotFoundException, DuplicateShapeNameException {
         model.restore(parsedInput[1]);
     }
@@ -57,6 +59,7 @@ public class CommandDelete extends Command {
      *
      * @throws WrongArgumentLengthException warns of wrong argument length (i.e. count)
      */
+    @Override
     public void check() throws WrongArgumentLengthException {
         if (this.parsedInput.length != 2) {
             throw new WrongArgumentLengthException(template);

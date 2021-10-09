@@ -35,6 +35,7 @@ public class CommandList extends Command {
      * @throws ShapeInsideGroupException warns of shape inside group
      * @throws ShapeNotFoundException    warns of shape not found
      */
+    @Override
     public ArrayList<String> exec() throws ShapeInsideGroupException, ShapeNotFoundException {
         return model.list(parsedInput[1]);
     }
@@ -42,6 +43,7 @@ public class CommandList extends Command {
     /**
      * Undo the command (not undoable).
      */
+    @Override
     public void undo() {
     }
 
@@ -50,6 +52,7 @@ public class CommandList extends Command {
      *
      * @throws WrongArgumentLengthException warns of wrong argument length (i.e. count)
      */
+    @Override
     public void check() throws WrongArgumentLengthException {
         if (this.parsedInput.length != 2) {
             throw new WrongArgumentLengthException(template);
@@ -61,6 +64,7 @@ public class CommandList extends Command {
      *
      * @return that the command is not undoable
      */
+    @Override
     public boolean undoable() {
         return false;
     }

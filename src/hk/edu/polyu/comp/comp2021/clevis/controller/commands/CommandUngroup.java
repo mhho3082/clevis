@@ -44,6 +44,7 @@ public class CommandUngroup extends Command {
      * @throws ShapeNotFoundException      warns of shape not found
      * @throws DuplicateShapeNameException warns of duplicate shape name
      */
+    @Override
     public ArrayList<String> exec()
             throws ShapeInsideGroupException, ShapeNotFoundException, DuplicateShapeNameException {
         model.ungroup(parsedInput[1]);
@@ -59,6 +60,7 @@ public class CommandUngroup extends Command {
      * @throws ShapeNotFoundException      warns of shape not found
      * @throws DuplicateShapeNameException warns of duplicate shape name
      */
+    @Override
     public void undo()
             throws ShapeInsideGroupException, EmptyGroupException, ShapeNotFoundException, DuplicateShapeNameException {
         model.group(parsedInput[1], this.GroupedNames);
@@ -69,6 +71,7 @@ public class CommandUngroup extends Command {
      *
      * @throws WrongArgumentLengthException warns of wrong argument length (i.e. count)
      */
+    @Override
     public void check() throws WrongArgumentLengthException {
         if (this.parsedInput.length != 2) {
             throw new WrongArgumentLengthException(template);

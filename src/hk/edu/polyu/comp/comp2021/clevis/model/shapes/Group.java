@@ -22,6 +22,7 @@ public class Group extends UserShape {
      *
      * @param name       the group name
      * @param userShapes the shapes to be grouped
+     * @throws EmptyGroupException warns of empty group
      */
     public Group(String name, ArrayList<UserShape> userShapes) throws EmptyGroupException {
         super(name);
@@ -63,6 +64,7 @@ public class Group extends UserShape {
      * @param dx the amount to be moved (rightwards) in the x-axis
      * @param dy the amount to be moved (downwards) in the y-axis
      */
+    @Override
     public void move(BigDecimal dx, BigDecimal dy) {
         for (UserShape userShape : this.userShapes) {
             userShape.move(dx, dy);
@@ -75,6 +77,7 @@ public class Group extends UserShape {
      * @param line the line to check this shape against
      * @return if the two shapes intersect
      */
+    @Override
     public boolean isIntersect(Line line) {
         for (UserShape userShape : this.userShapes) {
             if (userShape.isIntersect(line)) {
@@ -90,6 +93,7 @@ public class Group extends UserShape {
      * @param circle the circle to check this shape against
      * @return if the two shapes intersect
      */
+    @Override
     public boolean isIntersect(Circle circle) {
         for (UserShape userShape : this.userShapes) {
             if (userShape.isIntersect(circle)) {
@@ -106,6 +110,7 @@ public class Group extends UserShape {
      * @param rectangle the rectangle/square to check this shape against
      * @return if the two shapes intersect
      */
+    @Override
     public boolean isIntersect(Rectangle rectangle) {
         for (UserShape userShape : this.userShapes) {
             if (userShape.isIntersect(rectangle)) {
@@ -122,6 +127,7 @@ public class Group extends UserShape {
      * @param group the group to check this shape against
      * @return if the two shapes intersect
      */
+    @Override
     public boolean isIntersect(Group group) {
         for (UserShape userShape1 : this.userShapes) {
             for (UserShape userShape2 : group.getUserShapes()) {
@@ -153,6 +159,7 @@ public class Group extends UserShape {
      * @param point the point to check for
      * @return if the point is "contained"
      */
+    @Override
     public boolean isContains(Point point) {
         for (UserShape userShape : userShapes) {
             if (userShape.isContains(point)) {
@@ -168,6 +175,7 @@ public class Group extends UserShape {
      *
      * @return an array of data
      */
+    @Override
     public BigDecimal[] boundingBox() {
         BigDecimal[] out = userShapes.get(0).boundingBox();
         BigDecimal[] temp;
@@ -202,6 +210,7 @@ public class Group extends UserShape {
      *
      * @return A list of output for user
      */
+    @Override
     public ArrayList<String> list() {
         ArrayList<String> out = new ArrayList<>();
 
@@ -226,6 +235,7 @@ public class Group extends UserShape {
      *
      * @return A list of output for user
      */
+    @Override
     public ArrayList<String> listAll() {
         ArrayList<String> out = new ArrayList<>();
 
@@ -250,6 +260,7 @@ public class Group extends UserShape {
      *
      * @return A short list of output, to be merged into list of group
      */
+    @Override
     public ArrayList<String> listShort() {
         ArrayList<String> out = new ArrayList<>();
 

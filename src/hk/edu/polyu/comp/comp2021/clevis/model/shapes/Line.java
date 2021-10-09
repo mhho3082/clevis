@@ -1,5 +1,6 @@
 package hk.edu.polyu.comp.comp2021.clevis.model.shapes;
 
+import hk.edu.polyu.comp.comp2021.clevis.Config;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.SizeIsZeroException;
 
 import java.math.BigDecimal;
@@ -45,6 +46,7 @@ public class Line extends UserShape {
      * @param dx the amount to be moved (rightwards) in the x-axis
      * @param dy the amount to be moved (downwards) in the y-axis
      */
+    @Override
     public void move(BigDecimal dx, BigDecimal dy) {
         this.segment.move(dx, dy);
     }
@@ -55,6 +57,7 @@ public class Line extends UserShape {
      * @param line the line to check this shape against
      * @return if the two shapes intersect
      */
+    @Override
     public boolean isIntersect(Line line) {
         return this.segment.isIntersect(line.getSegment());
     }
@@ -65,6 +68,7 @@ public class Line extends UserShape {
      * @param circle the circle to check this shape against
      * @return if the two shapes intersect
      */
+    @Override
     public boolean isIntersect(Circle circle) {
         return this.segment.isIntersect(circle.getCircularSegment());
     }
@@ -76,6 +80,7 @@ public class Line extends UserShape {
      * @param rectangle the rectangle/square to check this shape against
      * @return if the two shapes intersect
      */
+    @Override
     public boolean isIntersect(Rectangle rectangle) {
         for (Segment segment1 : rectangle.getSegments()) {
             if (this.segment.isIntersect(segment1)) {
@@ -92,6 +97,7 @@ public class Line extends UserShape {
      * @param group the group to check this shape against
      * @return if the two shapes intersect
      */
+    @Override
     public boolean isIntersect(Group group) {
         for (UserShape userShape : group.getUserShapes()) {
             if (userShape.isIntersect(this)) {
@@ -110,6 +116,7 @@ public class Line extends UserShape {
      * @param point the point to check for
      * @return if the point is "contained"
      */
+    @Override
     public boolean isContains(Point point) {
         return this.segment.isContains(point);
     }
@@ -120,6 +127,7 @@ public class Line extends UserShape {
      *
      * @return an array of data
      */
+    @Override
     public BigDecimal[] boundingBox() {
         return this.segment.boundingBox();
     }
@@ -129,15 +137,16 @@ public class Line extends UserShape {
      *
      * @return A list of output for user
      */
+    @Override
     public ArrayList<String> list() {
         ArrayList<String> out = new ArrayList<>();
 
         out.add("Name: " + this.name);
         out.add("Type: " + "Line");
-        out.add("  x1: " + ((double) Math.round(this.segment.getPoint1().getX().doubleValue() * 100.0) / 100.0));
-        out.add("  y1: " + ((double) Math.round(this.segment.getPoint1().getY().doubleValue() * 100.0) / 100.0));
-        out.add("  x2: " + ((double) Math.round(this.segment.getPoint2().getX().doubleValue() * 100.0) / 100.0));
-        out.add("  y2: " + ((double) Math.round(this.segment.getPoint2().getY().doubleValue() * 100.0) / 100.0));
+        out.add("  x1: " + ((double) Math.round(this.segment.getPoint1().getX().doubleValue() * Config.ROUND_DOUBLE) / Config.ROUND_DOUBLE));
+        out.add("  y1: " + ((double) Math.round(this.segment.getPoint1().getY().doubleValue() * Config.ROUND_DOUBLE) / Config.ROUND_DOUBLE));
+        out.add("  x2: " + ((double) Math.round(this.segment.getPoint2().getX().doubleValue() * Config.ROUND_DOUBLE) / Config.ROUND_DOUBLE));
+        out.add("  y2: " + ((double) Math.round(this.segment.getPoint2().getY().doubleValue() * Config.ROUND_DOUBLE) / Config.ROUND_DOUBLE));
 
         return out;
     }
@@ -148,6 +157,7 @@ public class Line extends UserShape {
      *
      * @return A short list of output, to be merged into list of group
      */
+    @Override
     public ArrayList<String> listShort() {
         ArrayList<String> out = new ArrayList<>();
 

@@ -35,6 +35,7 @@ public class CommandIntersect extends Command {
      * @throws ShapeInsideGroupException warns of one (or more) of shape inside group
      * @throws ShapeNotFoundException    warns of one (or more) of shape not found
      */
+    @Override
     public ArrayList<String> exec()
             throws ShapeInsideGroupException, ShapeNotFoundException {
         String result = String.valueOf(model.intersect(parsedInput[1], parsedInput[2]));
@@ -47,6 +48,7 @@ public class CommandIntersect extends Command {
     /**
      * Undo the command (not undoable).
      */
+    @Override
     public void undo() {
     }
 
@@ -55,6 +57,7 @@ public class CommandIntersect extends Command {
      *
      * @throws WrongArgumentLengthException warns of wrong argument length(i.e. count)
      */
+    @Override
     public void check() throws WrongArgumentLengthException {
         if (this.parsedInput.length != 3) {
             throw new WrongArgumentLengthException(template);
@@ -66,6 +69,7 @@ public class CommandIntersect extends Command {
      *
      * @return that the command is not undoable
      */
+    @Override
     public boolean undoable() {
         return false;
     }

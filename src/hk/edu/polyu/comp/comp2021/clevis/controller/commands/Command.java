@@ -13,8 +13,19 @@ import java.util.ArrayList;
  * @author Ho Man Hin
  */
 public abstract class Command {
+    /**
+     * User input
+     */
     protected final String input;
+
+    /**
+     * The user input, split by " "
+     */
     protected final String[] parsedInput;
+
+    /**
+     * The model used
+     */
     protected final Clevis model;
 
     /**
@@ -41,10 +52,9 @@ public abstract class Command {
      * @throws DuplicateShapeNameException   warns of duplicate shape name
      * @throws SizeIsZeroException           warns of zero area shapes
      * @throws EmptyGroupException           warns of empty group
-     * @throws NoShapeContainsPointException warns of no shape containing point
      */
     public abstract ArrayList<String> exec()
-            throws ShapeInsideGroupException, ShapeNotFoundException, DuplicateShapeNameException, SizeIsZeroException, EmptyGroupException, NoShapeContainsPointException;
+            throws ShapeInsideGroupException, ShapeNotFoundException, DuplicateShapeNameException, SizeIsZeroException, EmptyGroupException;
 
     /**
      * Undo the command (if undoable).
@@ -53,10 +63,9 @@ public abstract class Command {
      * @throws EmptyGroupException           warns of empty group
      * @throws ShapeNotFoundException        warns one (or more) of shape not found
      * @throws DuplicateShapeNameException   warns of duplicate shape name
-     * @throws NoShapeContainsPointException warns of no shape containing point
      */
     public abstract void undo()
-            throws ShapeInsideGroupException, EmptyGroupException, ShapeNotFoundException, DuplicateShapeNameException, NoShapeContainsPointException;
+            throws ShapeInsideGroupException, EmptyGroupException, ShapeNotFoundException, DuplicateShapeNameException;
 
     /**
      * Checks the command for validity.

@@ -1,5 +1,6 @@
 package hk.edu.polyu.comp.comp2021.clevis.model.shapes;
 
+import hk.edu.polyu.comp.comp2021.clevis.Config;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.SizeIsZeroException;
 
 import java.math.BigDecimal;
@@ -44,6 +45,7 @@ public class Circle extends UserShape {
      * @param dx the amount to be moved (rightwards) in the x-axis
      * @param dy the amount to be moved (downwards) in the y-axis
      */
+    @Override
     public void move(BigDecimal dx, BigDecimal dy) {
         this.circularSegment.move(dx, dy);
     }
@@ -54,6 +56,7 @@ public class Circle extends UserShape {
      * @param line the line to check this shape against
      * @return if the two shapes intersect
      */
+    @Override
     public boolean isIntersect(Line line) {
         return this.circularSegment.isIntersect(line.getSegment());
     }
@@ -64,6 +67,7 @@ public class Circle extends UserShape {
      * @param circle the circle to check this shape against
      * @return if the two shapes intersect
      */
+    @Override
     public boolean isIntersect(Circle circle) {
         return this.circularSegment.isIntersect(circle.getCircularSegment());
     }
@@ -75,6 +79,7 @@ public class Circle extends UserShape {
      * @param rectangle the rectangle/square to check this shape against
      * @return if the two shapes intersect
      */
+    @Override
     public boolean isIntersect(Rectangle rectangle) {
         for (Segment segment1 : rectangle.getSegments()) {
             if (this.circularSegment.isIntersect(segment1)) {
@@ -91,6 +96,7 @@ public class Circle extends UserShape {
      * @param group the group to check this shape against
      * @return if the two shapes intersect
      */
+    @Override
     public boolean isIntersect(Group group) {
         for (UserShape userShape : group.getUserShapes()) {
             if (userShape.isIntersect(this)) {
@@ -109,6 +115,7 @@ public class Circle extends UserShape {
      * @param point the point to check for
      * @return if the point is "contained"
      */
+    @Override
     public boolean isContains(Point point) {
         return this.circularSegment.isContains(point);
     }
@@ -119,6 +126,7 @@ public class Circle extends UserShape {
      *
      * @return an array of data
      */
+    @Override
     public BigDecimal[] boundingBox() {
         return this.circularSegment.boundingBox();
     }
@@ -128,14 +136,15 @@ public class Circle extends UserShape {
      *
      * @return A list of output for user
      */
+    @Override
     public ArrayList<String> list() {
         ArrayList<String> out = new ArrayList<>();
 
         out.add("   Name: " + this.name);
         out.add("   Type: " + "Circle");
-        out.add("xCenter: " + ((double) Math.round(this.circularSegment.getCenter().getX().doubleValue() * 100.0) / 100.0));
-        out.add("yCenter: " + ((double) Math.round(this.circularSegment.getCenter().getY().doubleValue() * 100.0) / 100.0));
-        out.add(" radius: " + ((double) Math.round(this.circularSegment.getRadius().doubleValue() * 100.0) / 100.0));
+        out.add("xCenter: " + ((double) Math.round(this.circularSegment.getCenter().getX().doubleValue() * Config.ROUND_DOUBLE) / Config.ROUND_DOUBLE));
+        out.add("yCenter: " + ((double) Math.round(this.circularSegment.getCenter().getY().doubleValue() * Config.ROUND_DOUBLE) / Config.ROUND_DOUBLE));
+        out.add(" radius: " + ((double) Math.round(this.circularSegment.getRadius().doubleValue() * Config.ROUND_DOUBLE) / Config.ROUND_DOUBLE));
 
         return out;
     }
@@ -146,6 +155,7 @@ public class Circle extends UserShape {
      *
      * @return A short list of output, to be merged into list of group
      */
+    @Override
     public ArrayList<String> listShort() {
         ArrayList<String> out = new ArrayList<>();
 

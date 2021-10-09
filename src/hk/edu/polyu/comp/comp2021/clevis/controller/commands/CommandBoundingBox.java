@@ -1,5 +1,6 @@
 package hk.edu.polyu.comp.comp2021.clevis.controller.commands;
 
+import hk.edu.polyu.comp.comp2021.clevis.Config;
 import hk.edu.polyu.comp.comp2021.clevis.controller.exceptions.NotANumberException;
 import hk.edu.polyu.comp.comp2021.clevis.controller.exceptions.WrongArgumentLengthException;
 import hk.edu.polyu.comp.comp2021.clevis.model.Clevis;
@@ -36,12 +37,13 @@ public class CommandBoundingBox extends Command {
      * @throws ShapeInsideGroupException warns of one (or more) of shape inside group
      * @throws ShapeNotFoundException    warns of one (or more) of shape not found
      */
+    @Override
     public ArrayList<String> exec() throws ShapeInsideGroupException, ShapeNotFoundException {
         BigDecimal[] tempOut = model.boundingBox(parsedInput[1]);
         StringBuilder result = new StringBuilder();
 
         for (int i = 0; i < 4; i++) {
-            result.append(Math.round(tempOut[i].doubleValue() * 100.0) / 100.0);
+            result.append(Math.round(tempOut[i].doubleValue() * Config.ROUND_DOUBLE) / Config.ROUND_DOUBLE);
             if (i != 3) {
                 result.append(" ");
             }
@@ -55,6 +57,7 @@ public class CommandBoundingBox extends Command {
     /**
      * Undo the command (not undoable).
      */
+    @Override
     public void undo() {
     }
 
@@ -63,6 +66,7 @@ public class CommandBoundingBox extends Command {
      *
      * @throws WrongArgumentLengthException warns of wrong argument length (i.e. count)
      */
+    @Override
     public void check() throws WrongArgumentLengthException {
         if (this.parsedInput.length != 2) {
             throw new WrongArgumentLengthException(template);
@@ -74,6 +78,7 @@ public class CommandBoundingBox extends Command {
      *
      * @return that the command is not undoable
      */
+    @Override
     public boolean undoable() {
         return false;
     }

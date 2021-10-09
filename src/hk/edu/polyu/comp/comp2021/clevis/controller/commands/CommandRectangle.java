@@ -38,6 +38,7 @@ public class CommandRectangle extends Command {
      * @throws SizeIsZeroException         warns of zero-area shape
      * @throws DuplicateShapeNameException warns of duplicate shape name
      */
+    @Override
     public ArrayList<String> exec()
             throws SizeIsZeroException, DuplicateShapeNameException {
         model.addRectangle(
@@ -57,6 +58,7 @@ public class CommandRectangle extends Command {
      * @throws ShapeInsideGroupException warns of shape inside group
      * @throws ShapeNotFoundException    warns of shape not found
      */
+    @Override
     public void undo()
             throws ShapeInsideGroupException, ShapeNotFoundException {
         model.remove(this.parsedInput[1]);
@@ -68,6 +70,7 @@ public class CommandRectangle extends Command {
      * @throws NotANumberException          warns of not-a-number argument
      * @throws WrongArgumentLengthException warns of wrong argument length (i.e. count)
      */
+    @Override
     public void check() throws NotANumberException, WrongArgumentLengthException {
         if (this.parsedInput.length != 6) {
             throw new WrongArgumentLengthException(template);

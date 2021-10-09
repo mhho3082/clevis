@@ -40,6 +40,7 @@ public class CommandGroup extends Command {
      * @throws ShapeNotFoundException      warns of one (or more) of shape not found
      * @throws DuplicateShapeNameException warns of duplicate shape name
      */
+    @Override
     public ArrayList<String> exec()
             throws ShapeInsideGroupException, EmptyGroupException, ShapeNotFoundException, DuplicateShapeNameException {
         ArrayList<String> temp = new ArrayList<>(Arrays.asList(parsedInput).subList(2, parsedInput.length));
@@ -56,6 +57,7 @@ public class CommandGroup extends Command {
      * @throws ShapeNotFoundException      warns of one (or more) of shape not found
      * @throws DuplicateShapeNameException warns of duplicate shape name
      */
+    @Override
     public void undo()
             throws ShapeInsideGroupException, ShapeNotFoundException, DuplicateShapeNameException {
         model.ungroup(parsedInput[1]);
@@ -66,6 +68,7 @@ public class CommandGroup extends Command {
      *
      * @throws WrongArgumentLengthException warns of wrong argument length (i.e. count)
      */
+    @Override
     public void check() throws WrongArgumentLengthException {
         if (this.parsedInput.length < 3) {
             throw new WrongArgumentLengthException(template);
