@@ -1,5 +1,6 @@
 package hk.edu.polyu.comp.comp2021.clevis.model.shapes;
 
+import hk.edu.polyu.comp.comp2021.clevis.Config;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.SizeIsZeroException;
 
 import java.math.BigDecimal;
@@ -14,7 +15,10 @@ import java.util.ArrayList;
  * @author Ho Man Hin
  */
 public class Rectangle extends UserShape {
-    protected final Segment[] segments = new Segment[4]; // Top, Right, Bottom, Left
+    /**
+     * In the format of [Top, Right, Bottom, Left]
+     */
+    protected final Segment[] segments = new Segment[4];
 
     /**
      * A rectangle shape, defined by xLeft, yTop, width, and height.
@@ -53,6 +57,7 @@ public class Rectangle extends UserShape {
      * @param dx the amount to be moved (rightwards) in the x-axis
      * @param dy the amount to be moved (downwards) in the y-axis
      */
+    @Override
     public void move(BigDecimal dx, BigDecimal dy) {
         for (Segment segment : this.segments) {
             segment.move(dx, dy);
@@ -65,6 +70,7 @@ public class Rectangle extends UserShape {
      * @param line the line to check this shape against
      * @return if the two shapes intersect
      */
+    @Override
     public boolean isIntersect(Line line) {
         for (Segment segment : this.segments) {
             if (segment.isIntersect(line.getSegment())) {
@@ -80,6 +86,7 @@ public class Rectangle extends UserShape {
      * @param circle the circle to check this shape against
      * @return if the two shapes intersect
      */
+    @Override
     public boolean isIntersect(Circle circle) {
         for (Segment segment : this.segments) {
             if (segment.isIntersect(circle.getCircularSegment())) {
@@ -96,6 +103,7 @@ public class Rectangle extends UserShape {
      * @param rectangle the rectangle/square to check this shape against
      * @return if the two shapes intersect
      */
+    @Override
     public boolean isIntersect(Rectangle rectangle) {
         for (Segment segment1 : this.segments) {
             for (Segment segment2 : rectangle.getSegments()) {
@@ -114,6 +122,7 @@ public class Rectangle extends UserShape {
      * @param group the group to check this shape against
      * @return if the two shapes intersect
      */
+    @Override
     public boolean isIntersect(Group group) {
         for (UserShape userShape : group.getUserShapes()) {
             if (userShape.isIntersect(this)) {
@@ -132,6 +141,7 @@ public class Rectangle extends UserShape {
      * @param point the point to check for
      * @return if the point is "contained"
      */
+    @Override
     public boolean isContains(Point point) {
         for (Segment segment : this.segments) {
             if (segment.isContains(point)) {
@@ -147,6 +157,7 @@ public class Rectangle extends UserShape {
      *
      * @return an array of data
      */
+    @Override
     public BigDecimal[] boundingBox() {
         return new BigDecimal[]{
                 this.segments[0].getPoint1().getX(),
@@ -161,15 +172,16 @@ public class Rectangle extends UserShape {
      *
      * @return A list of output for user
      */
+    @Override
     public ArrayList<String> list() {
         ArrayList<String> out = new ArrayList<>();
 
         out.add("  Name: " + this.name);
         out.add("  Type: " + "Rectangle");
-        out.add(" xLeft: " + ((double) Math.round(this.segments[0].getPoint1().getX().doubleValue() * 100.0) / 100.0));
-        out.add("  yTop: " + ((double) Math.round(this.segments[0].getPoint1().getY().doubleValue() * 100.0) / 100.0));
-        out.add(" width: " + ((double) Math.round(this.segments[0].getLength().doubleValue() * 100.0) / 100.0));
-        out.add("height: " + ((double) Math.round(this.segments[1].getLength().doubleValue() * 100.0) / 100.0));
+        out.add(" xLeft: " + ((double) Math.round(this.segments[0].getPoint1().getX().doubleValue() * Config.ROUND_DOUBLE) / Config.ROUND_DOUBLE));
+        out.add("  yTop: " + ((double) Math.round(this.segments[0].getPoint1().getY().doubleValue() * Config.ROUND_DOUBLE) / Config.ROUND_DOUBLE));
+        out.add(" width: " + ((double) Math.round(this.segments[0].getLength().doubleValue() * Config.ROUND_DOUBLE) / Config.ROUND_DOUBLE));
+        out.add("height: " + ((double) Math.round(this.segments[1].getLength().doubleValue() * Config.ROUND_DOUBLE) / Config.ROUND_DOUBLE));
 
         return out;
     }
@@ -180,6 +192,7 @@ public class Rectangle extends UserShape {
      *
      * @return A short list of output, to be merged into list of group
      */
+    @Override
     public ArrayList<String> listShort() {
         ArrayList<String> out = new ArrayList<>();
 

@@ -222,8 +222,6 @@ public class CommandHandler {
         } catch (EmptyGroupException e) {
             handleEmptyGroupException();
             return;
-        } catch (NoShapeContainsPointException e) {
-            handleNoShapeContainsPointException();
         }
 
         // Put in stack if undoable
@@ -262,8 +260,6 @@ public class CommandHandler {
             handleShapeNotFoundException(e);
         } catch (DuplicateShapeNameException e) {
             handleDuplicateShapeNameException(e);
-        } catch (NoShapeContainsPointException e) {
-            handleNoShapeContainsPointException();
         }
     }
 
@@ -292,8 +288,6 @@ public class CommandHandler {
             handleSizeIsZeroException();
         } catch (EmptyGroupException e) {
             handleEmptyGroupException();
-        } catch (NoShapeContainsPointException e) {
-            handleNoShapeContainsPointException();
         }
     }
 

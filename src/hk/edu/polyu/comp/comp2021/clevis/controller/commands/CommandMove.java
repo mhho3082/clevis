@@ -36,6 +36,7 @@ public class CommandMove extends Command {
      * @throws ShapeInsideGroupException warns of one (or more) of shape inside group
      * @throws ShapeNotFoundException    warns of one (or more) of shape not found
      */
+    @Override
     public ArrayList<String> exec()
             throws ShapeInsideGroupException, ShapeNotFoundException {
         model.move(parsedInput[1],
@@ -51,6 +52,7 @@ public class CommandMove extends Command {
      * @throws ShapeInsideGroupException warns of one (or more) of shape inside group
      * @throws ShapeNotFoundException    warns of one (or more) of shape not found
      */
+    @Override
     public void undo()
             throws ShapeInsideGroupException, ShapeNotFoundException {
         model.move(parsedInput[1],
@@ -65,6 +67,7 @@ public class CommandMove extends Command {
      * @throws WrongArgumentLengthException warns of wrong argument length (i.e. count)
      * @throws NotANumberException          warns of not-a-number argument
      */
+    @Override
     public void check() throws WrongArgumentLengthException, NotANumberException {
         if (this.parsedInput.length != 4) {
             throw new WrongArgumentLengthException(template);

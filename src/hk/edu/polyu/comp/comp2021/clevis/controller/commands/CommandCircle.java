@@ -38,6 +38,7 @@ public class CommandCircle extends Command {
      * @throws SizeIsZeroException         warns of zero-area shape
      * @throws DuplicateShapeNameException warns of duplicate shape name
      */
+    @Override
     public ArrayList<String> exec()
             throws SizeIsZeroException, DuplicateShapeNameException {
         model.addCircle(
@@ -56,6 +57,7 @@ public class CommandCircle extends Command {
      * @throws ShapeInsideGroupException warns of one (or more) of shape inside group
      * @throws ShapeNotFoundException    warns of one (or more) of shapes not found
      */
+    @Override
     public void undo()
             throws ShapeInsideGroupException, ShapeNotFoundException {
         model.remove(this.parsedInput[1]);
@@ -67,6 +69,7 @@ public class CommandCircle extends Command {
      * @throws WrongArgumentLengthException warns of wrong argument length (i.e. count)
      * @throws NotANumberException          warns of not-a-number inputs
      */
+    @Override
     public void check() throws WrongArgumentLengthException, NotANumberException {
         if (this.parsedInput.length != 5) {
             throw new WrongArgumentLengthException(template);

@@ -31,6 +31,7 @@ public class CommandListAll extends Command {
      *
      * @return the general list of details
      */
+    @Override
     public ArrayList<String> exec() {
         return model.listAll();
     }
@@ -38,6 +39,7 @@ public class CommandListAll extends Command {
     /**
      * Undo the command (not undoable).
      */
+    @Override
     public void undo() {
     }
 
@@ -46,6 +48,7 @@ public class CommandListAll extends Command {
      *
      * @throws WrongArgumentLengthException warns of wrong argument length (i.e. count)
      */
+    @Override
     public void check() throws WrongArgumentLengthException {
         if (this.parsedInput.length != 1) {
             throw new WrongArgumentLengthException(template);
@@ -57,6 +60,7 @@ public class CommandListAll extends Command {
      *
      * @return that the command is not undoable
      */
+    @Override
     public boolean undoable() {
         return false;
     }

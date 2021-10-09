@@ -207,6 +207,7 @@ public class Clevis {
      *
      * @param x the x-coordinate of the point
      * @param y the y-coordinate of the point
+     * @return The UserShape found
      * @throws NoShapeContainsPointException warns of no shape containing specified point
      */
     public UserShape pick(BigDecimal x, BigDecimal y)
@@ -281,6 +282,7 @@ public class Clevis {
      *
      * @param name the name of the shape
      * @throws ShapeNotFoundException warns of shape not found
+     * @throws ShapeInsideGroupException warns of shape inside group
      */
     public void remove(String name)
             throws ShapeNotFoundException, ShapeInsideGroupException {

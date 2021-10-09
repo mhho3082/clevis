@@ -92,20 +92,6 @@ public class SegmentTest {
     }
 
     @Test
-    public void testEquals1() throws SizeIsZeroException {
-        assertTrue(s1.equals(new Segment(new Point("2", "3"), new Point("8", "6"))));
-        assertTrue(s1.equals(new Segment(new Point("8", "6"), new Point("2", "3"))));
-        assertFalse(s1.equals(new Segment(new Point("8", "-6"), new Point("-2", "3"))));
-    }
-
-    @Test
-    public void testEquals2() throws SizeIsZeroException {
-        assertTrue(s2.equals(new Segment(new Point("2.7", "5.7"), new Point("10.6", "5.7"))));
-        assertTrue(s2.equals(new Segment(new Point("10.6", "5.7"), new Point("2.7", "5.7"))));
-        assertFalse(s2.equals(new Segment(new Point("-2.7", "5.7"), new Point("10.6", "-5.7"))));
-    }
-
-    @Test
     public void testGetLength1() {
         assertEquals("6.708203", s1.getLength().toString().substring(0, 8));
     }

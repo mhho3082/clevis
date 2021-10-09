@@ -1,5 +1,6 @@
 package hk.edu.polyu.comp.comp2021.clevis.model.shapes;
 
+import hk.edu.polyu.comp.comp2021.clevis.Config;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.SizeIsZeroException;
 
 import java.math.BigDecimal;
@@ -45,21 +46,6 @@ public class Segment {
     }
 
     /**
-     * Checks if a segment is equal to this.
-     * Ignores whether the point sequence is the same.
-     *
-     * @param segment the segment to be compared to
-     * @return if the two segments are effectively the same
-     */
-    public boolean equals(Segment segment) {
-        if (this.point1.equals(segment.point1) && this.point2.equals((segment.point2))) {
-            return true;
-        } else {
-            return this.point1.equals(segment.point2) && this.point2.equals((segment.point1));
-        }
-    }
-
-    /**
      * Gives point 1.
      *
      * @return point 1
@@ -93,7 +79,7 @@ public class Segment {
      * @return whether the point is on segment
      */
     public boolean isOnSegment(Point point) {
-        MathContext m = new MathContext(33);
+        MathContext m = new MathContext(Config.ROUND_BIG_DECIMAL);
         BigDecimal tempA = this.point1.getLength(point);
         BigDecimal tempB = this.point2.getLength(point);
         return tempA.add(tempB).round(m).equals(this.getLength().round(m));
@@ -125,7 +111,7 @@ public class Segment {
      * @return the perpendicular distance
      */
     public BigDecimal perpendicularDistance(Point point) {
-        MathContext m = new MathContext(33);
+        MathContext m = new MathContext(Config.ROUND_BIG_DECIMAL);
         BigDecimal lengthA = this.point1.getLength(point).round(m);
         BigDecimal lengthB = this.point2.getLength(point).round(m);
         BigDecimal lengthAll = this.getLength().round(m);
@@ -167,13 +153,13 @@ public class Segment {
     public boolean isIntersect(Segment segment) {
         if (
             // If one of the end point lies on the other line
-                this.isOnSegment(segment.point1) || this.isOnSegment(segment.point2)
+                this.isOnSegment(segment.getPoint1()) || this.isOnSegment(segment.getPoint2())
                         || segment.isOnSegment(this.point1) || segment.isOnSegment(this.point2)
         ) {
             return true;
         } else {
             // General case; measure by varying spinning directions
-            return this.spinDirection(segment.point1) != this.spinDirection(segment.point2)
+            return this.spinDirection(segment.getPoint1()) != this.spinDirection(segment.getPoint2())
                     && segment.spinDirection(this.point1) != segment.spinDirection(this.point2);
         }
     }

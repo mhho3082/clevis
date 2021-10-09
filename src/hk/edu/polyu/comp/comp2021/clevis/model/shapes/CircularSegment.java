@@ -43,18 +43,6 @@ public class CircularSegment {
     }
 
     /**
-     * Checks if a segment is equal to this.
-     * Ignores whether the point sequence is the same.
-     *
-     * @param circularSegment the circular segment to be compared to
-     * @return if the two segments are effectively the same
-     */
-    public boolean equals(CircularSegment circularSegment) {
-        return this.center.equals(circularSegment.center)
-                && this.radius.compareTo(circularSegment.radius) == 0;
-    }
-
-    /**
      * Gives the center.
      *
      * @return center
@@ -70,17 +58,6 @@ public class CircularSegment {
      */
     public BigDecimal getRadius() {
         return radius;
-    }
-
-    /**
-     * Checks whether a point sits exactly on the segment.
-     *
-     * @param point the point to be checked against
-     * @return whether the point is on segment
-     */
-    public boolean isOnSegment(Point point) {
-        BigDecimal diff = this.center.getLength(point).subtract(radius).abs();
-        return diff.compareTo(new BigDecimal("0")) == 0;
     }
 
     /**
@@ -120,9 +97,9 @@ public class CircularSegment {
      * @return whether the two segments intersect
      */
     public boolean isIntersect(CircularSegment circularSegment) {
-        BigDecimal diff = this.center.getLength(circularSegment.center);
+        BigDecimal diff = this.center.getLength(circularSegment.getCenter());
 
-        return diff.compareTo(this.radius.add(circularSegment.radius)) <= 0;
+        return diff.compareTo(this.radius.add(circularSegment.getRadius())) <= 0;
     }
 
     /**

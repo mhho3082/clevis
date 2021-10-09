@@ -38,6 +38,7 @@ public class CommandLine extends Command {
      * @throws SizeIsZeroException         warns of zero-area shape
      * @throws DuplicateShapeNameException warns of duplicate shape name
      */
+    @Override
     public ArrayList<String> exec()
             throws SizeIsZeroException, DuplicateShapeNameException {
         model.addLine(
@@ -57,6 +58,7 @@ public class CommandLine extends Command {
      * @throws ShapeInsideGroupException warns of one (or more) of shape inside group
      * @throws ShapeNotFoundException    warns of one (or more) of shape not found
      */
+    @Override
     public void undo()
             throws ShapeInsideGroupException, ShapeNotFoundException {
         model.remove(this.parsedInput[1]);
@@ -68,6 +70,7 @@ public class CommandLine extends Command {
      * @throws WrongArgumentLengthException warns of wrong argument length (i.e. count)
      * @throws NotANumberException          warns of not-a-number arguments
      */
+    @Override
     public void check() throws WrongArgumentLengthException, NotANumberException {
         if (this.parsedInput.length != 6) {
             throw new WrongArgumentLengthException(template);

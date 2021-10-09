@@ -1,5 +1,6 @@
 package hk.edu.polyu.comp.comp2021.clevis.model.shapes;
 
+import hk.edu.polyu.comp.comp2021.clevis.Config;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.SizeIsZeroException;
 
 import java.math.BigDecimal;
@@ -32,14 +33,15 @@ public class Square extends Rectangle {
      *
      * @return A list of output for user
      */
+    @Override
     public ArrayList<String> list() {
         ArrayList<String> out = new ArrayList<>();
 
         out.add("  Name: " + this.name);
         out.add("  Type: " + "Square");
-        out.add(" xLeft: " + ((double) Math.round(this.segments[0].getPoint1().getX().doubleValue() * 100.0) / 100.0));
-        out.add("  yTop: " + ((double) Math.round(this.segments[0].getPoint1().getY().doubleValue() * 100.0) / 100.0));
-        out.add("length: " + ((double) Math.round(this.segments[0].getLength().doubleValue() * 100.0) / 100.0));
+        out.add(" xLeft: " + ((double) Math.round(this.segments[0].getPoint1().getX().doubleValue() * Config.ROUND_DOUBLE) / Config.ROUND_DOUBLE));
+        out.add("  yTop: " + ((double) Math.round(this.segments[0].getPoint1().getY().doubleValue() * Config.ROUND_DOUBLE) / Config.ROUND_DOUBLE));
+        out.add("length: " + ((double) Math.round(this.segments[0].getLength().doubleValue() * Config.ROUND_DOUBLE) / Config.ROUND_DOUBLE));
 
         return out;
     }
@@ -50,6 +52,7 @@ public class Square extends Rectangle {
      *
      * @return A short list of output, to be merged into list of group
      */
+    @Override
     public ArrayList<String> listShort() {
         ArrayList<String> out = new ArrayList<>();
 

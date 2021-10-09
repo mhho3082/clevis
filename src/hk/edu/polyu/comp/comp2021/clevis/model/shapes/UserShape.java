@@ -11,8 +11,19 @@ import java.util.ArrayList;
  * @author Ho Man Hin
  */
 public abstract class UserShape implements Comparable<UserShape> {
+    /**
+     * The highest z order
+     */
     protected static long zOrderHighest = 0;
+
+    /**
+     * The z order of the shape
+     */
     protected final long zOrder;
+
+    /**
+     * The name of the shape
+     */
     protected final String name;
 
     /**
@@ -23,8 +34,7 @@ public abstract class UserShape implements Comparable<UserShape> {
      */
     public UserShape(String name) {
         this.name = name;
-        this.zOrder = zOrderHighest;
-        zOrderHighest++;
+        this.zOrder = zOrderHighest++;
     }
 
     /**
@@ -43,8 +53,17 @@ public abstract class UserShape implements Comparable<UserShape> {
      * @param o the UserShape to compare to
      * @return the difference between the two object's zOrder
      */
+    @Override
     public int compareTo(UserShape o) {
-        return (int) (this.zOrder - o.zOrder);
+        return (int) (this.zOrder - o.getzOrder());
+    }
+
+    /**
+     * Gets the z order.
+     * @return the zOrder
+     */
+    public long getzOrder() {
+        return zOrder;
     }
 
     /**

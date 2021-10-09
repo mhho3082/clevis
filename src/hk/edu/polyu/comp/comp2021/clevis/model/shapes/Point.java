@@ -72,7 +72,7 @@ public class Point {
      * @return if the two points have the same coordinates
      */
     public boolean equals(Point point) {
-        return this.x.compareTo(point.x) == 0 && this.y.compareTo(point.y) == 0;
+        return this.x.compareTo(point.getX()) == 0 && this.y.compareTo(point.getY()) == 0;
     }
 
     /**
@@ -82,6 +82,6 @@ public class Point {
      * @return the length between the two points
      */
     public BigDecimal getLength(Point point) {
-        return this.x.subtract(point.x).pow(2).add(this.y.subtract(point.y).pow(2)).sqrt(MathContext.DECIMAL128);
+        return this.x.subtract(point.getX()).pow(2).add(this.y.subtract(point.getY()).pow(2)).sqrt(MathContext.DECIMAL128);
     }
 }

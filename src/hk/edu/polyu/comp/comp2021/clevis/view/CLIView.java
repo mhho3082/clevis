@@ -7,6 +7,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * The view for CLI.
+ *
+ * @author Ho Man Hin
+ */
 public class CLIView {
     private final BufferedReader in;
     private final CommandHandler handler;
@@ -19,8 +24,6 @@ public class CLIView {
     public CLIView(CommandHandler handler) {
         this.in = new BufferedReader(new InputStreamReader(System.in));
         this.handler = handler;
-
-        beginMessage();
     }
 
     /**
@@ -28,11 +31,21 @@ public class CLIView {
      */
     public void exec() {
         String s;
+
+        beginMessage();
+
         try {
+            System.out.print(Config.CLI_INPUT_ICON);
             while ((s = in.readLine()) != null) {
                 if (!s.isEmpty()) {
                     // Call command
                     handler.exec(s);
+
+                    // Auto-quit
+                    if (handler.getQuitting()) {
+                        in.close();
+                        return;
+                    }
 
                     System.out.println();
 
@@ -55,17 +68,8 @@ public class CLIView {
                     }
 
                     // Set input colour
-                    System.out.print(Config.CLI_COLOUR_INPUT);
-                    System.out.println();
-
-
-                    // Auto-quit
-                    if (handler.getQuitting()) {
-                        // TODO: Should we add good-bye message?
-
-                        in.close();
-                        return;
-                    }
+                    System.out.println(Config.CLI_COLOUR_INPUT);
+                    System.out.print(Config.CLI_INPUT_ICON);
                 }
             }
             in.close();
@@ -77,7 +81,11 @@ public class CLIView {
      * Prints the copyright to the output.
      */
     public void beginMessage() {
-        // TODO: Print info about us
-        // TODO: Add note to how to quit
+        System.out.print(Config.CLI_COLOUR_NORMAL);
+        System.out.println("Clevis");
+        System.out.println("Group 32, COMP2021, The Polytechnic University of Hong Kong");
+        System.out.println("Enter \"help\" or \"help [command]\" for help");
+        System.out.println("Enter \"quit\" to quit");
+        System.out.println(Config.CLI_COLOUR_INPUT);
     }
 }
