@@ -5,6 +5,7 @@ import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.SizeIsZeroException;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.math.RoundingMode;
 
 /**
  * A basic circular segment (circle).
@@ -124,11 +125,11 @@ public class CircularSegment {
         BigDecimal perpendicularDistance = segment.perpendicularDistance(this.center);
 
         // Too far away
-        if (perpendicularDistance.round(m).compareTo(this.radius.round(m)) > 0) {
+        if (perpendicularDistance.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.radius.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) > 0) {
             return false;
         }
 
-        return this.center.getLength(segment.getPoint1()).round(m).compareTo(this.radius.round(m)) >= 0
-                || this.center.getLength(segment.getPoint2()).round(m).compareTo(this.radius.round(m)) >= 0;
+        return this.center.getLength(segment.getPoint1()).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.radius.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) >= 0
+                || this.center.getLength(segment.getPoint2()).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.radius.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) >= 0;
     }
 }
