@@ -32,7 +32,7 @@ public class CommandMove extends Command {
     /**
      * Calls the command for execution.
      *
-     * @return null
+     * @return empty output
      * @throws ShapeInsideGroupException warns of one (or more) of shape inside group
      * @throws ShapeNotFoundException    warns of one (or more) of shape not found
      */
@@ -43,7 +43,7 @@ public class CommandMove extends Command {
                 new BigDecimal(parsedInput[2]),
                 new BigDecimal(parsedInput[3]));
 
-        return null;
+        return new ArrayList<>();
     }
 
     /**

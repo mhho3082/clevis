@@ -34,7 +34,7 @@ public class CommandGroup extends Command {
     /**
      * Calls the command for execution.
      *
-     * @return null
+     * @return empty output
      * @throws ShapeInsideGroupException   warns of one (or more) of shape inside group
      * @throws EmptyGroupException         warns of empty group
      * @throws ShapeNotFoundException      warns of one (or more) of shape not found
@@ -47,7 +47,7 @@ public class CommandGroup extends Command {
 
         model.group(parsedInput[1], temp);
 
-        return null;
+        return new ArrayList<>();
     }
 
     /**

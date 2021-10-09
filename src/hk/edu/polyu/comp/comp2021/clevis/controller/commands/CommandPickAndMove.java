@@ -38,7 +38,7 @@ public class CommandPickAndMove extends Command {
     /**
      * Executes the command.
      *
-     * @return null
+     * @return empty output
      * @throws ShapeNotFoundException    warns of one (or more) of shape not found
      * @throws ShapeInsideGroupException warns of shape inside group
      */
@@ -50,7 +50,7 @@ public class CommandPickAndMove extends Command {
                 new BigDecimal(parsedInput[4])
         );
 
-        return null;
+        return new ArrayList<>();
     }
 
     /**
