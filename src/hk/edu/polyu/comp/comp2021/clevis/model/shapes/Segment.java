@@ -189,8 +189,6 @@ public class Segment {
      * @return whether the two segments intersect
      */
     public boolean isIntersect(CircularSegment circularSegment) {
-        BigDecimal diff = this.perpendicularDistance(circularSegment.getCenter());
-
-        return diff.compareTo(circularSegment.getRadius()) <= 0;
+        return circularSegment.isIntersect(this);
     }
 }
