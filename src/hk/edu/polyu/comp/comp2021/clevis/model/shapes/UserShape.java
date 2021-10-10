@@ -34,7 +34,15 @@ public abstract class UserShape implements Comparable<UserShape> {
      */
     public UserShape(String name) {
         this.name = name;
-        this.zOrder = zOrderHighest++;
+        this.zOrder = zOrderHighest;
+        increaseZOrderHighest();
+    }
+
+    /**
+     * Increase the zOrderHighest value by 1
+     */
+    private static void increaseZOrderHighest() {
+        zOrderHighest++;
     }
 
     /**
