@@ -128,6 +128,21 @@ public class CircularSegment {
             return false;
         }
 
+        // Check the segment outside boundingBox or not
+        if (perpendicularDistance.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.getRadius().setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) != 0) { // Not a tangent line
+            BigDecimal[] box = this.boundingBox();
+            if (segment.getPoint1().getX().compareTo(box[0]) <= 0 && segment.getPoint2().getX().compareTo(box[0]) <= 0) {
+                return false;
+            } else if (segment.getPoint1().getY().compareTo(box[1]) <= 0 && segment.getPoint2().getY().compareTo(box[1]) <= 0) {
+                return false;
+            } else if (segment.getPoint1().getX().compareTo(box[0].add(box[2])) >= 0 && (segment.getPoint2().getX().compareTo(box[0].add(box[2])) >= 0)) {
+                return false;
+            } else if (segment.getPoint1().getY().compareTo(box[1].add(box[3])) >= 0 && (segment.getPoint2().getY().compareTo(box[1].add(box[3])) >= 0)) {
+                return false;
+            }
+        }
+
+
         return this.center.getLength(segment.getPoint1()).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.radius.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) >= 0
                 || this.center.getLength(segment.getPoint2()).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.radius.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) >= 0;
     }
