@@ -121,7 +121,6 @@ public class CircularSegment {
      * @return whether the two segments intersect
      */
     public boolean isIntersect(Segment segment) {
-        MathContext m = new MathContext(Config.ROUND_BIG_DECIMAL);
         BigDecimal perpendicularDistance = segment.perpendicularDistance(this.center);
 
         // Too far away
