@@ -90,50 +90,17 @@ public abstract class UserShape implements Comparable<UserShape> {
      * @return if the two shapes intersect
      */
     public boolean isIntersect(UserShape userShape) {
-        if (userShape instanceof Rectangle) {
-            return this.isIntersect((Rectangle) userShape);
-        } else if (userShape instanceof Line) {
-            return this.isIntersect((Line) userShape);
-        } else if (userShape instanceof Circle) {
-            return this.isIntersect((Circle) userShape);
-        } else {
-            return this.isIntersect((Group) userShape);
+        for (IntersectSegment segment1:
+             this.getIntersectSegment()) {
+            for (IntersectSegment segment2:
+                    userShape.getIntersectSegment()) {
+                if (segment1.isIntersect(segment2)) {
+                    return true;
+                }
+            }
         }
+        return false;
     }
-
-    /**
-     * Checks if this shape intersect with the line.
-     *
-     * @param line the line to check this shape against
-     * @return if the two shapes intersect
-     */
-    public abstract boolean isIntersect(Line line);
-
-    /**
-     * Checks if this shape intersect with the circle.
-     *
-     * @param circle the circle to check this shape against
-     * @return if the two shapes intersect
-     */
-    public abstract boolean isIntersect(Circle circle);
-
-    /**
-     * Checks if this shape intersect with the rectangle.
-     * Also works for square.
-     *
-     * @param rectangle the rectangle/square to check this shape against
-     * @return if the two shapes intersect
-     */
-    public abstract boolean isIntersect(Rectangle rectangle);
-
-    /**
-     * Checks if this shape intersect with the group.
-     * Also works for square.
-     *
-     * @param group the group to check this shape against
-     * @return if the two shapes intersect
-     */
-    public abstract boolean isIntersect(Group group);
 
     /**
      * Checks if the shape "contains" the point.
@@ -181,4 +148,10 @@ public abstract class UserShape implements Comparable<UserShape> {
      * @return A short list of output, to be merged into list of group
      */
     public abstract ArrayList<String> listShort();
+
+    /**
+     * Gets the list of intersect segment.
+     * @return a list
+     */
+    public abstract ArrayList<IntersectSegment> getIntersectSegment();
 }

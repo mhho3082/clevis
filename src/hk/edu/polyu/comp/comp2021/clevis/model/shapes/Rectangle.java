@@ -41,17 +41,6 @@ public class Rectangle extends UserShape {
     }
 
     /**
-     * Gets the array of segments of this rectangle.
-     * The array holds 4 objects,
-     * which are the Top, Right, Bottom, Left segments.
-     *
-     * @return array of segments
-     */
-    public Segment[] getSegments() {
-        return this.segments;
-    }
-
-    /**
      * Move the rectangle by dx and dy.
      *
      * @param dx the amount to be moved (rightwards) in the x-axis
@@ -62,74 +51,6 @@ public class Rectangle extends UserShape {
         for (Segment segment : this.segments) {
             segment.move(dx, dy);
         }
-    }
-
-    /**
-     * Checks if this shape intersect with the line.
-     *
-     * @param line the line to check this shape against
-     * @return if the two shapes intersect
-     */
-    @Override
-    public boolean isIntersect(Line line) {
-        for (Segment segment : this.segments) {
-            if (segment.isIntersect(line.getSegment())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Checks if this shape intersect with the circle.
-     *
-     * @param circle the circle to check this shape against
-     * @return if the two shapes intersect
-     */
-    @Override
-    public boolean isIntersect(Circle circle) {
-        for (Segment segment : this.segments) {
-            if (segment.isIntersect(circle.getCircularSegment())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Checks if this shape intersect with the rectangle.
-     * Also works for square.
-     *
-     * @param rectangle the rectangle/square to check this shape against
-     * @return if the two shapes intersect
-     */
-    @Override
-    public boolean isIntersect(Rectangle rectangle) {
-        for (Segment segment1 : this.segments) {
-            for (Segment segment2 : rectangle.getSegments()) {
-                if (segment1.isIntersect(segment2)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Checks if this shape intersect with the group.
-     * Also works for square.
-     *
-     * @param group the group to check this shape against
-     * @return if the two shapes intersect
-     */
-    @Override
-    public boolean isIntersect(Group group) {
-        for (UserShape userShape : group.getUserShapes()) {
-            if (userShape.isIntersect(this)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**
@@ -200,5 +121,19 @@ public class Rectangle extends UserShape {
         out.add("Type: " + "Rectangle");
 
         return out;
+    }
+
+    /**
+     * Gets the list of intersect segment.
+     * @return a list
+     */
+    @Override
+    public ArrayList<IntersectSegment> getIntersectSegment() {
+        ArrayList<IntersectSegment> temp = new ArrayList<>();
+        temp.add(this.segments[0]);
+        temp.add(this.segments[1]);
+        temp.add(this.segments[2]);
+        temp.add(this.segments[3]);
+        return temp;
     }
 }

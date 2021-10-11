@@ -52,62 +52,6 @@ public class Line extends UserShape {
     }
 
     /**
-     * Checks if this shape intersect with the line.
-     *
-     * @param line the line to check this shape against
-     * @return if the two shapes intersect
-     */
-    @Override
-    public boolean isIntersect(Line line) {
-        return this.segment.isIntersect(line.getSegment());
-    }
-
-    /**
-     * Checks if this shape intersect with the circle.
-     *
-     * @param circle the circle to check this shape against
-     * @return if the two shapes intersect
-     */
-    @Override
-    public boolean isIntersect(Circle circle) {
-        return this.segment.isIntersect(circle.getCircularSegment());
-    }
-
-    /**
-     * Checks if this shape intersect with the rectangle.
-     * Also works for square.
-     *
-     * @param rectangle the rectangle/square to check this shape against
-     * @return if the two shapes intersect
-     */
-    @Override
-    public boolean isIntersect(Rectangle rectangle) {
-        for (Segment segment1 : rectangle.getSegments()) {
-            if (this.segment.isIntersect(segment1)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Checks if this shape intersect with the group.
-     * Also works for square.
-     *
-     * @param group the group to check this shape against
-     * @return if the two shapes intersect
-     */
-    @Override
-    public boolean isIntersect(Group group) {
-        for (UserShape userShape : group.getUserShapes()) {
-            if (userShape.isIntersect(this)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Checks if this line "contains" the point.
      * That is, if the point lie < 0.05 of that line.
      * <p>
@@ -165,5 +109,17 @@ public class Line extends UserShape {
         out.add("Type: " + "Line");
 
         return out;
+    }
+
+    /**
+     * Gets the list of intersect segment.
+     *
+     * @return a list
+     */
+    @Override
+    public ArrayList<IntersectSegment> getIntersectSegment() {
+        ArrayList<IntersectSegment> temp = new ArrayList<>();
+        temp.add(this.segment);
+        return temp;
     }
 }

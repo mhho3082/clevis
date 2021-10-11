@@ -13,7 +13,7 @@ import java.math.MathContext;
  *
  * @author Ho Man Hin
  */
-public class Segment {
+public class Segment implements IntersectSegment {
     private final Point point1;
     private final Point point2;
 
@@ -145,22 +145,28 @@ public class Segment {
     }
 
     /**
-     * Checks if a segment intersects this segment.
+     * Checks if the given segment intersects this segment.
      *
-     * @param segment the segment to be checked against
-     * @return whether the two segments intersect
+     * @param intersectSegment the segment to check against
+     * @return whether the two intersect
      */
-    public boolean isIntersect(Segment segment) {
-        if (
-            // If one of the end point lies on the other line
-                this.isOnSegment(segment.getPoint1()) || this.isOnSegment(segment.getPoint2())
-                        || segment.isOnSegment(this.point1) || segment.isOnSegment(this.point2)
-        ) {
-            return true;
+    @Override
+    public boolean isIntersect(IntersectSegment intersectSegment) {
+        if (intersectSegment instanceof Segment) {
+            Segment segment1 = (Segment) intersectSegment;
+            if (
+                // If one of the end point lies on the other line
+                    this.isOnSegment(segment1.getPoint1()) || this.isOnSegment(segment1.getPoint2())
+                            || segment1.isOnSegment(this.point1) || segment1.isOnSegment(this.point2)
+            ) {
+                return true;
+            } else {
+                // General case; measure by varying spinning directions
+                return this.spinDirection(segment1.getPoint1()) != this.spinDirection(segment1.getPoint2())
+                        && segment1.spinDirection(this.point1) != segment1.spinDirection(this.point2);
+            }
         } else {
-            // General case; measure by varying spinning directions
-            return this.spinDirection(segment.getPoint1()) != this.spinDirection(segment.getPoint2())
-                    && segment.spinDirection(this.point1) != segment.spinDirection(this.point2);
+            return intersectSegment.isIntersect(this);
         }
     }
 
@@ -180,15 +186,5 @@ public class Segment {
                 (this.point2.getY().subtract(this.point1.getY()))
                         .multiply(point.getX().subtract(this.point1.getX()))
         ) > 0;
-    }
-
-    /**
-     * Checks if a circular segment intersects this segment.
-     *
-     * @param circularSegment the segment to be checked against
-     * @return whether the two segments intersect
-     */
-    public boolean isIntersect(CircularSegment circularSegment) {
-        return circularSegment.isIntersect(this);
     }
 }

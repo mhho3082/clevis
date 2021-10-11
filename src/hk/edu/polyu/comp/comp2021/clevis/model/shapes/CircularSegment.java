@@ -14,7 +14,7 @@ import java.math.RoundingMode;
  *
  * @author Ho Man Hin
  */
-public class CircularSegment {
+public class CircularSegment implements IntersectSegment {
     private final Point center;
     private final BigDecimal radius;
 
@@ -94,71 +94,68 @@ public class CircularSegment {
     }
 
     /**
-     * Checks if a circular segment intersects this segment.
+     * Checks if the given segment intersects this segment.
      *
-     * @param circularSegment the segment to be checked against
-     * @return whether the two segments intersect
+     * @param intersectSegment the segment to check against
+     * @return whether the two intersect
      */
-    public boolean isIntersect(CircularSegment circularSegment) {
-        MathContext m = new MathContext(Config.ROUND_BIG_DECIMAL);
-        BigDecimal cDiff = this.center.getLength(circularSegment.getCenter());
-        BigDecimal rDiff = this.radius.add(circularSegment.getRadius());
+    @Override
+    public boolean isIntersect(IntersectSegment intersectSegment) {
+        if (intersectSegment instanceof CircularSegment) {
+            CircularSegment tempSegment = (CircularSegment) intersectSegment;
+            MathContext m = new MathContext(Config.ROUND_BIG_DECIMAL);
+            BigDecimal cDiff = this.center.getLength(tempSegment.getCenter());
+            BigDecimal rDiff = this.radius.add(tempSegment.getRadius());
 
-        // Inside without touching
-        if (cDiff.add(this.radius).compareTo(circularSegment.getRadius()) < 0) {
-            return false;
-        } else if (cDiff.add(circularSegment.getRadius()).compareTo(this.radius) < 0) {
-            return false;
-        }
-
-        return cDiff.round(m).compareTo(rDiff.round(m)) <= 0;
-    }
-
-    /**
-     * Checks if a segment intersects this segment.
-     *
-     * @param segment the segment to be checked against
-     * @return whether the two segments intersect
-     */
-    public boolean isIntersect(Segment segment) {
-        BigDecimal perpendicularDistance = segment.perpendicularDistance(this.center);
-        BigDecimal lengthToPoint1 = this.center.getLength(segment.getPoint1());
-        BigDecimal lengthToPoint2 = this.center.getLength(segment.getPoint2());
-        MathContext m = new MathContext(Config.ROUND_BIG_DECIMAL);
-
-        // If center
-        if (segment.isOnSegment(this.center)) {
-            return true;
-        }
-
-        // Too far away
-        if (perpendicularDistance.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.radius.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) > 0) {
-            return false;
-        }
-
-        // Check the triangle formed is obtuse if both ends of segment outside
-        if (lengthToPoint1.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.radius.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) > 0
-                && lengthToPoint2.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.radius.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) > 0
-        ) {
-            if (
-                    (lengthToPoint1.pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)
-                            .add(segment.getLength().pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)))
-                            .compareTo(lengthToPoint2.pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) < 0
-                    && (lengthToPoint1.pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)
-                            .add(segment.getLength().pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)))
-                            .compareTo(lengthToPoint2.pow(2).divide(new BigDecimal("2"), m).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) > 0
-            ) {
+            // Inside without touching
+            if (cDiff.add(this.radius).compareTo(tempSegment.getRadius()) < 0) {
                 return false;
-            } else return (lengthToPoint2.pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)
-                    .add(segment.getLength().pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)))
-                    .compareTo(lengthToPoint1.pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) >= 0
-                    || (lengthToPoint2.pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)
-                    .add(segment.getLength().pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)))
-                    .compareTo(lengthToPoint1.pow(2).divide(new BigDecimal("2"), m).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) <= 0;
+            } else if (cDiff.add(tempSegment.getRadius()).compareTo(this.radius) < 0) {
+                return false;
+            }
+
+            return cDiff.round(m).compareTo(rDiff.round(m)) <= 0;
+        } else {
+            Segment segment = (Segment) intersectSegment;
+            BigDecimal perpendicularDistance = segment.perpendicularDistance(this.center);
+            BigDecimal lengthToPoint1 = this.center.getLength(segment.getPoint1());
+            BigDecimal lengthToPoint2 = this.center.getLength(segment.getPoint2());
+            MathContext m = new MathContext(Config.ROUND_BIG_DECIMAL);
+
+            // If center
+            if (segment.isOnSegment(this.center)) {
+                return true;
+            }
+
+            // Too far away
+            if (perpendicularDistance.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.radius.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) > 0) {
+                return false;
+            }
+
+            // Check the triangle formed is obtuse if both ends of segment outside
+            if (lengthToPoint1.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.radius.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) > 0
+                    && lengthToPoint2.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.radius.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) > 0
+            ) {
+                if (
+                        (lengthToPoint1.pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)
+                                .add(segment.getLength().pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)))
+                                .compareTo(lengthToPoint2.pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) < 0
+                                && (lengthToPoint1.pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)
+                                .add(segment.getLength().pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)))
+                                .compareTo(lengthToPoint2.pow(2).divide(new BigDecimal("2"), m).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) > 0
+                ) {
+                    return false;
+                } else return (lengthToPoint2.pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)
+                        .add(segment.getLength().pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)))
+                        .compareTo(lengthToPoint1.pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) >= 0
+                        || (lengthToPoint2.pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)
+                        .add(segment.getLength().pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)))
+                        .compareTo(lengthToPoint1.pow(2).divide(new BigDecimal("2"), m).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) <= 0;
+            }
+
+
+            return lengthToPoint1.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.radius.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) >= 0
+                    || lengthToPoint2.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.radius.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) >= 0;
         }
-
-
-        return lengthToPoint1.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.radius.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) >= 0
-                || lengthToPoint2.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.radius.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) >= 0;
     }
 }
