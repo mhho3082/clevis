@@ -40,17 +40,13 @@ public class CommandBoundingBox extends Command {
     @Override
     public ArrayList<String> exec() throws ShapeInsideGroupException, ShapeNotFoundException {
         BigDecimal[] tempOut = model.boundingBox(parsedInput[1]);
-        StringBuilder result = new StringBuilder();
-
-        for (int i = 0; i < 4; i++) {
-            result.append(Math.round(tempOut[i].doubleValue() * Config.ROUND_DOUBLE) / Config.ROUND_DOUBLE);
-            if (i != 3) {
-                result.append(" ");
-            }
-        }
-
         ArrayList<String> temp = new ArrayList<>();
-        temp.add(result.toString());
+
+        temp.add(" xLeft: " + Config.roundForOutput(tempOut[0]));
+        temp.add("  yTop: " + Config.roundForOutput(tempOut[1]));
+        temp.add(" width: " + Config.roundForOutput(tempOut[2]));
+        temp.add("height: " + Config.roundForOutput(tempOut[3]));
+
         return temp;
     }
 

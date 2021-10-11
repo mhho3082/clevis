@@ -39,7 +39,7 @@ public abstract class Command {
     public Command(Clevis model, String command) throws WrongArgumentLengthException, NotANumberException {
         this.model = model;
         this.input = command;
-        this.parsedInput = this.input.split(" ");
+        this.parsedInput = this.input.split(" ", 0);
         check();
     }
 

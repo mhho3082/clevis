@@ -1,5 +1,8 @@
 package hk.edu.polyu.comp.comp2021.clevis;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * The settings for the code to function.
  * May be different for each user's preference.
@@ -10,9 +13,9 @@ package hk.edu.polyu.comp.comp2021.clevis;
  */
 public class Config {
     /**
-     * Number for double rounding for output
+     * Number of decimal place for rounding for output
      */
-    public static final double ROUND_DOUBLE = 100.0;
+    public static final int ROUND_OUTPUT = 2;
 
     /**
      * Number for BigDecimal rounding
@@ -87,4 +90,13 @@ public class Config {
      * Colour for CLI input
      */
     public static final String CLI_COLOUR_INPUT = "\u001B[0m"; // Reset
+
+    /**
+     * Rounds data to two decimal places for output.
+     * @param input the data to be rounded
+     * @return the output data
+     */
+    public static String roundForOutput(BigDecimal input) {
+        return input.setScale(ROUND_OUTPUT, RoundingMode.HALF_UP).toString();
+    }
 }

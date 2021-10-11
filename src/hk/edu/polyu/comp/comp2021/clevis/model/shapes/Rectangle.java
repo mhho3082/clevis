@@ -99,10 +99,10 @@ public class Rectangle extends UserShape {
 
         out.add("  Name: " + this.name);
         out.add("  Type: " + "Rectangle");
-        out.add(" xLeft: " + ((double) Math.round(this.segments[0].getPoint1().getX().doubleValue() * Config.ROUND_DOUBLE) / Config.ROUND_DOUBLE));
-        out.add("  yTop: " + ((double) Math.round(this.segments[0].getPoint1().getY().doubleValue() * Config.ROUND_DOUBLE) / Config.ROUND_DOUBLE));
-        out.add(" width: " + ((double) Math.round(this.segments[0].getLength().doubleValue() * Config.ROUND_DOUBLE) / Config.ROUND_DOUBLE));
-        out.add("height: " + ((double) Math.round(this.segments[1].getLength().doubleValue() * Config.ROUND_DOUBLE) / Config.ROUND_DOUBLE));
+        out.add(" xLeft: " + Config.roundForOutput(this.segments[0].getPoint1().getX()));
+        out.add("  yTop: " + Config.roundForOutput(this.segments[0].getPoint1().getY()));
+        out.add(" width: " + Config.roundForOutput(this.segments[0].getLength()));
+        out.add("height: " + Config.roundForOutput(this.segments[1].getLength()));
 
         return out;
     }
