@@ -364,9 +364,9 @@ public class CircleTest {
 
         out.add("   Name: " + "test1");
         out.add("   Type: Circle");
-        out.add("xCenter: " + "-3.0");
-        out.add("yCenter: " + "5.0");
-        out.add(" radius: " + "5.0");
+        out.add("xCenter: " + "-3.00");
+        out.add("yCenter: " + "5.00");
+        out.add(" radius: " + "5.00");
 
         assertEquals(out, c1.list());
     }
@@ -377,9 +377,9 @@ public class CircleTest {
 
         out.add("   Name: " + "test2");
         out.add("   Type: Circle");
-        out.add("xCenter: " + "2.7");
-        out.add("yCenter: " + "-5.7");
-        out.add(" radius: " + "8.7");
+        out.add("xCenter: " + "2.70");
+        out.add("yCenter: " + "-5.70");
+        out.add(" radius: " + "8.70");
 
         assertEquals(out, c2.list());
     }
