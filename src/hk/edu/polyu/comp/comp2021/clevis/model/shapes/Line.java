@@ -87,10 +87,10 @@ public class Line extends UserShape {
 
         out.add("Name: " + this.name);
         out.add("Type: " + "Line");
-        out.add("  x1: " + ((double) Math.round(this.segment.getPoint1().getX().doubleValue() * Config.ROUND_DOUBLE) / Config.ROUND_DOUBLE));
-        out.add("  y1: " + ((double) Math.round(this.segment.getPoint1().getY().doubleValue() * Config.ROUND_DOUBLE) / Config.ROUND_DOUBLE));
-        out.add("  x2: " + ((double) Math.round(this.segment.getPoint2().getX().doubleValue() * Config.ROUND_DOUBLE) / Config.ROUND_DOUBLE));
-        out.add("  y2: " + ((double) Math.round(this.segment.getPoint2().getY().doubleValue() * Config.ROUND_DOUBLE) / Config.ROUND_DOUBLE));
+        out.add("  x1: " + Config.roundForOutput(this.segment.getPoint1().getX()));
+        out.add("  y1: " + Config.roundForOutput(this.segment.getPoint1().getY()));
+        out.add("  x2: " + Config.roundForOutput(this.segment.getPoint2().getX()));
+        out.add("  y2: " + Config.roundForOutput(this.segment.getPoint2().getY()));
 
         return out;
     }

@@ -96,11 +96,11 @@ public class CommandHandler {
     public void exec(String command) {
         Command object;
 
-        inString = command;
+        inString = command.replaceAll("^\\s+", "").replaceAll("\\s+", " ");
 
         try {
             // Store in txt
-            txtOut.write(command);
+            txtOut.write(inString);
             txtOut.newLine();
 
             // Store in html
@@ -108,7 +108,7 @@ public class CommandHandler {
             htmlOut.newLine();
             htmlOut.write("        <td bgcolor=#ACBBFE>" + commandCount++ + "</td>");
             htmlOut.newLine();
-            htmlOut.write("        <td bgcolor=#cfd5ea><tt>" + command + "</tt></td>");
+            htmlOut.write("        <td bgcolor=#cfd5ea><tt>" + inString + "</tt></td>");
             htmlOut.newLine();
             htmlOut.write("      </tr>");
             htmlOut.newLine();
@@ -122,52 +122,52 @@ public class CommandHandler {
 
         // Create command object / handle special cases
         try {
-            switch (command.split(" ")[0]) {
+            switch (inString.split(" ", 0)[0]) {
                 // Shapes
                 case "line":
-                    object = new CommandLine(model, command);
+                    object = new CommandLine(model, inString);
                     break;
                 case "circle":
-                    object = new CommandCircle(model, command);
+                    object = new CommandCircle(model, inString);
                     break;
                 case "rectangle":
-                    object = new CommandRectangle(model, command);
+                    object = new CommandRectangle(model, inString);
                     break;
                 case "square":
-                    object = new CommandSquare(model, command);
+                    object = new CommandSquare(model, inString);
                     break;
 
                 // Groups
                 case "group":
-                    object = new CommandGroup(model, command);
+                    object = new CommandGroup(model, inString);
                     break;
                 case "ungroup":
-                    object = new CommandUngroup(model, command);
+                    object = new CommandUngroup(model, inString);
                     break;
 
                 // Info
                 case "boundingbox":
-                    object = new CommandBoundingBox(model, command);
+                    object = new CommandBoundingBox(model, inString);
                     break;
                 case "intersect":
-                    object = new CommandIntersect(model, command);
+                    object = new CommandIntersect(model, inString);
                     break;
                 case "list":
-                    object = new CommandList(model, command);
+                    object = new CommandList(model, inString);
                     break;
                 case "listAll":
-                    object = new CommandListAll(model, command);
+                    object = new CommandListAll(model, inString);
                     break;
 
                 // Change
                 case "move":
-                    object = new CommandMove(model, command);
+                    object = new CommandMove(model, inString);
                     break;
                 case "pick-and-move":
-                    object = new CommandPickAndMove(model, command);
+                    object = new CommandPickAndMove(model, inString);
                     break;
                 case "delete":
-                    object = new CommandDelete(model, command);
+                    object = new CommandDelete(model, inString);
                     break;
 
                 // Special cases
@@ -186,7 +186,7 @@ public class CommandHandler {
 
                 // Command not found
                 default:
-                    handleNoCommandFound(command.split(" ")[0]);
+                    handleNoCommandFound(inString.split(" ", 0)[0]);
                     return;
             }
         } catch (WrongArgumentLengthException e) {
@@ -439,7 +439,7 @@ public class CommandHandler {
         outString.add("     You inputted: " + inString);
         outString.add("");
         outString.add("Expected argument count: " + (e.getTemplate().split(" ").length - 1));
-        outString.add("  Actual argument count: " + (inString.split(" ").length - 1));
+        outString.add("  Actual argument count: " + (inString.split(" ", 0).length - 1));
 
         warning = true;
     }
