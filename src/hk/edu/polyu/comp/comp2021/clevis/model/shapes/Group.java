@@ -72,84 +72,6 @@ public class Group extends UserShape {
     }
 
     /**
-     * Checks if this shape intersect with the line.
-     *
-     * @param line the line to check this shape against
-     * @return if the two shapes intersect
-     */
-    @Override
-    public boolean isIntersect(Line line) {
-        for (UserShape userShape : this.userShapes) {
-            if (userShape.isIntersect(line)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Checks if this shape intersect with the circle.
-     *
-     * @param circle the circle to check this shape against
-     * @return if the two shapes intersect
-     */
-    @Override
-    public boolean isIntersect(Circle circle) {
-        for (UserShape userShape : this.userShapes) {
-            if (userShape.isIntersect(circle)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Checks if this shape intersect with the rectangle.
-     * Also works for square.
-     *
-     * @param rectangle the rectangle/square to check this shape against
-     * @return if the two shapes intersect
-     */
-    @Override
-    public boolean isIntersect(Rectangle rectangle) {
-        for (UserShape userShape : this.userShapes) {
-            if (userShape.isIntersect(rectangle)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Checks if this shape intersect with the group.
-     * Also works for square.
-     *
-     * @param group the group to check this shape against
-     * @return if the two shapes intersect
-     */
-    @Override
-    public boolean isIntersect(Group group) {
-        for (UserShape userShape1 : this.userShapes) {
-            for (UserShape userShape2 : group.getUserShapes()) {
-                if (userShape2 instanceof Line) {
-                    if (userShape1.isIntersect((Line) userShape2)) {
-                        return true;
-                    }
-                } else if (userShape2 instanceof Circle) {
-                    if (userShape1.isIntersect((Circle) userShape2)) {
-                        return true;
-                    }
-                } else if (userShape2 instanceof Rectangle) {
-                    if (userShape1.isIntersect((Rectangle) userShape2)) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
      * Checks if the group "contains" the point.
      * That is, for some line involved in a shape of the group,
      * if the point lie < 0.05 of that line.
@@ -276,5 +198,18 @@ public class Group extends UserShape {
     private void sortZOrder() {
         Collections.sort(this.userShapes);
         Collections.reverse(this.userShapes);
+    }
+
+    /**
+     * Gets the list of intersect segment.
+     * @return a list
+     */
+    @Override
+    public ArrayList<IntersectSegment> getIntersectSegment() {
+        ArrayList<IntersectSegment> temp = new ArrayList<>();
+        for (UserShape userShape : userShapes) {
+            temp.addAll(userShape.getIntersectSegment());
+        }
+        return temp;
     }
 }
