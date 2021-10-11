@@ -356,10 +356,10 @@ public class LineTest {
         ArrayList<String> out = new ArrayList<>();
         out.add("Name: " + "test1");
         out.add("Type: Line");
-        out.add("  x1: " + "2.0");
-        out.add("  y1: " + "3.0");
-        out.add("  x2: " + "8.0");
-        out.add("  y2: " + "6.0");
+        out.add("  x1: " + "2.00");
+        out.add("  y1: " + "3.00");
+        out.add("  x2: " + "8.00");
+        out.add("  y2: " + "6.00");
         assertEquals(out, L1.list());
     }
 
@@ -368,10 +368,10 @@ public class LineTest {
         ArrayList<String> out = new ArrayList<>();
         out.add("Name: " + "test2");
         out.add("Type: Line");
-        out.add("  x1: " + "2.7");
-        out.add("  y1: " + "5.7");
-        out.add("  x2: " + "10.6");
-        out.add("  y2: " + "5.7");
+        out.add("  x1: " + "2.70");
+        out.add("  y1: " + "5.70");
+        out.add("  x2: " + "10.60");
+        out.add("  y2: " + "5.70");
         assertEquals(out, L2.list());
     }
 
