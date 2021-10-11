@@ -2,7 +2,6 @@ package hk.edu.polyu.comp.comp2021.clevis.model.shapes;
 
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.EmptyGroupException;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.SizeIsZeroException;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,8 +15,8 @@ public class CircleTest {
 
     @Before
     public void init() throws SizeIsZeroException {
-        c1 = new Circle ("test1", new BigDecimal("-3"), new BigDecimal("5"), new BigDecimal("5"));
-        c2 = new Circle ("test2", new BigDecimal("2.7"), new BigDecimal("-5.7"), new BigDecimal("8.7"));
+        c1 = new Circle("test1", new BigDecimal("-3"), new BigDecimal("5"), new BigDecimal("5"));
+        c2 = new Circle("test2", new BigDecimal("2.7"), new BigDecimal("-5.7"), new BigDecimal("8.7"));
     }
 
     @Test
@@ -49,13 +48,13 @@ public class CircleTest {
     @Test(expected = SizeIsZeroException.class)
     public void testSizeIsZeroException1() throws SizeIsZeroException {
         // The size of the segment is 0 (two are same)
-        new Circle ("test3", new BigDecimal("2"), new BigDecimal("3"), new BigDecimal("0"));
+        new Circle("test3", new BigDecimal("2"), new BigDecimal("3"), new BigDecimal("0"));
     }
 
     @Test(expected = SizeIsZeroException.class)
     public void testSizeIsZeroException2() throws SizeIsZeroException {
         // The size of the segment is 0 (two are same)
-        new Circle ("test3", new BigDecimal("2"), new BigDecimal("3"), new BigDecimal("-10"));
+        new Circle("test3", new BigDecimal("2"), new BigDecimal("3"), new BigDecimal("-10"));
     }
 
     @Test

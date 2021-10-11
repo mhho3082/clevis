@@ -202,6 +202,7 @@ public class Group extends UserShape {
 
     /**
      * Gets the list of intersect segment.
+     *
      * @return a list
      */
     @Override

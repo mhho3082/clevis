@@ -2,7 +2,6 @@ package hk.edu.polyu.comp.comp2021.clevis.model.shapes;
 
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.EmptyGroupException;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.SizeIsZeroException;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,7 +25,7 @@ public class LineTest {
     }
 
     @Test
-    public void testCreate1(){
+    public void testCreate1() {
         assertEquals(0, new BigDecimal("2").compareTo(L1.getSegment().getPoint1().getX()));
         assertEquals(0, new BigDecimal("3").compareTo(L1.getSegment().getPoint1().getY()));
         assertEquals(0, new BigDecimal("8").compareTo(L1.getSegment().getPoint2().getX()));
@@ -35,7 +34,7 @@ public class LineTest {
     }
 
     @Test
-    public void testCreate2(){
+    public void testCreate2() {
         assertEquals(0, new BigDecimal("2.7").compareTo(L2.getSegment().getPoint1().getX()));
         assertEquals(0, new BigDecimal("5.7").compareTo(L2.getSegment().getPoint1().getY()));
         assertEquals(0, new BigDecimal("10.6").compareTo(L2.getSegment().getPoint2().getX()));

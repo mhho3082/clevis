@@ -1,7 +1,6 @@
 package hk.edu.polyu.comp.comp2021.clevis.model.shapes;
 
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.SizeIsZeroException;
-
 import org.junit.Before;
 import org.junit.Test;
 
