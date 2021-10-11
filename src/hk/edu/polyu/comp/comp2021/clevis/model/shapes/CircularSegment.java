@@ -122,28 +122,43 @@ public class CircularSegment {
      */
     public boolean isIntersect(Segment segment) {
         BigDecimal perpendicularDistance = segment.perpendicularDistance(this.center);
+        BigDecimal lengthToPoint1 = this.center.getLength(segment.getPoint1());
+        BigDecimal lengthToPoint2 = this.center.getLength(segment.getPoint2());
+        MathContext m = new MathContext(Config.ROUND_BIG_DECIMAL);
+
+        // If center
+        if (segment.isOnSegment(this.center)) {
+            return true;
+        }
 
         // Too far away
         if (perpendicularDistance.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.radius.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) > 0) {
             return false;
         }
 
-        // Check the segment outside boundingBox or not
-        if (perpendicularDistance.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.getRadius().setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) != 0) { // Not a tangent line
-            BigDecimal[] box = this.boundingBox();
-            if (segment.getPoint1().getX().compareTo(box[0]) <= 0 && segment.getPoint2().getX().compareTo(box[0]) <= 0) {
+        // Check the triangle formed is obtuse if both ends of segment outside
+        if (lengthToPoint1.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.radius.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) > 0
+                && lengthToPoint2.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.radius.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) > 0
+        ) {
+            if (
+                    (lengthToPoint1.pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)
+                            .add(segment.getLength().pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)))
+                            .compareTo(lengthToPoint2.pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) < 0
+                    && (lengthToPoint1.pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)
+                            .add(segment.getLength().pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)))
+                            .compareTo(lengthToPoint2.pow(2).divide(new BigDecimal("2"), m).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) > 0
+            ) {
                 return false;
-            } else if (segment.getPoint1().getY().compareTo(box[1]) <= 0 && segment.getPoint2().getY().compareTo(box[1]) <= 0) {
-                return false;
-            } else if (segment.getPoint1().getX().compareTo(box[0].add(box[2])) >= 0 && (segment.getPoint2().getX().compareTo(box[0].add(box[2])) >= 0)) {
-                return false;
-            } else if (segment.getPoint1().getY().compareTo(box[1].add(box[3])) >= 0 && (segment.getPoint2().getY().compareTo(box[1].add(box[3])) >= 0)) {
-                return false;
-            }
+            } else return (lengthToPoint2.pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)
+                    .add(segment.getLength().pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)))
+                    .compareTo(lengthToPoint1.pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) >= 0
+                    || (lengthToPoint2.pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)
+                    .add(segment.getLength().pow(2).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)))
+                    .compareTo(lengthToPoint1.pow(2).divide(new BigDecimal("2"), m).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) <= 0;
         }
 
 
-        return this.center.getLength(segment.getPoint1()).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.radius.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) >= 0
-                || this.center.getLength(segment.getPoint2()).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.radius.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) >= 0;
+        return lengthToPoint1.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.radius.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) >= 0
+                || lengthToPoint2.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.radius.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) >= 0;
     }
 }
