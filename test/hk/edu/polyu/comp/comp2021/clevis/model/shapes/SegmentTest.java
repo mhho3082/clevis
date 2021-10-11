@@ -1,7 +1,6 @@
 package hk.edu.polyu.comp.comp2021.clevis.model.shapes;
 
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.SizeIsZeroException;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -223,7 +222,7 @@ public class SegmentTest {
 
     @Test
     public void testIsIntersect6() throws SizeIsZeroException {
-        Segment test1 = new Segment(new Point("2.7","2.2444043940538"), new Point("2.7", "6.6505436797202"));
+        Segment test1 = new Segment(new Point("2.7", "2.2444043940538"), new Point("2.7", "6.6505436797202"));
         assertTrue(s2.isIntersect(test1));
     }
 
@@ -241,25 +240,25 @@ public class SegmentTest {
 
     @Test
     public void testIsIntersect9() throws SizeIsZeroException {
-        Segment test1 = new Segment(new Point("2.7","5.7213123123"), new Point("2.7", "6.6505436797202"));
+        Segment test1 = new Segment(new Point("2.7", "5.7213123123"), new Point("2.7", "6.6505436797202"));
         assertFalse(s2.isIntersect(test1));
     }
 
     @Test
     public void testIsIntersect10() throws SizeIsZeroException {
-        CircularSegment test1 = new CircularSegment(new Point("4","6"), new BigDecimal("1.8"));
+        CircularSegment test1 = new CircularSegment(new Point("4", "6"), new BigDecimal("1.8"));
         assertTrue(s1.isIntersect(test1));
     }
 
     @Test
     public void testIsIntersect11() throws SizeIsZeroException {
-        CircularSegment test1 = new CircularSegment(new Point("4","6"), new BigDecimal("2.7"));
+        CircularSegment test1 = new CircularSegment(new Point("4", "6"), new BigDecimal("2.7"));
         assertTrue(s1.isIntersect(test1));
     }
 
     @Test
     public void testIsIntersect12() throws SizeIsZeroException {
-        CircularSegment test1 = new CircularSegment(new Point("4","6"), new BigDecimal("0.3123"));
+        CircularSegment test1 = new CircularSegment(new Point("4", "6"), new BigDecimal("0.3123"));
         assertFalse(s1.isIntersect(test1));
     }
 

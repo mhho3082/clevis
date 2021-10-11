@@ -93,6 +93,7 @@ public class Config {
 
     /**
      * Rounds data to two decimal places for output.
+     *
      * @param input the data to be rounded
      * @return the output data
      */

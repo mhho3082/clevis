@@ -111,6 +111,7 @@ public class Circle extends UserShape {
 
     /**
      * Gets the list of intersect segment.
+     *
      * @return a list
      */
     @Override

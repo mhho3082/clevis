@@ -125,6 +125,7 @@ public class Rectangle extends UserShape {
 
     /**
      * Gets the list of intersect segment.
+     *
      * @return a list
      */
     @Override
