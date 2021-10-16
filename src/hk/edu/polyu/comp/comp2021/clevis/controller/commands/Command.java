@@ -52,9 +52,10 @@ public abstract class Command {
      * @throws DuplicateShapeNameException warns of duplicate shape name
      * @throws SizeIsZeroException         warns of zero area shapes
      * @throws EmptyGroupException         warns of empty group
+     * @throws NegativeSizeException       warns of negative-size shape
      */
     public abstract ArrayList<String> exec()
-            throws ShapeInsideGroupException, ShapeNotFoundException, DuplicateShapeNameException, SizeIsZeroException, EmptyGroupException;
+            throws ShapeInsideGroupException, ShapeNotFoundException, DuplicateShapeNameException, SizeIsZeroException, EmptyGroupException, NegativeSizeException;
 
     /**
      * Undo the command (if undoable).

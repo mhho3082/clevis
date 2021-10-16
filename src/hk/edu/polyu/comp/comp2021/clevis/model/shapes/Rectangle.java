@@ -1,6 +1,7 @@
 package hk.edu.polyu.comp.comp2021.clevis.model.shapes;
 
 import hk.edu.polyu.comp.comp2021.clevis.Config;
+import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.NegativeSizeException;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.SizeIsZeroException;
 
 import java.math.BigDecimal;
@@ -29,10 +30,16 @@ public class Rectangle extends UserShape {
      * @param width  the width (horizontal)
      * @param height the height (vertical)
      * @throws SizeIsZeroException warns of zero area
+     * @throws NegativeSizeException       warns of negative-size shape
      */
     public Rectangle(String name, BigDecimal xLeft, BigDecimal yTop, BigDecimal width, BigDecimal height)
-            throws SizeIsZeroException {
+            throws SizeIsZeroException, NegativeSizeException {
+
         super(name);
+
+        if (width.compareTo(BigDecimal.ZERO) < 0 || height.compareTo(BigDecimal.ZERO) < 0){
+            throw new NegativeSizeException();
+        }
 
         segments[0] = new Segment(new Point(xLeft, yTop), new Point(xLeft.add(width), yTop)); // Top
         segments[1] = new Segment(new Point(xLeft.add(width), yTop), new Point(xLeft.add(width), yTop.add(height))); // Right

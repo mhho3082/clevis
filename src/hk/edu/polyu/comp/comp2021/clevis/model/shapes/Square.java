@@ -1,6 +1,7 @@
 package hk.edu.polyu.comp.comp2021.clevis.model.shapes;
 
 import hk.edu.polyu.comp.comp2021.clevis.Config;
+import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.NegativeSizeException;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.SizeIsZeroException;
 
 import java.math.BigDecimal;
@@ -24,7 +25,7 @@ public class Square extends Rectangle {
      * @throws SizeIsZeroException warns of zero area
      */
     public Square(String name, BigDecimal xLeft, BigDecimal yTop, BigDecimal length)
-            throws SizeIsZeroException {
+            throws SizeIsZeroException, NegativeSizeException {
         super(name, xLeft, yTop, length, length);
     }
 

@@ -222,6 +222,9 @@ public class CommandHandler {
         } catch (EmptyGroupException e) {
             handleEmptyGroupException();
             return;
+        } catch (NegativeSizeException e) {
+            handleNegativeSizeException();
+            return;
         }
 
         // Put in stack if undoable
@@ -288,6 +291,8 @@ public class CommandHandler {
             handleSizeIsZeroException();
         } catch (EmptyGroupException e) {
             handleEmptyGroupException();
+        } catch (NegativeSizeException e) {
+            handleNegativeSizeException();
         }
     }
 
@@ -533,6 +538,20 @@ public class CommandHandler {
         outString = new ArrayList<>();
 
         outString.add("No shape contains the specified point!");
+        outString.add("");
+        outString.add("You inputted: " + inString);
+
+        warning = true;
+    }
+
+    /**
+     * Handles size is negative exception.
+     */
+    public void handleNegativeSizeException() {
+        // Warn of size is zero nicely
+        outString = new ArrayList<>();
+
+        outString.add("The shape you are trying to create has negative size!");
         outString.add("");
         outString.add("You inputted: " + inString);
 

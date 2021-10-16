@@ -1,6 +1,7 @@
 package hk.edu.polyu.comp.comp2021.clevis.model.shapes;
 
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.EmptyGroupException;
+import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.NegativeSizeException;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.SizeIsZeroException;
 import org.junit.Before;
 import org.junit.Test;
@@ -185,43 +186,43 @@ public class LineTest {
     }
 
     @Test
-    public void testIsIntersect16() throws SizeIsZeroException {
+    public void testIsIntersect16() throws SizeIsZeroException, NegativeSizeException {
         UserShape test1 = new Rectangle("test3", new BigDecimal("4"), new BigDecimal("2"), new BigDecimal("6"), new BigDecimal("4"));
         assertTrue(L1.isIntersect(test1));
     }
 
     @Test
-    public void testIsIntersect17() throws SizeIsZeroException {
+    public void testIsIntersect17() throws SizeIsZeroException, NegativeSizeException {
         UserShape test1 = new Rectangle("test3", new BigDecimal("8"), new BigDecimal("2"), new BigDecimal("2"), new BigDecimal("4"));
         assertTrue(L1.isIntersect(test1));
     }
 
     @Test
-    public void testIsIntersect18() throws SizeIsZeroException {
+    public void testIsIntersect18() throws SizeIsZeroException, NegativeSizeException {
         UserShape test1 = new Rectangle("test3", new BigDecimal("8"), new BigDecimal("2"), new BigDecimal("2"), new BigDecimal("2"));
         assertFalse(L1.isIntersect(test1));
     }
 
     @Test
-    public void testIsIntersect19() throws SizeIsZeroException {
+    public void testIsIntersect19() throws SizeIsZeroException, NegativeSizeException {
         UserShape test1 = new Rectangle("test3", new BigDecimal("5.95"), new BigDecimal("2.79"), new BigDecimal("4.65"), new BigDecimal("3.94"));
         assertTrue(L2.isIntersect(test1));
     }
 
     @Test
-    public void testIsIntersect20() throws SizeIsZeroException {
+    public void testIsIntersect20() throws SizeIsZeroException, NegativeSizeException {
         UserShape test1 = new Rectangle("test3", new BigDecimal("5.95"), new BigDecimal("2.79"), new BigDecimal("4.65"), new BigDecimal("2.91"));
         assertTrue(L2.isIntersect(test1));
     }
 
     @Test
-    public void testIsIntersect21() throws SizeIsZeroException {
+    public void testIsIntersect21() throws SizeIsZeroException, NegativeSizeException {
         UserShape test1 = new Rectangle("test3", new BigDecimal("5.95"), new BigDecimal("2.79"), new BigDecimal("4.65"), new BigDecimal("2.6"));
         assertFalse(L2.isIntersect(test1));
     }
 
     @Test
-    public void testIsIntersect22() throws SizeIsZeroException, EmptyGroupException {
+    public void testIsIntersect22() throws SizeIsZeroException, EmptyGroupException, NegativeSizeException {
         Rectangle test1 = new Rectangle("test3", new BigDecimal("8"), new BigDecimal("2"), new BigDecimal("2"), new BigDecimal("4"));
         Rectangle test2 = new Rectangle("test4", new BigDecimal("8"), new BigDecimal("2"), new BigDecimal("2"), new BigDecimal("2"));
         Circle test3 = new Circle("test5", new BigDecimal("4"), new BigDecimal("6"), new BigDecimal("2.7"));
@@ -236,7 +237,7 @@ public class LineTest {
     }
 
     @Test
-    public void testIsIntersect23() throws SizeIsZeroException, EmptyGroupException {
+    public void testIsIntersect23() throws SizeIsZeroException, EmptyGroupException, NegativeSizeException {
         Rectangle test1 = new Rectangle("test3", new BigDecimal("8"), new BigDecimal("2"), new BigDecimal("2"), new BigDecimal("2"));
         Circle test2 = new Circle("test4", new BigDecimal("4"), new BigDecimal("6"), new BigDecimal("0.3123"));
         Line test3 = new Line("test5", new BigDecimal("2"), new BigDecimal("-1.312"), new BigDecimal("2"), new BigDecimal("2.5"));
@@ -251,7 +252,7 @@ public class LineTest {
     }
 
     @Test
-    public void testIsIntersect24() throws SizeIsZeroException, EmptyGroupException {
+    public void testIsIntersect24() throws SizeIsZeroException, EmptyGroupException, NegativeSizeException {
         Rectangle test1 = new Rectangle("test3", new BigDecimal("5.95"), new BigDecimal("2.79"), new BigDecimal("4.65"), new BigDecimal("2.6"));
         Circle test2 = new Circle("test4", new BigDecimal("6.59482"), new BigDecimal("8.67821"), new BigDecimal("1.321312"));
         Line test3 = new Line("test5", new BigDecimal("2.7"), new BigDecimal("2.2444043940538"), new BigDecimal("2.7"), new BigDecimal("6.6505436797202"));
@@ -266,7 +267,7 @@ public class LineTest {
     }
 
     @Test
-    public void testIsIntersect25() throws SizeIsZeroException, EmptyGroupException {
+    public void testIsIntersect25() throws SizeIsZeroException, EmptyGroupException, NegativeSizeException {
         Rectangle test1 = new Rectangle("test3", new BigDecimal("5.95"), new BigDecimal("2.79"), new BigDecimal("4.65"), new BigDecimal("2.6"));
         Circle test2 = new Circle("test4", new BigDecimal("6.59482"), new BigDecimal("8.67821"), new BigDecimal("1.321312"));
         Line test3 = new Line("test5", new BigDecimal("4"), new BigDecimal("3"), new BigDecimal("5"), new BigDecimal("5"));
