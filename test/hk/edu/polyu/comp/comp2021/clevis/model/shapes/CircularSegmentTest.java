@@ -249,4 +249,16 @@ public class CircularSegmentTest {
         Segment test1 = new Segment(new Point(new BigDecimal("-11.41772"), new BigDecimal("4.04675")), new Point(new BigDecimal("14.44518"), new BigDecimal("9.42275")));
         assertFalse(cs2.isIntersect(test1));
     }
+
+    @Test
+    public void testIsIntersect15() throws SizeIsZeroException {
+        Segment test1 = new Segment(new Point(new BigDecimal("-9"), new BigDecimal("5")), new Point(new BigDecimal("-1"), new BigDecimal("5")));
+        assertTrue(cs1.isIntersect(test1));
+    }
+
+    @Test
+    public void testIsIntersect16() throws SizeIsZeroException {
+        Segment test1 = new Segment(new Point(new BigDecimal("2.7"), new BigDecimal("-5.7")), new Point(new BigDecimal("2.7"), new BigDecimal("3")));
+        assertTrue(cs2.isIntersect(test1));
+    }
 }

@@ -33,7 +33,7 @@ public class SquareTest {
     }
 
     @Test(expected = NegativeSizeException.class)
-    public void testSizeIsZeroException2() throws SizeIsZeroException, NegativeSizeException {
+    public void testNegativeSizeException1() throws SizeIsZeroException, NegativeSizeException {
         // Length is negative
         new Square("test3", new BigDecimal("1"), new BigDecimal("-7"), new BigDecimal("-13.213"));
     }
