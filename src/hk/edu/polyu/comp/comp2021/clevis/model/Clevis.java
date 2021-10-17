@@ -53,9 +53,10 @@ public class Clevis {
      * @param height the height (vertical)
      * @throws DuplicateShapeNameException warns of duplicate name
      * @throws SizeIsZeroException         warns of zero area
+     * @throws NegativeSizeException       warns of negative-size shape
      */
     public void addRectangle(String name, BigDecimal xLeft, BigDecimal yTop, BigDecimal width, BigDecimal height)
-            throws DuplicateShapeNameException, SizeIsZeroException {
+            throws DuplicateShapeNameException, SizeIsZeroException, NegativeSizeException {
         Rectangle rectangle = new Rectangle(name, xLeft, yTop, width, height);
         this.add(rectangle);
     }
@@ -104,7 +105,7 @@ public class Clevis {
      * @throws DuplicateShapeNameException warns of duplicate name
      */
     public void addSquare(String name, BigDecimal xLeft, BigDecimal yTop, BigDecimal length)
-            throws SizeIsZeroException, DuplicateShapeNameException {
+            throws SizeIsZeroException, DuplicateShapeNameException, NegativeSizeException {
         Square square = new Square(name, xLeft, yTop, length);
         this.add(square);
     }

@@ -1,6 +1,7 @@
 package hk.edu.polyu.comp.comp2021.clevis.model.shapes;
 
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.EmptyGroupException;
+import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.NegativeSizeException;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.SizeIsZeroException;
 
 import org.junit.Before;
@@ -21,7 +22,7 @@ public class RectangleTest {
     ArrayList<String> out;
 
     @Before
-    public void init() throws SizeIsZeroException {
+    public void init() throws SizeIsZeroException, NegativeSizeException {
         r1 = new Rectangle("test1", new BigDecimal("-4"), new BigDecimal("-3"), new BigDecimal("7"), new BigDecimal("4"));
         r2 = new Rectangle("test2", new BigDecimal("2.7"), new BigDecimal("5.7"), new BigDecimal("10.6"), new BigDecimal("5.7"));
     }
@@ -72,21 +73,39 @@ public class RectangleTest {
     }
 
     @Test(expected = SizeIsZeroException.class)
-    public void testSizeIsZeroException1() throws SizeIsZeroException {
+    public void testSizeIsZeroException1() throws SizeIsZeroException, NegativeSizeException {
         // Width is 0
         new Rectangle("test3", new BigDecimal("2.1"), new BigDecimal("3.5"), new BigDecimal("0"), new BigDecimal("3.4"));
     }
 
     @Test(expected = SizeIsZeroException.class)
-    public void testSizeIsZeroException2() throws SizeIsZeroException {
+    public void testSizeIsZeroException2() throws SizeIsZeroException, NegativeSizeException {
         // Height is 0
         new Rectangle("test3", new BigDecimal("2.1"), new BigDecimal("3.5"), new BigDecimal("3.4"), new BigDecimal("0"));
     }
 
     @Test(expected = SizeIsZeroException.class)
-    public void testSizeIsZeroException3() throws SizeIsZeroException {
+    public void testSizeIsZeroException3() throws SizeIsZeroException, NegativeSizeException {
         // Width and Height is 0
         new Rectangle("test3", new BigDecimal("2.1"), new BigDecimal("3.5"), new BigDecimal("0"), new BigDecimal("0"));
+    }
+
+    @Test(expected = NegativeSizeException.class)
+    public void testNegativeSizeException1() throws SizeIsZeroException, NegativeSizeException {
+        // Width is negative
+        new Rectangle("test3", new BigDecimal("2.1"), new BigDecimal("3.5"), new BigDecimal("-13.2"), new BigDecimal("3.4"));
+    }
+
+    @Test(expected = NegativeSizeException.class)
+    public void testNegativeSizeException2() throws SizeIsZeroException, NegativeSizeException {
+        // Height is negative
+        new Rectangle("test3", new BigDecimal("2.1"), new BigDecimal("3.5"), new BigDecimal("3.4"), new BigDecimal("-213"));
+    }
+
+    @Test(expected = NegativeSizeException.class)
+    public void testNegativeSizeException3() throws SizeIsZeroException, NegativeSizeException {
+        // Width and Height is negative
+        new Rectangle("test3", new BigDecimal("2.1"), new BigDecimal("3.5"), new BigDecimal("-0.01"), new BigDecimal("-3.21"));
     }
 
 
@@ -283,25 +302,25 @@ public class RectangleTest {
     }
 
     @Test
-    public void testIsIntersect8() throws SizeIsZeroException {
+    public void testIsIntersect8() throws SizeIsZeroException, NegativeSizeException {
         UserShape test = new Rectangle("test3", new BigDecimal("2"), new BigDecimal("-1"), new BigDecimal("2.2"), new BigDecimal("5"));
         assertTrue(r1.isIntersect(test));
     }
 
     @Test
-    public void testIsIntersect9() throws SizeIsZeroException {
+    public void testIsIntersect9() throws SizeIsZeroException, NegativeSizeException {
         UserShape test = new Rectangle("test3", new BigDecimal("3"), new BigDecimal("-3"), new BigDecimal("2.2"), new BigDecimal("5"));
         assertTrue(r1.isIntersect(test));
     }
 
     @Test
-    public void testIsIntersect10() throws SizeIsZeroException {
+    public void testIsIntersect10() throws SizeIsZeroException, NegativeSizeException {
         UserShape test = new Rectangle("test3", new BigDecimal("-2"), new BigDecimal("-2"), new BigDecimal("2"), new BigDecimal("1"));
         assertFalse(r1.isIntersect(test));
     }
 
     @Test
-    public void testIsIntersect11() throws SizeIsZeroException, EmptyGroupException {
+    public void testIsIntersect11() throws SizeIsZeroException, EmptyGroupException, NegativeSizeException {
         UserShape test1 = new Rectangle("test3", new BigDecimal("-2"), new BigDecimal("-2"), new BigDecimal("2"), new BigDecimal("1"));
         UserShape test2 = new Circle("test4", new BigDecimal("5"), new BigDecimal("-1"), new BigDecimal("2"));
         UserShape test3 = new Line("test5", new BigDecimal("-5"), new BigDecimal("-1"), new BigDecimal("3"), new BigDecimal("1"));
@@ -316,7 +335,7 @@ public class RectangleTest {
     }
 
     @Test
-    public void testIsIntersect12() throws SizeIsZeroException, EmptyGroupException {
+    public void testIsIntersect12() throws SizeIsZeroException, EmptyGroupException, NegativeSizeException {
         UserShape test1 = new Rectangle("test3", new BigDecimal("-2"), new BigDecimal("-2"), new BigDecimal("2"), new BigDecimal("1"));
         UserShape test2 = new Circle("test3", new BigDecimal("-3"), new BigDecimal("4"), new BigDecimal("2.2"));
         UserShape test3 = new Line("test3", new BigDecimal("-4"), new BigDecimal("2"), new BigDecimal("3"), new BigDecimal("2"));
@@ -367,25 +386,25 @@ public class RectangleTest {
     }
 
     @Test
-    public void testIsIntersect19() throws SizeIsZeroException {
+    public void testIsIntersect19() throws SizeIsZeroException, NegativeSizeException {
         UserShape test = new Rectangle("test3", new BigDecimal("7.06969"), new BigDecimal("10.07557"), new BigDecimal("2.212"), new BigDecimal("5.321"));
         assertTrue(r2.isIntersect(test));
     }
 
     @Test
-    public void testIsIntersect20() throws SizeIsZeroException {
+    public void testIsIntersect20() throws SizeIsZeroException, NegativeSizeException {
         UserShape test = new Rectangle("test3", new BigDecimal("13.3"), new BigDecimal("5.7"), new BigDecimal("2.212"), new BigDecimal("5.321"));
         assertTrue(r2.isIntersect(test));
     }
 
     @Test
-    public void testIsIntersect21() throws SizeIsZeroException {
+    public void testIsIntersect21() throws SizeIsZeroException, NegativeSizeException {
         UserShape test = new Rectangle("test3", new BigDecimal("6.3654"), new BigDecimal("6.52596"), new BigDecimal("1.23"), new BigDecimal("0.321"));
         assertFalse(r2.isIntersect(test));
     }
 
     @Test
-    public void testIsIntersect22() throws SizeIsZeroException, EmptyGroupException {
+    public void testIsIntersect22() throws SizeIsZeroException, EmptyGroupException, NegativeSizeException {
         UserShape test1 = new Rectangle("test3", new BigDecimal("13.3"), new BigDecimal("5.7"), new BigDecimal("2.212"), new BigDecimal("5.321"));
         UserShape test2 = new Circle("test4", new BigDecimal("-0.59297"), new BigDecimal("14.75205"), new BigDecimal("3.12"));
         UserShape test3 = new Line("test5", new BigDecimal("13.3"), new BigDecimal("5.7"), new BigDecimal("8.47733"), new BigDecimal("3.16562"));
@@ -400,7 +419,7 @@ public class RectangleTest {
     }
 
     @Test
-    public void testIsIntersect23() throws SizeIsZeroException, EmptyGroupException {
+    public void testIsIntersect23() throws SizeIsZeroException, EmptyGroupException, NegativeSizeException {
         UserShape test1 = new Rectangle("test3", new BigDecimal("6.3654"), new BigDecimal("6.52596"), new BigDecimal("1.23"), new BigDecimal("0.321"));
         UserShape test2 = new Circle("test4", new BigDecimal("-0.59297"), new BigDecimal("14.75205"), new BigDecimal("3.12"));
         UserShape test3 = new Line("test5", new BigDecimal("-1.45954"), new BigDecimal("11.13243"), new BigDecimal("9.68967"), new BigDecimal("12.47467"));

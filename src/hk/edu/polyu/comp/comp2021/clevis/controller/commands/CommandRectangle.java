@@ -3,10 +3,7 @@ package hk.edu.polyu.comp.comp2021.clevis.controller.commands;
 import hk.edu.polyu.comp.comp2021.clevis.controller.exceptions.NotANumberException;
 import hk.edu.polyu.comp.comp2021.clevis.controller.exceptions.WrongArgumentLengthException;
 import hk.edu.polyu.comp.comp2021.clevis.model.Clevis;
-import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.DuplicateShapeNameException;
-import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.ShapeInsideGroupException;
-import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.ShapeNotFoundException;
-import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.SizeIsZeroException;
+import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -37,10 +34,11 @@ public class CommandRectangle extends Command {
      * @return empty output
      * @throws SizeIsZeroException         warns of zero-area shape
      * @throws DuplicateShapeNameException warns of duplicate shape name
+     * @throws NegativeSizeException       warns of negative-size shape
      */
     @Override
     public ArrayList<String> exec()
-            throws SizeIsZeroException, DuplicateShapeNameException {
+            throws SizeIsZeroException, DuplicateShapeNameException, NegativeSizeException {
         model.addRectangle(
                 this.parsedInput[1],
                 new BigDecimal(this.parsedInput[2]),
