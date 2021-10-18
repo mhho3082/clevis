@@ -19,7 +19,7 @@ public class Rectangle extends UserShape {
     /**
      * In the format of [Top, Right, Bottom, Left]
      */
-    protected final Segment[] segments = new Segment[4];
+    protected final StraightSegment[] segments = new StraightSegment[4];
 
     /**
      * A rectangle shape, defined by xLeft, yTop, width, and height.
@@ -29,22 +29,22 @@ public class Rectangle extends UserShape {
      * @param yTop   the top-most y-coordinate
      * @param width  the width (horizontal)
      * @param height the height (vertical)
-     * @throws SizeIsZeroException warns of zero area
-     * @throws NegativeSizeException       warns of negative-size shape
+     * @throws SizeIsZeroException   warns of zero area
+     * @throws NegativeSizeException warns of negative-size shape
      */
     public Rectangle(String name, BigDecimal xLeft, BigDecimal yTop, BigDecimal width, BigDecimal height)
             throws SizeIsZeroException, NegativeSizeException {
 
         super(name);
 
-        if (width.compareTo(BigDecimal.ZERO) < 0 || height.compareTo(BigDecimal.ZERO) < 0){
+        if (width.compareTo(BigDecimal.ZERO) < 0 || height.compareTo(BigDecimal.ZERO) < 0) {
             throw new NegativeSizeException();
         }
 
-        segments[0] = new Segment(new Point(xLeft, yTop), new Point(xLeft.add(width), yTop)); // Top
-        segments[1] = new Segment(new Point(xLeft.add(width), yTop), new Point(xLeft.add(width), yTop.add(height))); // Right
-        segments[2] = new Segment(new Point(xLeft, yTop.add(height)), new Point(xLeft.add(width), yTop.add(height))); // Bottom
-        segments[3] = new Segment(new Point(xLeft, yTop), new Point(xLeft, yTop.add(height))); // Left
+        segments[0] = new StraightSegment(new Point(xLeft, yTop), new Point(xLeft.add(width), yTop)); // Top
+        segments[1] = new StraightSegment(new Point(xLeft.add(width), yTop), new Point(xLeft.add(width), yTop.add(height))); // Right
+        segments[2] = new StraightSegment(new Point(xLeft, yTop.add(height)), new Point(xLeft.add(width), yTop.add(height))); // Bottom
+        segments[3] = new StraightSegment(new Point(xLeft, yTop), new Point(xLeft, yTop.add(height))); // Left
     }
 
     /**
@@ -55,7 +55,7 @@ public class Rectangle extends UserShape {
      */
     @Override
     public void move(BigDecimal dx, BigDecimal dy) {
-        for (Segment segment : this.segments) {
+        for (StraightSegment segment : this.segments) {
             segment.move(dx, dy);
         }
     }
@@ -71,7 +71,7 @@ public class Rectangle extends UserShape {
      */
     @Override
     public boolean isContains(Point point) {
-        for (Segment segment : this.segments) {
+        for (StraightSegment segment : this.segments) {
             if (segment.isContains(point)) {
                 return true;
             }
@@ -136,8 +136,8 @@ public class Rectangle extends UserShape {
      * @return a list
      */
     @Override
-    public ArrayList<IntersectSegment> getIntersectSegment() {
-        ArrayList<IntersectSegment> temp = new ArrayList<>();
+    public ArrayList<SegmentInterface> getIntersectSegment() {
+        ArrayList<SegmentInterface> temp = new ArrayList<>();
         temp.add(this.segments[0]);
         temp.add(this.segments[1]);
         temp.add(this.segments[2]);

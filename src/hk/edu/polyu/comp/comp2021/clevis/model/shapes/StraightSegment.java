@@ -13,7 +13,7 @@ import java.math.MathContext;
  *
  * @author Ho Man Hin
  */
-public class Segment implements IntersectSegment {
+public class StraightSegment implements SegmentInterface {
     private final Point point1;
     private final Point point2;
 
@@ -24,7 +24,7 @@ public class Segment implements IntersectSegment {
      * @param point2 the second point
      * @throws SizeIsZeroException warns of length of segment = 0
      */
-    public Segment(Point point1, Point point2) throws SizeIsZeroException {
+    public StraightSegment(Point point1, Point point2) throws SizeIsZeroException {
         // Check for exception
         if (point1.equals(point2)) {
             throw new SizeIsZeroException();
@@ -151,9 +151,9 @@ public class Segment implements IntersectSegment {
      * @return whether the two intersect
      */
     @Override
-    public boolean isIntersect(IntersectSegment intersectSegment) {
-        if (intersectSegment instanceof Segment) {
-            Segment segment1 = (Segment) intersectSegment;
+    public boolean isIntersect(SegmentInterface intersectSegment) {
+        if (intersectSegment instanceof StraightSegment) {
+            StraightSegment segment1 = (StraightSegment) intersectSegment;
             if (
                 // If one of the end point lies on the other line
                     this.isOnSegment(segment1.getPoint1()) || this.isOnSegment(segment1.getPoint2())

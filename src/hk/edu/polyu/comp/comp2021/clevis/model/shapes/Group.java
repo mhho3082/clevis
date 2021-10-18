@@ -206,8 +206,8 @@ public class Group extends UserShape {
      * @return a list
      */
     @Override
-    public ArrayList<IntersectSegment> getIntersectSegment() {
-        ArrayList<IntersectSegment> temp = new ArrayList<>();
+    public ArrayList<SegmentInterface> getIntersectSegment() {
+        ArrayList<SegmentInterface> temp = new ArrayList<>();
         for (UserShape userShape : userShapes) {
             temp.addAll(userShape.getIntersectSegment());
         }

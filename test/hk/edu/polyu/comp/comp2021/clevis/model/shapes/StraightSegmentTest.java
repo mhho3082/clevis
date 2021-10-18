@@ -13,13 +13,13 @@ import static org.junit.Assert.*;
  *
  * @author Mok Ka Kiu
  */
-public class SegmentTest {
-    Segment s1, s2;
+public class StraightSegmentTest {
+    StraightSegment s1, s2;
 
     @Before
     public void init() throws SizeIsZeroException {
-        s1 = new Segment(new Point("2", "3"), new Point("8", "6"));
-        s2 = new Segment(new Point("2.7", "5.7"), new Point("10.6", "5.7"));
+        s1 = new StraightSegment(new Point("2", "3"), new Point("8", "6"));
+        s2 = new StraightSegment(new Point("2.7", "5.7"), new Point("10.6", "5.7"));
     }
 
     @Test
@@ -41,13 +41,13 @@ public class SegmentTest {
     @Test(expected = SizeIsZeroException.class)
     public void testSizeIsZeroException1() throws SizeIsZeroException {
         // The size of the segment is 0 (two are same)
-        new Segment(new Point("2", "3"), new Point("2", "3"));
+        new StraightSegment(new Point("2", "3"), new Point("2", "3"));
     }
 
     @Test(expected = SizeIsZeroException.class)
     public void testSizeIsZeroException2() throws SizeIsZeroException {
         // The size of the segment is 0 (two are same)
-        new Segment(new Point("2.7", "5.7"), new Point("2.7", "5.7"));
+        new StraightSegment(new Point("2.7", "5.7"), new Point("2.7", "5.7"));
     }
 
     @Test
@@ -192,55 +192,55 @@ public class SegmentTest {
 
     @Test
     public void testIsIntersect1() throws SizeIsZeroException {
-        Segment test1 = new Segment(new Point("2", "7"), new Point("9", "5"));
+        StraightSegment test1 = new StraightSegment(new Point("2", "7"), new Point("9", "5"));
         assertTrue(s1.isIntersect(test1));
     }
 
     @Test
     public void testIsIntersect2() throws SizeIsZeroException {
-        Segment test1 = new Segment(new Point("1", "4"), new Point("3", "2"));
+        StraightSegment test1 = new StraightSegment(new Point("1", "4"), new Point("3", "2"));
         assertTrue(s1.isIntersect(test1));
     }
 
     @Test
     public void testIsIntersect3() throws SizeIsZeroException {
-        Segment test1 = new Segment(new Point("10", "4"), new Point("2", "0"));
+        StraightSegment test1 = new StraightSegment(new Point("10", "4"), new Point("2", "0"));
         assertFalse(s1.isIntersect(test1));
     }
 
     @Test
     public void testIsIntersect4() throws SizeIsZeroException {
-        Segment test1 = new Segment(new Point("5.38", "3.06"), new Point("7.0901", "-3.3542"));
+        StraightSegment test1 = new StraightSegment(new Point("5.38", "3.06"), new Point("7.0901", "-3.3542"));
         assertFalse(s1.isIntersect(test1));
     }
 
     @Test
     public void testIsIntersect5() throws SizeIsZeroException {
-        Segment test1 = new Segment(new Point("2", "-1.312"), new Point("2", "2.5"));
+        StraightSegment test1 = new StraightSegment(new Point("2", "-1.312"), new Point("2", "2.5"));
         assertFalse(s1.isIntersect(test1));
     }
 
     @Test
     public void testIsIntersect6() throws SizeIsZeroException {
-        Segment test1 = new Segment(new Point("2.7", "2.2444043940538"), new Point("2.7", "6.6505436797202"));
+        StraightSegment test1 = new StraightSegment(new Point("2.7", "2.2444043940538"), new Point("2.7", "6.6505436797202"));
         assertTrue(s2.isIntersect(test1));
     }
 
     @Test
     public void testIsIntersect7() throws SizeIsZeroException {
-        Segment test1 = new Segment(new Point("10.6334555381729", "4.213"), new Point("0.6155883675046", "4.213"));
+        StraightSegment test1 = new StraightSegment(new Point("10.6334555381729", "4.213"), new Point("0.6155883675046", "4.213"));
         assertFalse(s2.isIntersect(test1));
     }
 
     @Test
     public void testIsIntersect8() throws SizeIsZeroException {
-        Segment test1 = new Segment(new Point("4", "3"), new Point("5", "5"));
+        StraightSegment test1 = new StraightSegment(new Point("4", "3"), new Point("5", "5"));
         assertFalse(s2.isIntersect(test1));
     }
 
     @Test
     public void testIsIntersect9() throws SizeIsZeroException {
-        Segment test1 = new Segment(new Point("2.7", "5.7213123123"), new Point("2.7", "6.6505436797202"));
+        StraightSegment test1 = new StraightSegment(new Point("2.7", "5.7213123123"), new Point("2.7", "6.6505436797202"));
         assertFalse(s2.isIntersect(test1));
     }
 

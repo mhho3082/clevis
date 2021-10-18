@@ -3,6 +3,7 @@ package hk.edu.polyu.comp.comp2021.clevis;
 import hk.edu.polyu.comp.comp2021.clevis.controller.CommandHandler;
 import hk.edu.polyu.comp.comp2021.clevis.model.Clevis;
 import hk.edu.polyu.comp.comp2021.clevis.view.CLIView;
+import hk.edu.polyu.comp.comp2021.clevis.view.GUIView;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -70,11 +71,11 @@ public class Application {
         CommandHandler handler = new CommandHandler(clevis, html, txt);
         // TODO: Add GUI controller
         if (useGUI) {
-            // TODO: Add GUI view
-            System.out.println(Config.CLI_COLOUR_ERROR + "Sorry, but GUI is not ready yet." + Config.CLI_COLOUR_INPUT);
+            GUIView guiView = new GUIView(handler);
+            guiView.launchFrame();
         } else {
             CLIView cliView = new CLIView(handler);
-            cliView.exec();
+            cliView.launch();
         }
     }
 

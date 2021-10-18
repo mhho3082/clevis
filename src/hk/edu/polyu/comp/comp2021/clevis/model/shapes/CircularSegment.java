@@ -14,7 +14,7 @@ import java.math.RoundingMode;
  *
  * @author Ho Man Hin
  */
-public class CircularSegment implements IntersectSegment {
+public class CircularSegment implements SegmentInterface {
     private final Point center;
     private final BigDecimal radius;
 
@@ -100,7 +100,7 @@ public class CircularSegment implements IntersectSegment {
      * @return whether the two intersect
      */
     @Override
-    public boolean isIntersect(IntersectSegment intersectSegment) {
+    public boolean isIntersect(SegmentInterface intersectSegment) {
         if (intersectSegment instanceof CircularSegment) {
             CircularSegment tempSegment = (CircularSegment) intersectSegment;
             MathContext m = new MathContext(Config.ROUND_BIG_DECIMAL);
@@ -116,7 +116,7 @@ public class CircularSegment implements IntersectSegment {
 
             return cDiff.round(m).compareTo(rDiff.round(m)) <= 0;
         } else {
-            Segment segment = (Segment) intersectSegment;
+            StraightSegment segment = (StraightSegment) intersectSegment;
             BigDecimal perpendicularDistance = segment.perpendicularDistance(this.center);
             BigDecimal lengthToPoint1 = this.center.getLength(segment.getPoint1());
             BigDecimal lengthToPoint2 = this.center.getLength(segment.getPoint2());
