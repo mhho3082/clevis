@@ -70,7 +70,7 @@ public class CircularSegment implements SegmentInterface {
      * @return whether the segment "contains" the point
      */
     public boolean isContains(Point point) {
-        BigDecimal diff = this.center.getLength(point).subtract(radius).abs();
+        BigDecimal diff = this.center.getLength(point).subtract(radius).abs().setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP);
         return diff.compareTo(new BigDecimal("0.05")) < 0;
     }
 

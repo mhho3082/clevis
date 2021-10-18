@@ -5,6 +5,7 @@ import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.SizeIsZeroException;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.math.RoundingMode;
 
 /**
  * A basic straight segment (line).
@@ -95,12 +96,12 @@ public class StraightSegment implements SegmentInterface {
         BigDecimal length1 = this.point1.getLength(point);
         BigDecimal length2 = this.point2.getLength(point);
 
-        if (length1.compareTo(this.getLength()) > 0) {
-            return length2.compareTo(new BigDecimal("0.05")) < 0;
-        } else if (length2.compareTo(this.getLength()) > 0) {
-            return length1.compareTo(new BigDecimal("0.05")) < 0;
+        if (length1.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.getLength().setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) > 0) {
+            return length2.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(new BigDecimal("0.05")) < 0;
+        } else if (length2.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.getLength().setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) > 0) {
+            return length1.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(new BigDecimal("0.05")) < 0;
         } else {
-            return perpendicularDistance(point).compareTo(new BigDecimal("0.05")) < 0;
+            return perpendicularDistance(point).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(new BigDecimal("0.05")) < 0;
         }
     }
 
@@ -182,9 +183,9 @@ public class StraightSegment implements SegmentInterface {
         return (
                 (point.getY().subtract(this.point1.getY()))
                         .multiply(this.point2.getX().subtract(this.point1.getX()))
-        ).compareTo(
+        ).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(
                 (this.point2.getY().subtract(this.point1.getY()))
-                        .multiply(point.getX().subtract(this.point1.getX()))
+                        .multiply(point.getX().subtract(this.point1.getX())).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)
         ) > 0;
     }
 }
