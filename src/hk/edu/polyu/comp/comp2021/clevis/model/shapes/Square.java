@@ -22,7 +22,8 @@ public class Square extends Rectangle {
      * @param xLeft  the left-most x-coordinate
      * @param yTop   the top-most y-coordinate
      * @param length the length
-     * @throws SizeIsZeroException warns of zero area
+     * @throws SizeIsZeroException   warns of zero area
+     * @throws NegativeSizeException warns of negative size
      */
     public Square(String name, BigDecimal xLeft, BigDecimal yTop, BigDecimal length)
             throws SizeIsZeroException, NegativeSizeException {

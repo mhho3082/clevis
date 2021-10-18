@@ -103,6 +103,7 @@ public class Clevis {
      * @param length the length
      * @throws SizeIsZeroException         warns of zero area
      * @throws DuplicateShapeNameException warns of duplicate name
+     * @throws NegativeSizeException       warns of negative size
      */
     public void addSquare(String name, BigDecimal xLeft, BigDecimal yTop, BigDecimal length)
             throws SizeIsZeroException, DuplicateShapeNameException, NegativeSizeException {

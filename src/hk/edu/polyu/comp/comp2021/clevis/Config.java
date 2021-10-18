@@ -1,5 +1,6 @@
 package hk.edu.polyu.comp.comp2021.clevis;
 
+import java.awt.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -90,6 +91,21 @@ public class Config {
      * Colour for CLI input
      */
     public static final String CLI_COLOUR_INPUT = "\u001B[0m"; // Reset
+
+    /**
+     * Dimensions of GUI main frame
+     */
+    public static final Dimension GUI_MAIN_FRAME_DIMENSION = new Dimension(600, 650);
+
+    /**
+     * Dimensions of GUI dialog scroll pane
+     */
+    public static final Dimension GUI_DIALOG_SCROLL_PANE_DIMENSION = new Dimension(500, 200);
+
+    /**
+     * Font of GUI dialog output
+     */
+    public static final Font GUI_DIALOG_FONT = new Font("Courier New", Font.PLAIN, 12);
 
     /**
      * Rounds data to two decimal places for output.

@@ -1,5 +1,6 @@
 package hk.edu.polyu.comp.comp2021.clevis.view;
 
+import hk.edu.polyu.comp.comp2021.clevis.Config;
 import hk.edu.polyu.comp.comp2021.clevis.controller.CommandHandler;
 
 import javax.swing.*;
@@ -33,7 +34,7 @@ public class GUIView {
         this.jScrollPane = new JScrollPane();
 
         this.jMainFrame.setResizable(false);
-        this.jMainFrame.setSize(600, 650);
+        this.jMainFrame.setSize(Config.GUI_MAIN_FRAME_DIMENSION);
         this.jMainFrame.addWindowListener(new WindowControlHandler());
 
         this.jTextField.addActionListener(new CommandCaller());
@@ -63,25 +64,32 @@ public class GUIView {
      * @author Ho Man Hin
      */
     public static class WindowControlHandler implements WindowListener {
+        @Override
         public void windowClosing(WindowEvent e) {
             quit();
         }
 
+        @Override
         public void windowOpened(WindowEvent e) {
         }
 
+        @Override
         public void windowIconified(WindowEvent e) {
         }
 
+        @Override
         public void windowDeiconified(WindowEvent e) {
         }
 
+        @Override
         public void windowClosed(WindowEvent e) {
         }
 
+        @Override
         public void windowActivated(WindowEvent e) {
         }
 
+        @Override
         public void windowDeactivated(WindowEvent e) {
         }
     }
@@ -97,6 +105,7 @@ public class GUIView {
          *
          * @param e a place-holder for the event
          */
+        @Override
         public void actionPerformed(ActionEvent e) {
             commandHandler.exec(jTextField.getText());
             ArrayList<String> tempOutString = commandHandler.getOutString();
@@ -111,7 +120,7 @@ public class GUIView {
                 }
 
                 JTextArea jTextArea = new JTextArea(stringBuilder.toString());
-                jTextArea.setFont(new Font("Courier New", Font.PLAIN, 12));
+                jTextArea.setFont(Config.GUI_DIALOG_FONT);
                 jTextArea.setEditable(false);
                 jTextArea.setOpaque(false);
                 jTextArea.setLineWrap(true);
@@ -119,7 +128,7 @@ public class GUIView {
                 jTextArea.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 
                 JScrollPane jScrollPane = new JScrollPane(jTextArea);
-                jScrollPane.setPreferredSize(new Dimension(500, 200));
+                jScrollPane.setPreferredSize(Config.GUI_DIALOG_SCROLL_PANE_DIMENSION);
                 jScrollPane.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 
                 if (commandHandler.getWarning()) {
