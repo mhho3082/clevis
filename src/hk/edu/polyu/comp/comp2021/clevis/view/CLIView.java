@@ -29,7 +29,7 @@ public class CLIView {
     /**
      * The main loop for CLI view.
      */
-    public void exec() {
+    public void launch() {
         String s;
 
         beginMessage();

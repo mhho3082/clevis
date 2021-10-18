@@ -4,7 +4,6 @@ import hk.edu.polyu.comp.comp2021.clevis.Config;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.EmptyGroupException;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.NegativeSizeException;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.SizeIsZeroException;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -147,7 +146,7 @@ public class GroupTest {
 
     @Test
     public void testMove() {
-        g1.move(new BigDecimal(1.5), new BigDecimal(-1));
+        g1.move(new BigDecimal("1.5"), new BigDecimal("-1"));
 
         ArrayList<String> out = new ArrayList<>();
 

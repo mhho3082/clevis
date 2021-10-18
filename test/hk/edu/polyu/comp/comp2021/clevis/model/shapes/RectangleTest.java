@@ -3,7 +3,6 @@ package hk.edu.polyu.comp.comp2021.clevis.model.shapes;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.EmptyGroupException;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.NegativeSizeException;
 import hk.edu.polyu.comp.comp2021.clevis.model.exceptions.SizeIsZeroException;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -112,7 +111,7 @@ public class RectangleTest {
     @Test
     public void testMove1() {
         // Move with positive value
-        r1.move(new BigDecimal("12"),new BigDecimal("3.2344"));
+        r1.move(new BigDecimal("12"), new BigDecimal("3.2344"));
 
         out = new ArrayList<>();
 
@@ -129,7 +128,7 @@ public class RectangleTest {
     @Test
     public void testMove2() {
         // Move with negative value
-        r1.move(new BigDecimal("-6.2131"),new BigDecimal("-23"));
+        r1.move(new BigDecimal("-6.2131"), new BigDecimal("-23"));
 
         out = new ArrayList<>();
 
@@ -146,7 +145,7 @@ public class RectangleTest {
     @Test
     public void testMove3() {
         // Move with positive value
-        r2.move(new BigDecimal("0"),new BigDecimal("1.214"));
+        r2.move(new BigDecimal("0"), new BigDecimal("1.214"));
 
         out = new ArrayList<>();
 
@@ -163,7 +162,7 @@ public class RectangleTest {
     @Test
     public void testMove4() {
         // Move with positive value
-        r2.move(new BigDecimal("-123.3"),new BigDecimal("-21.4"));
+        r2.move(new BigDecimal("-123.3"), new BigDecimal("-21.4"));
 
         out = new ArrayList<>();
 

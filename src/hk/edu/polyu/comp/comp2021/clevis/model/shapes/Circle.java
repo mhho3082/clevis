@@ -115,8 +115,8 @@ public class Circle extends UserShape {
      * @return a list
      */
     @Override
-    public ArrayList<IntersectSegment> getIntersectSegment() {
-        ArrayList<IntersectSegment> temp = new ArrayList<>();
+    public ArrayList<SegmentInterface> getIntersectSegment() {
+        ArrayList<SegmentInterface> temp = new ArrayList<>();
         temp.add(this.circularSegment);
         return temp;
     }

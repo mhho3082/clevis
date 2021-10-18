@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author Ho Man Hin
  */
 public class Line extends UserShape {
-    private final Segment segment;
+    private final StraightSegment segment;
 
     /**
      * A line shape, defined by two points.
@@ -28,7 +28,7 @@ public class Line extends UserShape {
     public Line(String name, BigDecimal x1, BigDecimal y1, BigDecimal x2, BigDecimal y2)
             throws SizeIsZeroException {
         super(name);
-        this.segment = new Segment(new Point(x1, y1), new Point(x2, y2));
+        this.segment = new StraightSegment(new Point(x1, y1), new Point(x2, y2));
     }
 
     /**
@@ -36,7 +36,7 @@ public class Line extends UserShape {
      *
      * @return segment
      */
-    public Segment getSegment() {
+    public StraightSegment getSegment() {
         return this.segment;
     }
 
@@ -117,8 +117,8 @@ public class Line extends UserShape {
      * @return a list
      */
     @Override
-    public ArrayList<IntersectSegment> getIntersectSegment() {
-        ArrayList<IntersectSegment> temp = new ArrayList<>();
+    public ArrayList<SegmentInterface> getIntersectSegment() {
+        ArrayList<SegmentInterface> temp = new ArrayList<>();
         temp.add(this.segment);
         return temp;
     }

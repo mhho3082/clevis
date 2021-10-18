@@ -199,66 +199,66 @@ public class CircularSegmentTest {
 
     @Test
     public void testIsIntersect7() throws SizeIsZeroException {
-        Segment test1 = new Segment(new Point(new BigDecimal("-10"), new BigDecimal("8")), new Point(new BigDecimal("5"), new BigDecimal("8")));
+        StraightSegment test1 = new StraightSegment(new Point(new BigDecimal("-10"), new BigDecimal("8")), new Point(new BigDecimal("5"), new BigDecimal("8")));
         assertTrue(cs1.isIntersect(test1));
     }
 
     @Test
     public void testIsIntersect8() throws SizeIsZeroException {
         // Tangent line
-        Segment test1 = new Segment(new Point(new BigDecimal("-10"), new BigDecimal("10")), new Point(new BigDecimal("5"), new BigDecimal("10")));
+        StraightSegment test1 = new StraightSegment(new Point(new BigDecimal("-10"), new BigDecimal("10")), new Point(new BigDecimal("5"), new BigDecimal("10")));
         assertTrue(cs1.isIntersect(test1));
     }
 
     @Test
     public void testIsIntersect9() throws SizeIsZeroException {
         // Line inside cs1, but no intersection
-        Segment test1 = new Segment(new Point(new BigDecimal("-6"), new BigDecimal("6")), new Point(new BigDecimal("-4"), new BigDecimal("8")));
+        StraightSegment test1 = new StraightSegment(new Point(new BigDecimal("-6"), new BigDecimal("6")), new Point(new BigDecimal("-4"), new BigDecimal("8")));
         assertFalse(cs1.isIntersect(test1));
     }
 
     @Test
     public void testIsIntersect10() throws SizeIsZeroException {
         // Tangent line
-        Segment test1 = new Segment(new Point(new BigDecimal("-10"), new BigDecimal("12")), new Point(new BigDecimal("5"), new BigDecimal("12")));
+        StraightSegment test1 = new StraightSegment(new Point(new BigDecimal("-10"), new BigDecimal("12")), new Point(new BigDecimal("5"), new BigDecimal("12")));
         assertFalse(cs1.isIntersect(test1));
     }
 
     @Test
     public void testIsIntersect11() throws SizeIsZeroException {
-        Segment test1 = new Segment(new Point(new BigDecimal("-3.57167"), new BigDecimal("1.43141")), new Point(new BigDecimal("12.94378"), new BigDecimal("-17.50566")));
+        StraightSegment test1 = new StraightSegment(new Point(new BigDecimal("-3.57167"), new BigDecimal("1.43141")), new Point(new BigDecimal("12.94378"), new BigDecimal("-17.50566")));
         assertTrue(cs2.isIntersect(test1));
     }
 
     @Test
     public void testIsIntersect12() throws SizeIsZeroException {
         // Tangent line
-        Segment test1 = new Segment(new Point(new BigDecimal("-6"), new BigDecimal("0.94708")), new Point(new BigDecimal("-6"), new BigDecimal("-12.75929")));
+        StraightSegment test1 = new StraightSegment(new Point(new BigDecimal("-6"), new BigDecimal("0.94708")), new Point(new BigDecimal("-6"), new BigDecimal("-12.75929")));
         assertTrue(cs2.isIntersect(test1));
     }
 
     @Test
     public void testIsIntersect13() throws SizeIsZeroException {
         // Line inside cs2, but no intersection
-        Segment test1 = new Segment(new Point(new BigDecimal("-2"), new BigDecimal("-8")), new Point(new BigDecimal("1.41687"), new BigDecimal("-10.48296")));
+        StraightSegment test1 = new StraightSegment(new Point(new BigDecimal("-2"), new BigDecimal("-8")), new Point(new BigDecimal("1.41687"), new BigDecimal("-10.48296")));
         assertFalse(cs2.isIntersect(test1));
     }
 
     @Test
     public void testIsIntersect14() throws SizeIsZeroException {
-        Segment test1 = new Segment(new Point(new BigDecimal("-11.41772"), new BigDecimal("4.04675")), new Point(new BigDecimal("14.44518"), new BigDecimal("9.42275")));
+        StraightSegment test1 = new StraightSegment(new Point(new BigDecimal("-11.41772"), new BigDecimal("4.04675")), new Point(new BigDecimal("14.44518"), new BigDecimal("9.42275")));
         assertFalse(cs2.isIntersect(test1));
     }
 
     @Test
     public void testIsIntersect15() throws SizeIsZeroException {
-        Segment test1 = new Segment(new Point(new BigDecimal("-9"), new BigDecimal("5")), new Point(new BigDecimal("-1"), new BigDecimal("5")));
+        StraightSegment test1 = new StraightSegment(new Point(new BigDecimal("-9"), new BigDecimal("5")), new Point(new BigDecimal("-1"), new BigDecimal("5")));
         assertTrue(cs1.isIntersect(test1));
     }
 
     @Test
     public void testIsIntersect16() throws SizeIsZeroException {
-        Segment test1 = new Segment(new Point(new BigDecimal("2.7"), new BigDecimal("-5.7")), new Point(new BigDecimal("2.7"), new BigDecimal("3")));
+        StraightSegment test1 = new StraightSegment(new Point(new BigDecimal("2.7"), new BigDecimal("-5.7")), new Point(new BigDecimal("2.7"), new BigDecimal("3")));
         assertTrue(cs2.isIntersect(test1));
     }
 }

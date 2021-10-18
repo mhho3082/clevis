@@ -90,9 +90,9 @@ public abstract class UserShape implements Comparable<UserShape> {
      * @return if the two shapes intersect
      */
     public boolean isIntersect(UserShape userShape) {
-        for (IntersectSegment segment1 :
+        for (SegmentInterface segment1 :
                 this.getIntersectSegment()) {
-            for (IntersectSegment segment2 :
+            for (SegmentInterface segment2 :
                     userShape.getIntersectSegment()) {
                 if (segment1.isIntersect(segment2)) {
                     return true;
@@ -154,5 +154,5 @@ public abstract class UserShape implements Comparable<UserShape> {
      *
      * @return a list
      */
-    public abstract ArrayList<IntersectSegment> getIntersectSegment();
+    public abstract ArrayList<SegmentInterface> getIntersectSegment();
 }
