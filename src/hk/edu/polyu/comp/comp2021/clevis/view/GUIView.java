@@ -18,9 +18,9 @@ import java.util.ArrayList;
  */
 public class GUIView {
     private final CommandHandler commandHandler;
-    private final JFrame jMainFrame;
-    private final JTextField jTextField;
-    private final JScrollPane jScrollPane;
+    private final JFrame mainFrame;
+    private final JTextField mainTextField;
+    private final PlotPanel mainPlotPanel;
 
     /**
      * Constructs a GUI view.
@@ -29,21 +29,23 @@ public class GUIView {
      */
     public GUIView(CommandHandler handler) {
         this.commandHandler = handler;
-        this.jMainFrame = new JFrame("Clevis");
-        this.jTextField = new JTextField();
-        this.jScrollPane = new JScrollPane();
+        this.mainFrame = new JFrame("Clevis");
+        this.mainTextField = new JTextField();
+        this.mainPlotPanel = new PlotPanel();
 
-        this.jMainFrame.setResizable(false);
-        this.jMainFrame.setSize(Config.GUI_MAIN_FRAME_DIMENSION);
-        this.jMainFrame.addWindowListener(new WindowControlHandler());
+        this.mainFrame.setSize(Config.GUI_MAIN_FRAME_DIMENSION);
+        this.mainFrame.addWindowListener(new WindowControlHandler());
+        this.mainFrame.setResizable(false);
 
-        this.jTextField.addActionListener(new CommandCaller());
+        this.mainTextField.addActionListener(new CommandCaller());
+
+        this.mainPlotPanel.setBackground(Color.white);
     }
 
     /**
      * The quitting sequence.
      */
-    private static void quit() {
+    private void quit() {
         System.exit(0);
     }
 
@@ -51,11 +53,42 @@ public class GUIView {
      * Launches the program window.
      */
     public void launchFrame() {
-        this.jMainFrame.add(this.jScrollPane, BorderLayout.CENTER);
-        this.jMainFrame.add(this.jTextField, BorderLayout.SOUTH);
+        this.mainFrame.add(this.mainPlotPanel, BorderLayout.CENTER);
+        this.mainFrame.add(this.mainTextField, BorderLayout.SOUTH);
 
-        this.jMainFrame.setLocationRelativeTo(null);
-        this.jMainFrame.setVisible(true);
+        this.mainFrame.setLocationRelativeTo(null);
+        this.mainFrame.setVisible(true);
+    }
+
+    public static class PlotPanel extends JPanel {
+        /*
+         * TODO: Copied from web; demo only, please rewrite completely
+         */
+
+        Insets insets;
+
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+
+            int x, y;
+
+            // Get the insets.
+            insets = getInsets();
+
+            x = getWidth() - this.insets.left;
+            y = getHeight() - this.insets.bottom;
+
+            g.drawLine(x - 100, y - 100, 100, 100);
+            g.drawOval(100, 100, 100, 100);
+
+            g.drawRect(50, 50, 50, 50);
+            g.drawRect(100, 50, 50, 50);
+            g.drawRect(150, 50, 50, 50);
+            g.drawRect(200, 50, 50, 50);
+            g.drawRect(250, 50, 50, 50);
+
+            g.drawRect(-25, -25, 50, 50);
+        }
     }
 
     /**
@@ -63,9 +96,10 @@ public class GUIView {
      *
      * @author Ho Man Hin
      */
-    public static class WindowControlHandler implements WindowListener {
+    public class WindowControlHandler implements WindowListener {
         @Override
         public void windowClosing(WindowEvent e) {
+            commandHandler.quit();
             quit();
         }
 
@@ -100,6 +134,27 @@ public class GUIView {
      * @author Ho Man Hin
      */
     public class CommandCaller implements ActionListener {
+        private final JTextArea jTextArea;
+        private final JScrollPane jScrollPane;
+
+        /**
+         * Creates a command caller,
+         * and initializes the components for dialog.
+         */
+        public CommandCaller() {
+            jTextArea = new JTextArea();
+            jTextArea.setFont(Config.GUI_DIALOG_FONT);
+            jTextArea.setEditable(false);
+            jTextArea.setOpaque(false);
+            jTextArea.setLineWrap(true);
+            jTextArea.setWrapStyleWord(true);
+            jTextArea.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+
+            jScrollPane = new JScrollPane(jTextArea);
+            jScrollPane.setPreferredSize(Config.GUI_DIALOG_SCROLL_PANE_DIMENSION);
+            jScrollPane.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        }
+
         /**
          * (Try to) execute and give output for the user input.
          *
@@ -107,7 +162,7 @@ public class GUIView {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-            commandHandler.exec(jTextField.getText());
+            commandHandler.exec(mainTextField.getText());
             ArrayList<String> tempOutString = commandHandler.getOutString();
 
             if (!tempOutString.isEmpty()) {
@@ -119,25 +174,15 @@ public class GUIView {
                     }
                 }
 
-                JTextArea jTextArea = new JTextArea(stringBuilder.toString());
-                jTextArea.setFont(Config.GUI_DIALOG_FONT);
-                jTextArea.setEditable(false);
-                jTextArea.setOpaque(false);
-                jTextArea.setLineWrap(true);
-                jTextArea.setWrapStyleWord(true);
-                jTextArea.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-
-                JScrollPane jScrollPane = new JScrollPane(jTextArea);
-                jScrollPane.setPreferredSize(Config.GUI_DIALOG_SCROLL_PANE_DIMENSION);
-                jScrollPane.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+                this.jTextArea.setText(stringBuilder.toString());
 
                 if (commandHandler.getWarning()) {
-                    JOptionPane.showMessageDialog(jMainFrame, jScrollPane, "Warning", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(mainFrame, this.jScrollPane, "Warning", JOptionPane.WARNING_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(jMainFrame, jScrollPane, "Output", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(mainFrame, this.jScrollPane, "Output", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
-            jTextField.setText("");
+            mainTextField.setText("");
 
             if (commandHandler.getQuitting()) {
                 quit();
