@@ -26,7 +26,7 @@ public class Config {
     /**
      * Number for BigDecimal setScale
      */
-    public static final int SCALE_SIZE = 30;
+    public static final int SCALE_SIZE = 29;
 
     /**
      * Indentation for list and listAll
