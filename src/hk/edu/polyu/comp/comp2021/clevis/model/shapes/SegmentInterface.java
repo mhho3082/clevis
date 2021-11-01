@@ -15,5 +15,10 @@ public interface SegmentInterface {
      */
     boolean isIntersect(SegmentInterface intersectSegment);
 
+    /**
+     * Gets the plotting guide.
+     *
+     * @return the info for GUI to plot
+     */
     double[] getPlot();
 }

@@ -26,6 +26,7 @@ public class GUIView {
      * Constructs a GUI view.
      *
      * @param commandHandler the command handler to be used
+     * @param plotHandler the plot handler to be used
      */
     public GUIView(CommandHandler commandHandler, PlotHandler plotHandler) {
         this.commandHandler = commandHandler;
@@ -34,15 +35,21 @@ public class GUIView {
         this.mainTextField = new JTextField();
         this.mainPlotPanel = new PlotPanel();
 
+        WindowControlHandler windowControlHandler = new WindowControlHandler();
+        MouseActionHandler mouseActionHandler = new MouseActionHandler();
+        CommandCaller commandCaller = new CommandCaller();
+
         this.mainFrame.setSize(Config.GUI_MAIN_FRAME_DIMENSION);
-        this.mainFrame.addWindowListener(new WindowControlHandler());
+        this.mainFrame.addWindowListener(windowControlHandler);
         this.mainFrame.setResizable(false);
 
-        this.mainTextField.addActionListener(new CommandCaller());
+        this.mainTextField.addActionListener(commandCaller);
 
         this.mainPlotPanel.setBackground(Color.white);
-        this.mainPlotPanel.addMouseMotionListener(new MouseActionHandler());
-        this.mainPlotPanel.addMouseWheelListener(new MouseActionHandler());
+        this.mainPlotPanel.addMouseListener(mouseActionHandler);
+        this.mainPlotPanel.addMouseMotionListener(mouseActionHandler);
+        this.mainPlotPanel.addMouseWheelListener(mouseActionHandler);
+        this.mainPlotPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
     /**
@@ -63,9 +70,13 @@ public class GUIView {
         this.mainFrame.setVisible(true);
     }
 
+    /**
+     * The panel for plotting the main graph.
+     *
+     * @author Ho Man Hin
+     */
     public class PlotPanel extends JPanel {
-        Insets insets;
-
+        @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
 
@@ -73,12 +84,11 @@ public class GUIView {
 
             ArrayList<double[]> tempPlotList = plotHandler.getOutPlotList();
 
-            for (double[] tempPlot :
-                    tempPlotList) {
+            for (double[] tempPlot : tempPlotList) {
                 if (tempPlot[4] == 0) {
-                    g.drawLine((int) tempPlot[0],(int)  tempPlot[1],(int)  tempPlot[2],(int)  tempPlot[3]);
+                    g.drawLine((int) tempPlot[0], (int) tempPlot[1], (int) tempPlot[2], (int) tempPlot[3]);
                 } else {
-                    g.drawOval((int) tempPlot[0],(int)  tempPlot[1],(int)  tempPlot[2],(int)  tempPlot[3]);
+                    g.drawOval((int) tempPlot[0], (int) tempPlot[1], (int) tempPlot[2], (int) tempPlot[3]);
                 }
             }
         }
@@ -185,7 +195,6 @@ public class GUIView {
             }
             mainTextField.setText("");
 
-            // TODO: Re-plot
             plotHandler.commandUpdate();
             mainPlotPanel.repaint();
 
