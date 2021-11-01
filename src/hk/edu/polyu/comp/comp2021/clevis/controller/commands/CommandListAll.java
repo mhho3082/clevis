@@ -33,7 +33,12 @@ public class CommandListAll extends Command {
      */
     @Override
     public ArrayList<String> exec() {
-        return model.listAll();
+        ArrayList<String> temp = model.listAll();
+        if (temp.isEmpty()) {
+            temp.add("There is no shape to be listed.");
+        }
+
+        return temp;
     }
 
     /**

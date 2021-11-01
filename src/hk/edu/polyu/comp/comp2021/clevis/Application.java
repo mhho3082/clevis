@@ -51,8 +51,10 @@ public class Application {
             }
         }
 
-        // Check that both paths are given
-        if (html == null || txt == null) {
+        // Check that both paths are given and have the appropriate extensions
+        if (html == null || txt == null
+                || !("." + html).substring(("." + html).lastIndexOf('.')).equals(".html")
+                || !("." + txt).substring(("." + txt).lastIndexOf('.')).equals(".txt")) {
             handleLackOfPaths();
             return;
         }

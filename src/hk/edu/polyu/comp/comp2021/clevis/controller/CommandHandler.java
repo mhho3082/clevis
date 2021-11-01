@@ -69,6 +69,16 @@ public class CommandHandler {
             htmlOut.newLine();
             htmlOut.write("  <body>");
             htmlOut.newLine();
+            htmlOut.write("    <footer>");
+            htmlOut.newLine();
+            htmlOut.write("      <p> <tt>clevis</tt> by Group 32 </p>");
+            htmlOut.newLine();
+            htmlOut.write("      <p> COMP2021, Autumn 2021 </p>");
+            htmlOut.newLine();
+            htmlOut.write("      <p> The Hong Kong Polytechnic University </p>");
+            htmlOut.newLine();
+            htmlOut.write("    </footer>");
+            htmlOut.newLine();
             htmlOut.write("    <h1>CLEVIS LOG</h1>");
             htmlOut.newLine();
             htmlOut.write("    <h3> <tt> Log start at " + dateTimeFormatter.format(now) + " </tt> </h3>");
@@ -171,6 +181,12 @@ public class CommandHandler {
                     break;
 
                 // Special cases
+                case "help":
+                    help();
+                    return;
+                case "info":
+                    info();
+                    return;
                 case "undo":
                     undo();
                     return;
@@ -304,16 +320,6 @@ public class CommandHandler {
             // Closing boilerplate for html
             htmlOut.write("    </table>");
             htmlOut.newLine();
-            htmlOut.write("    <footer>");
-            htmlOut.newLine();
-            htmlOut.write("      <p> <tt>clevis</tt> by Group 32 </p>");
-            htmlOut.newLine();
-            htmlOut.write("      <p> COMP2021, Autumn 2021 </p>");
-            htmlOut.newLine();
-            htmlOut.write("      <p> The Hong Kong Polytechnic University </p>");
-            htmlOut.newLine();
-            htmlOut.write("    </footer>");
-            htmlOut.newLine();
             htmlOut.write("  </body>");
             htmlOut.newLine();
             htmlOut.write("</html>");
@@ -343,9 +349,39 @@ public class CommandHandler {
         warning = true;
     }
 
-    // TODO: Add help()
+    /**
+     * Gives help.
+     */
+    public void help() {
+        outString = new ArrayList<>();
 
-    // TODO: Add info()
+        outString.add("To execute a command, type its name and arguments (if any), then hit enter");
+        outString.add("");
+        outString.add("To use GUI, restart the program with the flag \"-gui\"");
+        outString.add("");
+        outString.add("List of commands:");
+        outString.add("Shapes: rectangle, line circle, square");
+        outString.add("Groups: group, ungroup");
+        outString.add("  Info: boundingbox, intersect, list, listAll");
+        outString.add("Change: move, pick-and-move, delete");
+        outString.add("  Meta: undo, redo, quit, help, info");
+        outString.add("");
+        outString.add("To find a command's argument list, execute that command and read the resultant warning (if any)");
+    }
+
+    /**
+     * Gives info.
+     */
+    public void info() {
+        outString = new ArrayList<>();
+
+        outString.add("Clevis: Command Line Vector Graphics Software");
+        outString.add("");
+        outString.add("Authors:");
+        outString.add("Max Ho, Joseph Mok, Nathan Chui");
+        outString.add("Group 32, COMP2021");
+        outString.add("The Polytechnic University of Hong Kong");
+    }
 
     /**
      * Handles no command found exception.
@@ -365,9 +401,9 @@ public class CommandHandler {
         outString.add("Groups: group, ungroup");
         outString.add("  Info: boundingbox, intersect, list, listAll");
         outString.add("Change: move, pick-and-move, delete");
-        outString.add("  Meta: undo, redo, quit");
+        outString.add("  Meta: undo, redo, quit, help, info");
         outString.add("");
-        outString.add("(To see a command's argument list, type help [command])");
+        outString.add("To see this list, enter \"help\"");
 
         warning = true;
     }
