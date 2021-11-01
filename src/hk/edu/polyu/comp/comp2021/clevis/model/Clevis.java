@@ -452,6 +452,11 @@ public class Clevis {
         Collections.reverse(shapeList);
     }
 
+    /**
+     * Gets the plotting guide.
+     *
+     * @return the info for GUI to plot
+     */
     public ArrayList<double[]> getPlot() {
         ArrayList<double[]> temp = new ArrayList<>();
         for (UserShape shape :

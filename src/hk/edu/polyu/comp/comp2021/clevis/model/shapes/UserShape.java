@@ -156,5 +156,10 @@ public abstract class UserShape implements Comparable<UserShape> {
      */
     public abstract ArrayList<SegmentInterface> getIntersectSegment();
 
+    /**
+     * Gets the plotting guide.
+     *
+     * @return the info for GUI to plot
+     */
     public abstract ArrayList<double[]> getPlot();
 }
