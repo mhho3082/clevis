@@ -14,4 +14,6 @@ public interface SegmentInterface {
      * @return whether the two intersect
      */
     boolean isIntersect(SegmentInterface intersectSegment);
+
+    double[] getPlot();
 }

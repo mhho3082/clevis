@@ -1,6 +1,7 @@
 package hk.edu.polyu.comp.comp2021.clevis;
 
 import hk.edu.polyu.comp.comp2021.clevis.controller.CommandHandler;
+import hk.edu.polyu.comp.comp2021.clevis.controller.PlotHandler;
 import hk.edu.polyu.comp.comp2021.clevis.model.Clevis;
 import hk.edu.polyu.comp.comp2021.clevis.view.CLIView;
 import hk.edu.polyu.comp.comp2021.clevis.view.GUIView;
@@ -70,13 +71,13 @@ public class Application {
 
         // Initialize and utilize the system
         Clevis clevis = new Clevis();
-        CommandHandler handler = new CommandHandler(clevis, html, txt);
-        // TODO: Add GUI controller
+        CommandHandler commandHandler = new CommandHandler(clevis, html, txt);
         if (useGUI) {
-            GUIView guiView = new GUIView(handler);
+            PlotHandler plotHandler = new PlotHandler(clevis);
+            GUIView guiView = new GUIView(commandHandler, plotHandler);
             guiView.launchFrame();
         } else {
-            CLIView cliView = new CLIView(handler);
+            CLIView cliView = new CLIView(commandHandler);
             cliView.launch();
         }
     }

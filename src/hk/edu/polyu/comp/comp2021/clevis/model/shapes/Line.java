@@ -122,4 +122,11 @@ public class Line extends UserShape {
         temp.add(this.segment);
         return temp;
     }
+
+    @Override
+    public ArrayList<double[]> getPlot() {
+        ArrayList<double[]> temp = new ArrayList<>();
+        temp.add(this.segment.getPlot());
+        return temp;
+    }
 }

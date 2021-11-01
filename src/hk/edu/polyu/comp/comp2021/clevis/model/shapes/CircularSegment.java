@@ -158,4 +158,14 @@ public class CircularSegment implements SegmentInterface {
                     || lengthToPoint2.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP).compareTo(this.radius.setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)) >= 0;
         }
     }
+
+    @Override
+    public double[] getPlot() {
+        return new double[]{
+                this.center.getX().subtract(this.radius).doubleValue(),
+                this.center.getY().subtract(this.radius).doubleValue(),
+                this.radius.multiply(new BigDecimal("2")).doubleValue(),
+                this.radius.multiply(new BigDecimal("2")).doubleValue(),
+                1};
+    }
 }

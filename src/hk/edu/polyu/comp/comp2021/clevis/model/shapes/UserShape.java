@@ -155,4 +155,6 @@ public abstract class UserShape implements Comparable<UserShape> {
      * @return a list
      */
     public abstract ArrayList<SegmentInterface> getIntersectSegment();
+
+    public abstract ArrayList<double[]> getPlot();
 }

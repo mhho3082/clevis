@@ -188,4 +188,14 @@ public class StraightSegment implements SegmentInterface {
                         .multiply(point.getX().subtract(this.point1.getX())).setScale(Config.SCALE_SIZE, RoundingMode.HALF_UP)
         ) > 0;
     }
+
+    @Override
+    public double[] getPlot() {
+        return new double[]{
+                this.point1.getX().doubleValue(),
+                this.point1.getY().doubleValue(),
+                this.point2.getX().doubleValue(),
+                this.point2.getY().doubleValue(),
+                0};
+    }
 }
