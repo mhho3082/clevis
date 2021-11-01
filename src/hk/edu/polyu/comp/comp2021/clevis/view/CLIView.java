@@ -84,8 +84,7 @@ public class CLIView {
         System.out.print(Config.CLI_COLOUR_NORMAL);
         System.out.println("Clevis");
         System.out.println("Group 32, COMP2021, The Polytechnic University of Hong Kong");
-        System.out.println("Enter \"help\" or \"help [command]\" for help");
-        System.out.println("Enter \"quit\" to quit");
+        System.out.println("Enter \"help\" for help; enter \"quit\" to quit");
         System.out.println(Config.CLI_COLOUR_INPUT);
     }
 }
