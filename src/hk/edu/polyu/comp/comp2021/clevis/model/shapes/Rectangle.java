@@ -144,4 +144,13 @@ public class Rectangle extends UserShape {
         temp.add(this.segments[3]);
         return temp;
     }
+
+    @Override
+    public ArrayList<double[]> getPlot() {
+        ArrayList<double[]> temp = new ArrayList<>();
+        for (StraightSegment segment : this.segments) {
+            temp.add(segment.getPlot());
+        }
+        return temp;
+    }
 }

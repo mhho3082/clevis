@@ -452,4 +452,13 @@ public class Clevis {
         Collections.reverse(shapeList);
     }
 
+    public ArrayList<double[]> getPlot() {
+        ArrayList<double[]> temp = new ArrayList<>();
+        for (UserShape shape :
+                this.shapeList) {
+            temp.addAll(shape.getPlot());
+        }
+        return temp;
+    }
+
 }

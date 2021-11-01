@@ -2,13 +2,11 @@ package hk.edu.polyu.comp.comp2021.clevis.view;
 
 import hk.edu.polyu.comp.comp2021.clevis.Config;
 import hk.edu.polyu.comp.comp2021.clevis.controller.CommandHandler;
+import hk.edu.polyu.comp.comp2021.clevis.controller.PlotHandler;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 /**
@@ -18,6 +16,8 @@ import java.util.ArrayList;
  */
 public class GUIView {
     private final CommandHandler commandHandler;
+    private final PlotHandler plotHandler;
+
     private final JFrame mainFrame;
     private final JTextField mainTextField;
     private final PlotPanel mainPlotPanel;
@@ -25,10 +25,11 @@ public class GUIView {
     /**
      * Constructs a GUI view.
      *
-     * @param handler the command handler to be used
+     * @param commandHandler the command handler to be used
      */
-    public GUIView(CommandHandler handler) {
-        this.commandHandler = handler;
+    public GUIView(CommandHandler commandHandler, PlotHandler plotHandler) {
+        this.commandHandler = commandHandler;
+        this.plotHandler = plotHandler;
         this.mainFrame = new JFrame("Clevis");
         this.mainTextField = new JTextField();
         this.mainPlotPanel = new PlotPanel();
@@ -40,6 +41,8 @@ public class GUIView {
         this.mainTextField.addActionListener(new CommandCaller());
 
         this.mainPlotPanel.setBackground(Color.white);
+        this.mainPlotPanel.addMouseMotionListener(new MouseActionHandler());
+        this.mainPlotPanel.addMouseWheelListener(new MouseActionHandler());
     }
 
     /**
@@ -60,34 +63,24 @@ public class GUIView {
         this.mainFrame.setVisible(true);
     }
 
-    public static class PlotPanel extends JPanel {
-        /*
-         * TODO: Copied from web; demo only, please rewrite completely
-         */
-
+    public class PlotPanel extends JPanel {
         Insets insets;
 
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
 
-            int x, y;
+            plotHandler.setCenter(getWidth(), getHeight(), getInsets());
 
-            // Get the insets.
-            insets = getInsets();
+            ArrayList<double[]> tempPlotList = plotHandler.getOutPlotList();
 
-            x = getWidth() - this.insets.left;
-            y = getHeight() - this.insets.bottom;
-
-            g.drawLine(x - 100, y - 100, 100, 100);
-            g.drawOval(100, 100, 100, 100);
-
-            g.drawRect(50, 50, 50, 50);
-            g.drawRect(100, 50, 50, 50);
-            g.drawRect(150, 50, 50, 50);
-            g.drawRect(200, 50, 50, 50);
-            g.drawRect(250, 50, 50, 50);
-
-            g.drawRect(-25, -25, 50, 50);
+            for (double[] tempPlot :
+                    tempPlotList) {
+                if (tempPlot[4] == 0) {
+                    g.drawLine((int) tempPlot[0],(int)  tempPlot[1],(int)  tempPlot[2],(int)  tempPlot[3]);
+                } else {
+                    g.drawOval((int) tempPlot[0],(int)  tempPlot[1],(int)  tempPlot[2],(int)  tempPlot[3]);
+                }
+            }
         }
     }
 
@@ -96,35 +89,43 @@ public class GUIView {
      *
      * @author Ho Man Hin
      */
-    public class WindowControlHandler implements WindowListener {
+    public class WindowControlHandler extends WindowAdapter {
         @Override
         public void windowClosing(WindowEvent e) {
             commandHandler.quit();
             quit();
         }
+    }
+
+    /**
+     * The listener for mouse events on the plot panel.
+     *
+     * @author Ho Man Hin
+     */
+    public class MouseActionHandler extends MouseAdapter {
+        private Point mousePoint;
 
         @Override
-        public void windowOpened(WindowEvent e) {
+        public void mouseWheelMoved(MouseWheelEvent e) {
+            int movement = e.getWheelRotation();
+
+            // TODO: Re-plot
+            mainPlotPanel.repaint();
         }
 
         @Override
-        public void windowIconified(WindowEvent e) {
+        public void mousePressed(MouseEvent e) {
+            mousePoint = e.getPoint();
         }
 
         @Override
-        public void windowDeiconified(WindowEvent e) {
-        }
+        public void mouseDragged(MouseEvent e) {
+            int dx = e.getX() - mousePoint.x;
+            int dy = e.getY() - mousePoint.y;
+            mousePoint = e.getPoint();
 
-        @Override
-        public void windowClosed(WindowEvent e) {
-        }
-
-        @Override
-        public void windowActivated(WindowEvent e) {
-        }
-
-        @Override
-        public void windowDeactivated(WindowEvent e) {
+            plotHandler.dragUpdate(dx, dy);
+            mainPlotPanel.repaint();
         }
     }
 
@@ -183,6 +184,10 @@ public class GUIView {
                 }
             }
             mainTextField.setText("");
+
+            // TODO: Re-plot
+            plotHandler.commandUpdate();
+            mainPlotPanel.repaint();
 
             if (commandHandler.getQuitting()) {
                 quit();

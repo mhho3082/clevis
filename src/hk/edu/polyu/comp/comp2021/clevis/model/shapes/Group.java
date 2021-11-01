@@ -213,4 +213,14 @@ public class Group extends UserShape {
         }
         return temp;
     }
+
+    @Override
+    public ArrayList<double[]> getPlot() {
+        ArrayList<double[]> temp = new ArrayList<>();
+        for (UserShape shape :
+                this.userShapes) {
+            temp.addAll(shape.getPlot());
+        }
+        return temp;
+    }
 }

@@ -120,4 +120,11 @@ public class Circle extends UserShape {
         temp.add(this.circularSegment);
         return temp;
     }
+
+    @Override
+    public ArrayList<double[]> getPlot() {
+        ArrayList<double[]> temp = new ArrayList<>();
+        temp.add(this.circularSegment.getPlot());
+        return temp;
+    }
 }
