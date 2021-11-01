@@ -26,7 +26,7 @@ public class GUIView {
      * Constructs a GUI view.
      *
      * @param commandHandler the command handler to be used
-     * @param plotHandler the plot handler to be used
+     * @param plotHandler    the plot handler to be used
      */
     public GUIView(CommandHandler commandHandler, PlotHandler plotHandler) {
         this.commandHandler = commandHandler;
@@ -119,7 +119,7 @@ public class GUIView {
         public void mouseWheelMoved(MouseWheelEvent e) {
             int movement = e.getWheelRotation();
 
-            // TODO: Re-plot
+            plotHandler.scrollUpdate(movement);
             mainPlotPanel.repaint();
         }
 

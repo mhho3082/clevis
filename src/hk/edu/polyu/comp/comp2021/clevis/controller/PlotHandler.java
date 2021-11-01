@@ -4,6 +4,7 @@ import hk.edu.polyu.comp.comp2021.clevis.model.Clevis;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * The handler for plotting in GUI.
@@ -16,7 +17,7 @@ public class PlotHandler {
     private final Clevis clevis;
     private final ArrayList<double[]> outPlotList;
     private ArrayList<double[]> originalPlotList;
-    private int zoom;
+    private double zoom;
     private int dx;
     private int dy;
     private int centerX;
@@ -32,7 +33,7 @@ public class PlotHandler {
         this.originalPlotList = new ArrayList<>();
         this.outPlotList = new ArrayList<>();
 
-        this.zoom = 0;
+        this.zoom = 1;
         this.dx = 0;
         this.dy = 0;
     }
@@ -59,11 +60,28 @@ public class PlotHandler {
         this.dx += dx;
         this.dy += dy;
 
-        // TODO: Change data appropriately
         inToOut();
     }
 
-    // TODO: Handle zoom
+    public void scrollUpdate(int movement) {
+        double oldZoom = this.zoom;
+        this.zoom -= (double) movement / 100;
+
+        /*
+         * FIXME: This is very buggy
+         *   (can test with spawning a circle, moving it off center,
+         *   then scrolling far in one direction;
+         *   it will go to the center no matter which direction)
+         */
+        this.dx /= oldZoom;
+        this.dy /= oldZoom;
+
+        this.dx *= this.zoom;
+        this.dy *= this.zoom;
+
+        inToOut();
+        System.out.println(zoom); // FIXME: For testing only
+    }
 
     /**
      * Updates the plot after user command.
@@ -88,19 +106,20 @@ public class PlotHandler {
         double[] tempOut;
 
         for (double[] tempIn : originalPlotList) {
-            // TODO: Handle zoom
+            tempOut = tempIn.clone();
+
+            tempOut[0] = (tempOut[0] + this.dx) * zoom + this.centerX;
+            tempOut[1] = (tempOut[1] + this.dy) * zoom + this.centerY;
 
             if (tempIn[4] == 0) {
-                tempOut = tempIn.clone();
-                tempOut[0] += this.dx + this.centerX;
-                tempOut[1] += this.dy + this.centerY;
-                tempOut[2] += this.dx + this.centerX;
-                tempOut[3] += this.dy + this.centerY;
+                tempOut[2] = (tempOut[2] + this.dx) * zoom + this.centerX;
+                tempOut[3] = (tempOut[3] + this.dy) * zoom + this.centerY;
             } else {
-                tempOut = tempIn.clone();
-                tempOut[0] += this.dx + this.centerX;
-                tempOut[1] += this.dy + this.centerY;
+                tempOut[2] *= zoom;
+                tempOut[3] *= zoom;
             }
+
+            System.out.println(Arrays.toString(tempOut)); // FIXME: For testing only
 
             outPlotList.add(tempOut);
         }
