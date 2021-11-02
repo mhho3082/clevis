@@ -400,4 +400,24 @@ public class CircleTest {
         out.add("Type: Circle");
         assertEquals(out, c2.listShort());
     }
+
+    @Test
+    public void testGetPlot1() {
+        ArrayList<double[]> out = c1.getPlot();
+        assertEquals(-8, out.get(0)[0], 0.0001);
+        assertEquals(0, out.get(0)[1], 0.0001);
+        assertEquals(10, out.get(0)[2], 0.0001);
+        assertEquals(10, out.get(0)[3], 0.0001);
+        assertEquals(1, out.get(0)[4], 0.0001);
+    }
+
+    @Test
+    public void testGetPlot2() {
+        ArrayList<double[]> out = c2.getPlot();
+        assertEquals(-6, out.get(0)[0], 0.0001);
+        assertEquals(-14.4, out.get(0)[1], 0.0001);
+        assertEquals(17.4, out.get(0)[2], 0.0001);
+        assertEquals(17.4, out.get(0)[3], 0.0001);
+        assertEquals(1, out.get(0)[4], 0.0001);
+    }
 }
