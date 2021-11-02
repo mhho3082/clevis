@@ -665,13 +665,13 @@ public class ClevisTest {
     }
 
     @Test(expected = ShapeNotFoundException.class)
-    public void testShapeNotFoundException2() throws SizeIsZeroException, DuplicateShapeNameException, ShapeInsideGroupException, ShapeNotFoundException {
+    public void testShapeNotFoundException2() throws SizeIsZeroException, DuplicateShapeNameException, ShapeNotFoundException {
         test.addLine("l2", new BigDecimal("2.7"), new BigDecimal("5.7"), new BigDecimal("10.6"), new BigDecimal("5.7"));
         test.find("l1");
     }
 
     @Test(expected = ShapeNotFoundException.class)
-    public void testShapeNotFoundException3() throws SizeIsZeroException, DuplicateShapeNameException, ShapeInsideGroupException, ShapeNotFoundException {
+    public void testShapeNotFoundException3() throws SizeIsZeroException, DuplicateShapeNameException, ShapeNotFoundException {
         test.addLine("l2", new BigDecimal("2.7"), new BigDecimal("5.7"), new BigDecimal("10.6"), new BigDecimal("5.7"));
         test.findIndex("l1");
     }
@@ -702,6 +702,25 @@ public class ClevisTest {
     public void testShapeNotFoundExceptionName() {
         ShapeNotFoundException test = new ShapeNotFoundException("test");
         assertEquals("test", test.getName());
+    }
+
+    @Test
+    public void testGetPlot() throws SizeIsZeroException, DuplicateShapeNameException {
+        test.addLine("test1", new BigDecimal("2"), new BigDecimal("3"), new BigDecimal("8"), new BigDecimal("6"));
+        test.addCircle("test2", new BigDecimal("-3"), new BigDecimal("5"), new BigDecimal("5"));
+
+        ArrayList<double[]> out = test.getPlot();
+        assertEquals(-8, out.get(0)[0], 0.0001);
+        assertEquals(0, out.get(0)[1], 0.0001);
+        assertEquals(10, out.get(0)[2], 0.0001);
+        assertEquals(10, out.get(0)[3], 0.0001);
+        assertEquals(1, out.get(0)[4], 0.0001);
+
+        assertEquals(2, out.get(1)[0], 0.0001);
+        assertEquals(3, out.get(1)[1], 0.0001);
+        assertEquals(8, out.get(1)[2], 0.0001);
+        assertEquals(6, out.get(1)[3], 0.0001);
+        assertEquals(0, out.get(1)[4], 0.0001);
     }
 
 }

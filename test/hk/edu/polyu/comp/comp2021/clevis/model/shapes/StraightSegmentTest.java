@@ -280,4 +280,23 @@ public class StraightSegmentTest {
         assertFalse(s2.isIntersect(test1));
     }
 
+    @Test
+    public void testGetPlot1() {
+        double[] out = s1.getPlot();
+        assertEquals(2, out[0], 0.0001);
+        assertEquals(3, out[1], 0.0001);
+        assertEquals(8, out[2], 0.0001);
+        assertEquals(6, out[3], 0.0001);
+        assertEquals(0, out[4], 0.0001);
+    }
+
+    @Test
+    public void testGetPlot2() {
+        double[] out = s2.getPlot();
+        assertEquals(2.7, out[0], 0.0001);
+        assertEquals(5.7, out[1], 0.0001);
+        assertEquals(10.6, out[2], 0.0001);
+        assertEquals(5.7, out[3], 0.0001);
+        assertEquals(0.0, out[4], 0.0001);
+    }
 }

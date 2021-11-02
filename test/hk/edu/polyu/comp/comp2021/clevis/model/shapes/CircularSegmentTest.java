@@ -261,4 +261,25 @@ public class CircularSegmentTest {
         StraightSegment test1 = new StraightSegment(new Point(new BigDecimal("2.7"), new BigDecimal("-5.7")), new Point(new BigDecimal("2.7"), new BigDecimal("3")));
         assertTrue(cs2.isIntersect(test1));
     }
+
+    @Test
+    public void testGetPlot1() {
+        double[] out = cs1.getPlot();
+        assertEquals(-8, out[0], 0.0001);
+        assertEquals(0, out[1], 0.0001);
+        assertEquals(10, out[2], 0.0001);
+        assertEquals(10, out[3], 0.0001);
+        assertEquals(1, out[4], 0.0001);
+    }
+
+    @Test
+    public void testGetPlot2() {
+        double[] out = cs2.getPlot();
+        assertEquals(-6, out[0], 0.0001);
+        assertEquals(-14.4, out[1], 0.0001);
+        assertEquals(17.4, out[2], 0.0001);
+        assertEquals(17.4, out[3], 0.0001);
+        assertEquals(1, out[4], 0.0001);
+    }
 }
+

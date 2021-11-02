@@ -391,4 +391,24 @@ public class LineTest {
         out.add("Type: Line");
         assertEquals(out, L2.listShort());
     }
+
+    @Test
+    public void testGetPlot1() {
+        ArrayList<double[]> out = L1.getPlot();
+        assertEquals(2, out.get(0)[0], 0.0001);
+        assertEquals(3, out.get(0)[1], 0.0001);
+        assertEquals(8, out.get(0)[2], 0.0001);
+        assertEquals(6, out.get(0)[3], 0.0001);
+        assertEquals(0, out.get(0)[4], 0.0001);
+    }
+
+    @Test
+    public void testGetPlot2() {
+        ArrayList<double[]> out = L2.getPlot();
+        assertEquals(2.7, out.get(0)[0], 0.0001);
+        assertEquals(5.7, out.get(0)[1], 0.0001);
+        assertEquals(10.6, out.get(0)[2], 0.0001);
+        assertEquals(5.7, out.get(0)[3], 0.0001);
+        assertEquals(0.0, out.get(0)[4], 0.0001);
+    }
 }

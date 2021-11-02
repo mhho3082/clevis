@@ -281,4 +281,36 @@ public class GroupTest {
         assertEquals(0, new BigDecimal("20.4").compareTo(g1.boundingBox()[3]));
     }
 
+    @Test
+    public void testGetPlot() throws EmptyGroupException, NegativeSizeException, SizeIsZeroException {
+        ArrayList<UserShape> shapeList = new ArrayList<>();
+        Rectangle r1 = new Rectangle("test1", new BigDecimal("-4"), new BigDecimal("-3"), new BigDecimal("7"), new BigDecimal("4"));
+        shapeList.add(r1);
+        Group temp = new Group("temp", shapeList);
+
+        ArrayList<double[]> out = temp.getPlot();
+        assertEquals(-4, out.get(0)[0], 0.0001);
+        assertEquals(-3, out.get(0)[1], 0.0001);
+        assertEquals(3, out.get(0)[2], 0.0001);
+        assertEquals(-3, out.get(0)[3], 0.0001);
+        assertEquals(0.0, out.get(0)[4], 0.0001);
+
+        assertEquals(3, out.get(1)[0], 0.0001);
+        assertEquals(-3, out.get(1)[1], 0.0001);
+        assertEquals(3, out.get(1)[2], 0.0001);
+        assertEquals(1, out.get(1)[3], 0.0001);
+        assertEquals(0.0, out.get(1)[4], 0.0001);
+
+        assertEquals(-4, out.get(2)[0], 0.0001);
+        assertEquals(1, out.get(2)[1], 0.0001);
+        assertEquals(3, out.get(2)[2], 0.0001);
+        assertEquals(1, out.get(2)[3], 0.0001);
+        assertEquals(0.0, out.get(2)[4], 0.0001);
+
+        assertEquals(-4, out.get(3)[0], 0.0001);
+        assertEquals(-3, out.get(3)[1], 0.0001);
+        assertEquals(-4, out.get(3)[2], 0.0001);
+        assertEquals(1, out.get(3)[3], 0.0001);
+        assertEquals(0.0, out.get(3)[4], 0.0001);
+    }
 }

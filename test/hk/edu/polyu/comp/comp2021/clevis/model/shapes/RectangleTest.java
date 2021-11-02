@@ -431,4 +431,32 @@ public class RectangleTest {
         UserShape testGroup = new Group("test", groupShape);
         assertFalse(r2.isIntersect(testGroup));
     }
+
+    @Test
+    public void testGetPlot() {
+        ArrayList<double[]> out = r1.getPlot();
+        assertEquals(-4, out.get(0)[0], 0.0001);
+        assertEquals(-3, out.get(0)[1], 0.0001);
+        assertEquals(3, out.get(0)[2], 0.0001);
+        assertEquals(-3, out.get(0)[3], 0.0001);
+        assertEquals(0.0, out.get(0)[4], 0.0001);
+
+        assertEquals(3, out.get(1)[0], 0.0001);
+        assertEquals(-3, out.get(1)[1], 0.0001);
+        assertEquals(3, out.get(1)[2], 0.0001);
+        assertEquals(1, out.get(1)[3], 0.0001);
+        assertEquals(0.0, out.get(1)[4], 0.0001);
+
+        assertEquals(-4, out.get(2)[0], 0.0001);
+        assertEquals(1, out.get(2)[1], 0.0001);
+        assertEquals(3, out.get(2)[2], 0.0001);
+        assertEquals(1, out.get(2)[3], 0.0001);
+        assertEquals(0.0, out.get(2)[4], 0.0001);
+
+        assertEquals(-4, out.get(3)[0], 0.0001);
+        assertEquals(-3, out.get(3)[1], 0.0001);
+        assertEquals(-4, out.get(3)[2], 0.0001);
+        assertEquals(1, out.get(3)[3], 0.0001);
+        assertEquals(0.0, out.get(3)[4], 0.0001);
+    }
 }
