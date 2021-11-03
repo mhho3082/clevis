@@ -4,7 +4,6 @@ import hk.edu.polyu.comp.comp2021.clevis.model.Clevis;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * The handler for plotting in GUI.
