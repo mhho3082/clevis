@@ -159,7 +159,11 @@ public class CircularSegment implements SegmentInterface {
         }
     }
 
-    @Override
+    /**
+     * Gets the plotting guide.
+     *
+     * @return the info for GUI to plot
+     */
     public double[] getPlot() {
         return new double[]{
                 this.center.getX().subtract(this.radius).doubleValue(),
