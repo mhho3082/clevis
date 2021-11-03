@@ -14,11 +14,4 @@ public interface SegmentInterface {
      * @return whether the two intersect
      */
     boolean isIntersect(SegmentInterface intersectSegment);
-
-    /**
-     * Gets the plotting guide.
-     *
-     * @return the info for GUI to plot
-     */
-    double[] getPlot();
 }

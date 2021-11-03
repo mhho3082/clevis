@@ -57,30 +57,23 @@ public class PlotHandler {
      * @param dy The change on y-coordinates made by mouse
      */
     public void dragUpdate(int dx, int dy) {
-        this.dx += dx;
-        this.dy += dy;
+        this.dx += (int) ((double) dx / zoom);
+        this.dy += (int) ((double) dy / zoom);
 
         inToOut();
     }
 
+    /**
+     * Updates the plot after scroll wheel movement.
+     * Also works for touchpad.
+     *
+     * @param movement the amount of movement in the scroll wheel.
+     */
     public void scrollUpdate(int movement) {
         double oldZoom = this.zoom;
         this.zoom -= (double) movement / 100;
 
-        /*
-         * FIXME: This is very buggy
-         *   (can test with spawning a circle, moving it off center,
-         *   then scrolling far in one direction;
-         *   it will go to the center no matter which direction)
-         */
-        this.dx /= oldZoom;
-        this.dy /= oldZoom;
-
-        this.dx *= this.zoom;
-        this.dy *= this.zoom;
-
         inToOut();
-        System.out.println(zoom); // FIXME: For testing only
     }
 
     /**
@@ -118,8 +111,6 @@ public class PlotHandler {
                 tempOut[2] *= zoom;
                 tempOut[3] *= zoom;
             }
-
-            System.out.println(Arrays.toString(tempOut)); // FIXME: For testing only
 
             outPlotList.add(tempOut);
         }

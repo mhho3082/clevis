@@ -189,7 +189,11 @@ public class StraightSegment implements SegmentInterface {
         ) > 0;
     }
 
-    @Override
+    /**
+     * Gets the plotting guide.
+     *
+     * @return the info for GUI to plot
+     */
     public double[] getPlot() {
         return new double[]{
                 this.point1.getX().doubleValue(),
