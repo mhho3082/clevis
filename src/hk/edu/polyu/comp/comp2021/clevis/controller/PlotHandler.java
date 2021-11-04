@@ -40,14 +40,17 @@ public class PlotHandler {
 
     /**
      * Sets the center of the plotting algorithm.
+     * Updates the plot after resizing.
      *
      * @param width  the width of the plotting region
      * @param height the height of the plotting region
      * @param insets the borders of the plotting region
      */
-    public void setCenter(int width, int height, Insets insets) {
+    public void sizeUpdate(int width, int height, Insets insets) {
         centerX = (width - insets.left) / 2;
         centerY = (height - insets.bottom) / 2;
+
+        inToOut();
     }
 
     /**
@@ -66,6 +69,9 @@ public class PlotHandler {
     /**
      * Updates the plot after scroll wheel movement.
      * Also works for touchpad.
+     *
+     * Scroll only considers the center point of the plot;
+     * the mouse position during the scroll does not matter.
      *
      * @param movement the amount of movement in the scroll wheel.
      */

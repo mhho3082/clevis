@@ -23,8 +23,8 @@ public class GUIView {
     private final PlotPanel mainPlotPanel;
     private final JPanel mainLayoutPanel;
     private final JPanel mainLayoutCorner;
-    private final JPanel mainHoriRuler;
-    private final JPanel mainVertRuler;
+    private final JPanel mainHorizontalRuler;
+    private final JPanel mainVerticalRuler;
 
     /**
      * Constructs a GUI view.
@@ -39,19 +39,20 @@ public class GUIView {
         this.mainTextField = new JTextField();
         this.mainPlotPanel = new PlotPanel();
 
-        // TODO: Testing code
         this.mainLayoutPanel = new JPanel(new GridLayout(2,2));
         this.mainLayoutCorner = new JPanel();
-        this.mainHoriRuler = new JPanel();
-        this.mainVertRuler = new JPanel();
+        this.mainHorizontalRuler = new JPanel();
+        this.mainVerticalRuler = new JPanel();
 
         WindowControlHandler windowControlHandler = new WindowControlHandler();
         MouseActionHandler mouseActionHandler = new MouseActionHandler();
+        ResizeHandler resizeHandler = new ResizeHandler();
         CommandCaller commandCaller = new CommandCaller();
 
         this.mainFrame.setSize(Config.GUI_MAIN_FRAME_DIMENSION);
         this.mainFrame.addWindowListener(windowControlHandler);
-        this.mainFrame.setResizable(false);
+        this.mainFrame.addComponentListener(resizeHandler);
+        this.mainFrame.setResizable(true);
 
         this.mainTextField.addActionListener(commandCaller);
 
@@ -60,9 +61,6 @@ public class GUIView {
         this.mainPlotPanel.addMouseMotionListener(mouseActionHandler);
         this.mainPlotPanel.addMouseWheelListener(mouseActionHandler);
         this.mainPlotPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-        // TODO: Testing code
-        this.mainLayoutCorner.setSize(new Dimension(10, 10));
     }
 
     /**
@@ -77,8 +75,8 @@ public class GUIView {
      */
     public void launchFrame() {
         this.mainLayoutPanel.add(this.mainLayoutCorner);
-        this.mainLayoutPanel.add(this.mainHoriRuler);
-        this.mainLayoutPanel.add(this.mainVertRuler);
+        this.mainLayoutPanel.add(this.mainHorizontalRuler);
+        this.mainLayoutPanel.add(this.mainVerticalRuler);
         this.mainLayoutPanel.add(this.mainPlotPanel);
 
         this.mainFrame.add(this.mainLayoutPanel, BorderLayout.CENTER);
@@ -98,7 +96,7 @@ public class GUIView {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
 
-            plotHandler.setCenter(getWidth(), getHeight(), getInsets());
+            plotHandler.sizeUpdate(getWidth(), getHeight(), getInsets());
 
             ArrayList<double[]> tempPlotList = plotHandler.getOutPlotList();
 
@@ -122,6 +120,18 @@ public class GUIView {
         public void windowClosing(WindowEvent e) {
             commandHandler.quit();
             quit();
+        }
+    }
+
+    /**
+     * The listener for window resizing.
+     *
+     * @author Ho Man Hin
+     */
+    public class ResizeHandler extends ComponentAdapter {
+        public void componentResized(ComponentEvent e) {
+            plotHandler.sizeUpdate(mainFrame.getWidth(), mainFrame.getHeight(), mainFrame.getInsets());
+            mainPlotPanel.repaint();
         }
     }
 
