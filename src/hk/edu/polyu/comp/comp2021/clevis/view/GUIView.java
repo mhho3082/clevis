@@ -21,6 +21,10 @@ public class GUIView {
     private final JFrame mainFrame;
     private final JTextField mainTextField;
     private final PlotPanel mainPlotPanel;
+    private final JPanel mainLayoutPanel;
+    private final JPanel mainLayoutCorner;
+    private final JPanel mainHoriRuler;
+    private final JPanel mainVertRuler;
 
     /**
      * Constructs a GUI view.
@@ -34,6 +38,12 @@ public class GUIView {
         this.mainFrame = new JFrame("Clevis");
         this.mainTextField = new JTextField();
         this.mainPlotPanel = new PlotPanel();
+
+        // TODO: Testing code
+        this.mainLayoutPanel = new JPanel(new GridLayout(2,2));
+        this.mainLayoutCorner = new JPanel();
+        this.mainHoriRuler = new JPanel();
+        this.mainVertRuler = new JPanel();
 
         WindowControlHandler windowControlHandler = new WindowControlHandler();
         MouseActionHandler mouseActionHandler = new MouseActionHandler();
@@ -50,6 +60,9 @@ public class GUIView {
         this.mainPlotPanel.addMouseMotionListener(mouseActionHandler);
         this.mainPlotPanel.addMouseWheelListener(mouseActionHandler);
         this.mainPlotPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        // TODO: Testing code
+        this.mainLayoutCorner.setSize(new Dimension(10, 10));
     }
 
     /**
@@ -63,7 +76,12 @@ public class GUIView {
      * Launches the program window.
      */
     public void launchFrame() {
-        this.mainFrame.add(this.mainPlotPanel, BorderLayout.CENTER);
+        this.mainLayoutPanel.add(this.mainLayoutCorner);
+        this.mainLayoutPanel.add(this.mainHoriRuler);
+        this.mainLayoutPanel.add(this.mainVertRuler);
+        this.mainLayoutPanel.add(this.mainPlotPanel);
+
+        this.mainFrame.add(this.mainLayoutPanel, BorderLayout.CENTER);
         this.mainFrame.add(this.mainTextField, BorderLayout.SOUTH);
 
         this.mainFrame.setLocationRelativeTo(null);

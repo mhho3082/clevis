@@ -108,6 +108,11 @@ public class Config {
     public static final Font GUI_DIALOG_FONT = new Font("Courier New", Font.PLAIN, 12);
 
     /**
+     * The value used to reduce the scroll wheel movement.
+     */
+    public static final int GUI_SCROLL_REDUCTION = 100;
+
+    /**
      * Rounds data to two decimal places for output.
      *
      * @param input the data to be rounded

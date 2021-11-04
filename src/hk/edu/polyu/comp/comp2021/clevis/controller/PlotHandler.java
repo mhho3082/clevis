@@ -1,5 +1,6 @@
 package hk.edu.polyu.comp.comp2021.clevis.controller;
 
+import hk.edu.polyu.comp.comp2021.clevis.Config;
 import hk.edu.polyu.comp.comp2021.clevis.model.Clevis;
 
 import java.awt.*;
@@ -69,8 +70,7 @@ public class PlotHandler {
      * @param movement the amount of movement in the scroll wheel.
      */
     public void scrollUpdate(int movement) {
-        double oldZoom = this.zoom;
-        this.zoom -= (double) movement / 100;
+        this.zoom -= (double) movement / Config.GUI_SCROLL_REDUCTION;
 
         inToOut();
     }
