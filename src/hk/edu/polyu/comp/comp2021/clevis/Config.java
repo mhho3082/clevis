@@ -68,9 +68,11 @@ public class Config {
 
     // Note:
     // Colours may not certainly work for Windows
-    // Known not to work on cmd
-    // Seems to work on PowerShell and PowerShell Core
+    // Known not to properly work in cmd
+    // Seems to work in PowerShell and PowerShell Core
     // Will work in VS Code and Intellij IDEA
+    // However, Intellij IDEA handles user inputs as green no matter what,
+    //   and cannot be changed by the program
 
     /**
      * Colour for normal CLI output
@@ -108,9 +110,19 @@ public class Config {
     public static final Font GUI_DIALOG_FONT = new Font("Courier New", Font.PLAIN, 12);
 
     /**
-     * The value used to reduce the scroll wheel movement.
+     * The value used to reduce the scroll wheel movement
      */
     public static final int GUI_SCROLL_REDUCTION = 100;
+
+    /**
+     * The ratio this:1 = plot:ruler for horizontal (weight x) (affects the vertical ruler's size)
+     */
+    public static final double GUI_RATIO_HORIZONTAL = 12.0;
+
+    /**
+     * The ratio this:1 = plot:ruler for vertical (weight y) (affects the horizontal ruler's size)
+     */
+    public static final double GUI_RATIO_VERTICAL = 12.0;
 
     /**
      * Rounds data to two decimal places for output.
