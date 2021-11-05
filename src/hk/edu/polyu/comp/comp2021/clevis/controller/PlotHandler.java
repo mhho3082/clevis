@@ -14,8 +14,11 @@ import java.util.ArrayList;
 public class PlotHandler {
     //   Line: x1, x2, y1, y2, 0
     // Circle: xLeft, yTop, w, h, 1
+
     private final Clevis clevis;
     private final ArrayList<double[]> outPlotList;
+    private final int[] horizontalRulerDimension;
+    private final int[] verticalRulerDimension;
     private ArrayList<double[]> originalPlotList;
     private double zoom;
     private int dx;
@@ -36,6 +39,9 @@ public class PlotHandler {
         this.zoom = 1;
         this.dx = 0;
         this.dy = 0;
+
+        horizontalRulerDimension = new int[]{0, 0};
+        verticalRulerDimension = new int[]{0, 0};
     }
 
     /**
@@ -69,7 +75,7 @@ public class PlotHandler {
     /**
      * Updates the plot after scroll wheel movement.
      * Also works for touchpad.
-     *
+     * <p>
      * Scroll only considers the center point of the plot;
      * the mouse position during the scroll does not matter.
      *
@@ -100,6 +106,19 @@ public class PlotHandler {
     }
 
     private void inToOut() {
+        // For rulers
+        horizontalRulerDimension[0] = (int) ((-1 * centerX) / zoom - dx);
+        horizontalRulerDimension[1] = (int) ((centerX) / zoom - dx);
+        verticalRulerDimension[0] = (int) ((-1 * centerY) / zoom - dy);
+        verticalRulerDimension[1] = (int) ((centerY) / zoom - dy);
+
+        // FIXME: For testing only
+        System.out.println(
+                "[" + horizontalRulerDimension[0] + " <-> " + horizontalRulerDimension[1] + "] ["
+                        + verticalRulerDimension[0] + " <-> " + verticalRulerDimension[1] + "]"
+        );
+
+        // For the plot
         outPlotList.clear();
         double[] tempOut;
 
@@ -119,5 +138,23 @@ public class PlotHandler {
 
             outPlotList.add(tempOut);
         }
+    }
+
+    /**
+     * Returns the horizontal ruler dimension.
+     *
+     * @return [left, right]
+     */
+    public int[] getHorizontalRulerDimension() {
+        return horizontalRulerDimension;
+    }
+
+    /**
+     * Returns the vertical ruler dimension.
+     *
+     * @return [top, bottom]
+     */
+    public int[] getVerticalRulerDimension() {
+        return verticalRulerDimension;
     }
 }

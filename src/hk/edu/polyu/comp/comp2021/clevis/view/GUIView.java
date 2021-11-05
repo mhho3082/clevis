@@ -22,7 +22,6 @@ public class GUIView {
     private final JTextField mainTextField;
     private final PlotPanel mainPlotPanel;
     private final JPanel mainLayoutPanel;
-    private final JPanel mainLayoutCorner;
     private final JPanel mainHorizontalRuler;
     private final JPanel mainVerticalRuler;
 
@@ -38,9 +37,7 @@ public class GUIView {
         this.mainFrame = new JFrame("Clevis");
         this.mainTextField = new JTextField();
         this.mainPlotPanel = new PlotPanel();
-
-        this.mainLayoutPanel = new JPanel(new GridLayout(2,2));
-        this.mainLayoutCorner = new JPanel();
+        this.mainLayoutPanel = new JPanel(new GridBagLayout());
         this.mainHorizontalRuler = new JPanel();
         this.mainVerticalRuler = new JPanel();
 
@@ -71,13 +68,33 @@ public class GUIView {
     }
 
     /**
-     * Launches the program window.
+     * Adds everything to layouts and/or to the main frame.
+     * <p>
+     * Then launches the program window.
      */
     public void launchFrame() {
-        this.mainLayoutPanel.add(this.mainLayoutCorner);
-        this.mainLayoutPanel.add(this.mainHorizontalRuler);
-        this.mainLayoutPanel.add(this.mainVerticalRuler);
-        this.mainLayoutPanel.add(this.mainPlotPanel);
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+
+        gridBagConstraints.insets = new Insets(0, 0, 0, 0);
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        this.mainLayoutPanel.add(this.mainHorizontalRuler, gridBagConstraints);
+
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = GridBagConstraints.VERTICAL;
+        this.mainLayoutPanel.add(this.mainVerticalRuler, gridBagConstraints);
+
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.weightx = Config.GUI_RATIO_HORIZONTAL;
+        gridBagConstraints.weighty = Config.GUI_RATIO_VERTICAL;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        this.mainLayoutPanel.add(this.mainPlotPanel, gridBagConstraints);
 
         this.mainFrame.add(this.mainLayoutPanel, BorderLayout.CENTER);
         this.mainFrame.add(this.mainTextField, BorderLayout.SOUTH);
@@ -129,6 +146,7 @@ public class GUIView {
      * @author Ho Man Hin
      */
     public class ResizeHandler extends ComponentAdapter {
+        @Override
         public void componentResized(ComponentEvent e) {
             plotHandler.sizeUpdate(mainFrame.getWidth(), mainFrame.getHeight(), mainFrame.getInsets());
             mainPlotPanel.repaint();
