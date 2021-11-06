@@ -22,8 +22,8 @@ public class GUIView {
     private final JTextField mainTextField;
     private final PlotPanel mainPlotPanel;
     private final JPanel mainLayoutPanel;
-    private final JPanel mainHorizontalRuler;
-    private final JPanel mainVerticalRuler;
+    private final HorizontalRuler mainHorizontalRuler;
+    private final VerticalRuler mainVerticalRuler;
 
     /**
      * Constructs a GUI view.
@@ -38,8 +38,8 @@ public class GUIView {
         this.mainTextField = new JTextField();
         this.mainPlotPanel = new PlotPanel();
         this.mainLayoutPanel = new JPanel(new GridBagLayout());
-        this.mainHorizontalRuler = new JPanel();
-        this.mainVerticalRuler = new JPanel();
+        this.mainHorizontalRuler = new HorizontalRuler();
+        this.mainVerticalRuler = new VerticalRuler();
 
         WindowControlHandler windowControlHandler = new WindowControlHandler();
         MouseActionHandler mouseActionHandler = new MouseActionHandler();
@@ -99,6 +99,9 @@ public class GUIView {
         this.mainFrame.add(this.mainLayoutPanel, BorderLayout.CENTER);
         this.mainFrame.add(this.mainTextField, BorderLayout.SOUTH);
 
+        mainHorizontalRuler.repaint();
+        mainVerticalRuler.repaint();
+
         this.mainFrame.setLocationRelativeTo(null);
         this.mainFrame.setVisible(true);
     }
@@ -127,6 +130,40 @@ public class GUIView {
         }
     }
 
+    public class HorizontalRuler extends JPanel {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+
+            int[] size = plotHandler.getHorizontalRulerDimension();
+            int height = getHeight();
+            int width = getWidth();
+            Insets insets = getInsets();
+
+            // TODO: Make ruler
+
+            g.drawString(String.valueOf(size[0]), insets.left, 9);
+            g.drawString(String.valueOf(size[1]), width - insets.right - 20, 9);
+        }
+    }
+
+    public class VerticalRuler extends JPanel {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+
+            int[] size = plotHandler.getVerticalRulerDimension();
+            int height = getHeight();
+            int width = getWidth();
+            Insets insets = getInsets();
+
+            // TODO: Make ruler
+
+            g.drawString(String.valueOf(size[0]), -9, 12 + insets.top);
+            g.drawString(String.valueOf(size[1]), -9, height - insets.bottom - 5);
+        }
+    }
+
     /**
      * The listener for "exit" commands on the menu bar.
      *
@@ -150,6 +187,8 @@ public class GUIView {
         public void componentResized(ComponentEvent e) {
             plotHandler.sizeUpdate(mainFrame.getWidth(), mainFrame.getHeight(), mainFrame.getInsets());
             mainPlotPanel.repaint();
+            mainHorizontalRuler.repaint();
+            mainVerticalRuler.repaint();
         }
     }
 
@@ -167,6 +206,8 @@ public class GUIView {
 
             plotHandler.scrollUpdate(movement);
             mainPlotPanel.repaint();
+            mainHorizontalRuler.repaint();
+            mainVerticalRuler.repaint();
         }
 
         @Override
@@ -182,6 +223,8 @@ public class GUIView {
 
             plotHandler.dragUpdate(dx, dy);
             mainPlotPanel.repaint();
+            mainHorizontalRuler.repaint();
+            mainVerticalRuler.repaint();
         }
     }
 
