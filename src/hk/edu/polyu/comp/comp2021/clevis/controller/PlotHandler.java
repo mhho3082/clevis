@@ -17,8 +17,8 @@ public class PlotHandler {
 
     private final Clevis clevis;
     private final ArrayList<double[]> outPlotList;
-    private final int[] horizontalRulerDimension;
-    private final int[] verticalRulerDimension;
+    private final double[] horizontalRulerDimension;
+    private final double[] verticalRulerDimension;
     private ArrayList<double[]> originalPlotList;
     private double zoom;
     private int dx;
@@ -40,8 +40,8 @@ public class PlotHandler {
         this.dx = 0;
         this.dy = 0;
 
-        horizontalRulerDimension = new int[]{0, 0};
-        verticalRulerDimension = new int[]{0, 0};
+        horizontalRulerDimension = new double[]{0, 0};
+        verticalRulerDimension = new double[]{0, 0};
     }
 
     /**
@@ -107,10 +107,10 @@ public class PlotHandler {
 
     private void inToOut() {
         // For rulers
-        horizontalRulerDimension[0] = (int) ((-1 * centerX) / zoom - dx);
-        horizontalRulerDimension[1] = (int) ((centerX) / zoom - dx);
-        verticalRulerDimension[0] = (int) ((-1 * centerY) / zoom - dy);
-        verticalRulerDimension[1] = (int) ((centerY) / zoom - dy);
+        horizontalRulerDimension[0] = (-1 * centerX) / zoom - dx;
+        horizontalRulerDimension[1] = (centerX) / zoom - dx;
+        verticalRulerDimension[0] = (-1 * centerY) / zoom - dy;
+        verticalRulerDimension[1] = (centerY) / zoom - dy;
 
         // FIXME: For testing only
         System.out.println(
@@ -145,7 +145,7 @@ public class PlotHandler {
      *
      * @return [left, right]
      */
-    public int[] getHorizontalRulerDimension() {
+    public double[] getHorizontalRulerDimension() {
         return horizontalRulerDimension;
     }
 
@@ -154,7 +154,7 @@ public class PlotHandler {
      *
      * @return [top, bottom]
      */
-    public int[] getVerticalRulerDimension() {
+    public double[] getVerticalRulerDimension() {
         return verticalRulerDimension;
     }
 }

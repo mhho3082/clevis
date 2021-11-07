@@ -81,12 +81,12 @@ public class GUIView {
 
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
         this.mainLayoutPanel.add(this.mainHorizontalRuler, gridBagConstraints);
 
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = GridBagConstraints.VERTICAL;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
         this.mainLayoutPanel.add(this.mainVerticalRuler, gridBagConstraints);
 
         gridBagConstraints.gridx = 1;
@@ -135,15 +135,15 @@ public class GUIView {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
 
-            int[] size = plotHandler.getHorizontalRulerDimension();
+            double[] size = plotHandler.getHorizontalRulerDimension();
             int height = getHeight();
             int width = getWidth();
             Insets insets = getInsets();
 
             // TODO: Make ruler
 
-            g.drawString(String.valueOf(size[0]), insets.left, 9);
-            g.drawString(String.valueOf(size[1]), width - insets.right - 20, 9);
+            g.drawString(String.valueOf(size[0]), insets.left, 12);
+            g.drawString(String.valueOf(size[1]), width - insets.right - 30, 12);
         }
     }
 
@@ -152,15 +152,15 @@ public class GUIView {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
 
-            int[] size = plotHandler.getVerticalRulerDimension();
+            double[] size = plotHandler.getVerticalRulerDimension();
             int height = getHeight();
             int width = getWidth();
             Insets insets = getInsets();
 
             // TODO: Make ruler
 
-            g.drawString(String.valueOf(size[0]), -9, 12 + insets.top);
-            g.drawString(String.valueOf(size[1]), -9, height - insets.bottom - 5);
+            g.drawString(String.valueOf(size[0]), 0, 12 + insets.top);
+            g.drawString(String.valueOf(size[1]), 0, height - insets.bottom - 3);
         }
     }
 
