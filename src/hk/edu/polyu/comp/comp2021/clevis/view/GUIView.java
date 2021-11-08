@@ -7,6 +7,7 @@ import hk.edu.polyu.comp.comp2021.clevis.controller.PlotHandler;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 /**
@@ -46,7 +47,8 @@ public class GUIView {
         ResizeHandler resizeHandler = new ResizeHandler();
         CommandCaller commandCaller = new CommandCaller();
 
-        this.mainFrame.setSize(Config.GUI_MAIN_FRAME_DIMENSION);
+        this.mainFrame.setSize(Config.GUI_MAIN_FRAME_SIZE);
+        this.mainFrame.setMinimumSize(Config.GUI_MAIN_FRAME_MIN_SIZE);
         this.mainFrame.addWindowListener(windowControlHandler);
         this.mainFrame.addComponentListener(resizeHandler);
         this.mainFrame.setResizable(true);
@@ -130,6 +132,11 @@ public class GUIView {
         }
     }
 
+    /**
+     * The horizontal ruler of the plot.
+     *
+     * @author Ho Man Hin
+     */
     public class HorizontalRuler extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
@@ -138,15 +145,43 @@ public class GUIView {
             double[] size = plotHandler.getHorizontalRulerDimension();
             int height = getHeight();
             int width = getWidth();
-            Insets insets = getInsets();
 
-            // TODO: Make ruler
+            double difference = size[1] - size[0];
 
-            g.drawString(String.valueOf(size[0]), insets.left, 12);
-            g.drawString(String.valueOf(size[1]), width - insets.right - 30, 12);
+            double scale = Math.pow(10, Math.ceil(Math.log10(difference)));
+            int counter = 0;
+            while ((double) width / Math.ceil(difference / scale) > Config.GUI_RULER_HORIZONTAL_MAJOR_MARKS_MAX_SEPARATION) {
+                if (counter % 3 == 1) {
+                    scale /= Config.GUI_RULER_REDUCE_2;
+                } else {
+                    scale /= Config.GUI_RULER_REDUCE_OTHER;
+                }
+                counter++;
+            }
+
+            BigDecimal remainder = BigDecimal.valueOf(size[0]).remainder(BigDecimal.valueOf(scale));
+
+            double printValue = size[0] - remainder.doubleValue();
+            while (printValue < size[1]) {
+                if (printValue > size[0]) {
+                    if (scale > 1) {
+                        g.drawString(String.valueOf(Math.round(printValue)), (int) (width / difference * (printValue - size[0])), g.getFontMetrics().getHeight());
+                    } else {
+                        double roundRange = Math.pow(10, String.valueOf(scale).length());
+                        g.drawString(String.valueOf(Math.round(printValue * roundRange) / roundRange), (int) (width / difference * (printValue - size[0])), g.getFontMetrics().getHeight());
+                    }
+                    g.drawLine((int) (width / difference * (printValue - size[0])), g.getFontMetrics().getHeight() + Config.GUI_RULER_HORIZONTAL_LINE_OFFSET, (int) (width / difference * (printValue - size[0])), height);
+                }
+                printValue += scale;
+            }
         }
     }
 
+    /**
+     * The vertical ruler of the plot.
+     *
+     * @author Ho Man Hin
+     */
     public class VerticalRuler extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
@@ -155,12 +190,35 @@ public class GUIView {
             double[] size = plotHandler.getVerticalRulerDimension();
             int height = getHeight();
             int width = getWidth();
-            Insets insets = getInsets();
 
-            // TODO: Make ruler
+            double difference = size[1] - size[0];
 
-            g.drawString(String.valueOf(size[0]), 0, 12 + insets.top);
-            g.drawString(String.valueOf(size[1]), 0, height - insets.bottom - 3);
+            double scale = Math.pow(10, Math.ceil(Math.log10(difference)));
+            int counter = 0;
+            while ((double) height / Math.ceil(difference / scale) > Config.GUI_RULER_VERTICAL_MAJOR_MARKS_MAX_SEPARATION) {
+                if (counter % 3 == 1) {
+                    scale /= Config.GUI_RULER_REDUCE_2;
+                } else {
+                    scale /= Config.GUI_RULER_REDUCE_OTHER;
+                }
+                counter++;
+            }
+
+            BigDecimal remainder = BigDecimal.valueOf(size[0]).remainder(BigDecimal.valueOf(scale));
+
+            double printValue = size[0] - remainder.doubleValue();
+            while (printValue < size[1]) {
+                if (printValue > size[0]) {
+                    if (scale > 1) {
+                        g.drawString(String.valueOf(Math.round(printValue)), Config.GUI_RULER_VERTICAL_OFFSET, (int) (height / difference * (printValue - size[0]) + g.getFontMetrics().getHeight() / 2));
+                    } else {
+                        double roundRange = Math.pow(10, String.valueOf(scale).length());
+                        g.drawString(String.valueOf(Math.round(printValue * roundRange) / roundRange), Config.GUI_RULER_VERTICAL_OFFSET, (int) (height / difference * (printValue - size[0]) + g.getFontMetrics().getHeight() / 2));
+                    }
+                    g.drawLine(Config.GUI_RULER_VERTICAL_OFFSET + (int) g.getFontMetrics().getStringBounds(String.valueOf(printValue), g).getWidth(), (int) (height / difference * (printValue - size[0])), width, (int) (height / difference * (printValue - size[0])));
+                }
+                printValue += scale;
+            }
         }
     }
 

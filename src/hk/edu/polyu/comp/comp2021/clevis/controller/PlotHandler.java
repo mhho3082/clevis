@@ -36,7 +36,7 @@ public class PlotHandler {
         this.originalPlotList = new ArrayList<>();
         this.outPlotList = new ArrayList<>();
 
-        this.zoom = 1;
+        this.zoom = Config.GUI_BASE_ZOOM;
         this.dx = 0;
         this.dy = 0;
 
@@ -111,12 +111,6 @@ public class PlotHandler {
         horizontalRulerDimension[1] = (centerX) / zoom - dx;
         verticalRulerDimension[0] = (-1 * centerY) / zoom - dy;
         verticalRulerDimension[1] = (centerY) / zoom - dy;
-
-        // FIXME: For testing only
-        System.out.println(
-                "[" + horizontalRulerDimension[0] + " <-> " + horizontalRulerDimension[1] + "] ["
-                        + verticalRulerDimension[0] + " <-> " + verticalRulerDimension[1] + "]"
-        );
 
         // For the plot
         outPlotList.clear();

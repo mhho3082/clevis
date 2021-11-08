@@ -97,7 +97,12 @@ public class Config {
     /**
      * Dimensions of GUI main frame
      */
-    public static final Dimension GUI_MAIN_FRAME_DIMENSION = new Dimension(600, 650);
+    public static final Dimension GUI_MAIN_FRAME_SIZE = new Dimension(600, 650);
+
+    /**
+     * Minimum dimensions of GUI main frame; cannot resize smaller than this
+     */
+    public static final Dimension GUI_MAIN_FRAME_MIN_SIZE = new Dimension(300, 300);
 
     /**
      * Dimensions of GUI dialog scroll pane
@@ -123,6 +128,41 @@ public class Config {
      * The ratio this:1 = plot:ruler for vertical (weight y) (affects the horizontal ruler's size)
      */
     public static final double GUI_RATIO_VERTICAL = 12.0;
+
+    /**
+     * The maximum amount of separation between two major marks of a ruler (the horizontal one)
+     */
+    public static final int GUI_RULER_HORIZONTAL_MAJOR_MARKS_MAX_SEPARATION = 75;
+
+    /**
+     * The maximum amount of separation between two major marks of a ruler (the vertical one)
+     */
+    public static final int GUI_RULER_VERTICAL_MAJOR_MARKS_MAX_SEPARATION = 75;
+
+    /**
+     * The amount of pixels the lines of the horizontal ruler is pushed down for visibility
+     */
+    public static final int GUI_RULER_HORIZONTAL_LINE_OFFSET = 3;
+
+    /**
+     * The amount of pixels the vertical ruler is pushed right for visibility
+     */
+    public static final int GUI_RULER_VERTICAL_OFFSET = 3;
+
+    /**
+     * The preset zoom level
+     */
+    public static final int GUI_BASE_ZOOM = 1;
+
+    /**
+     * For reducing the scale to 2-something; for ruler
+     */
+    public static final double GUI_RULER_REDUCE_2 = 2.5;
+
+    /**
+     * For reducing the scale to 1-something or 5-something; for ruler
+     */
+    public static final double GUI_RULER_REDUCE_OTHER = 2.0;
 
     /**
      * Rounds data to two decimal places for output.
