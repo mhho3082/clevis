@@ -21,8 +21,8 @@ public class PlotHandler {
     private final double[] verticalRulerDimension;
     private ArrayList<double[]> originalPlotList;
     private double zoom;
-    private int dx;
-    private int dy;
+    private double dx;
+    private double dy;
     private int centerX;
     private int centerY;
 
@@ -66,8 +66,8 @@ public class PlotHandler {
      * @param dy The change on y-coordinates made by mouse
      */
     public void dragUpdate(int dx, int dy) {
-        this.dx += (int) ((double) dx / zoom);
-        this.dy += (int) ((double) dy / zoom);
+        this.dx += (double) dx / zoom;
+        this.dy += (double) dy / zoom;
 
         inToOut();
     }
@@ -82,7 +82,8 @@ public class PlotHandler {
      * @param movement the amount of movement in the scroll wheel.
      */
     public void scrollUpdate(int movement) {
-        this.zoom -= (double) movement / Config.GUI_SCROLL_REDUCTION;
+        double tempZoom = this.zoom;
+        this.zoom -= (double) movement / Config.GUI_SCROLL_REDUCTION * tempZoom;
 
         inToOut();
     }
