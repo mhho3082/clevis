@@ -82,7 +82,7 @@ public class PlotHandler {
      * @param movement the amount of movement in the scroll wheel.
      */
     public void scrollUpdate(int movement) {
-        this.zoom -= (double) movement / Config.GUI_SCROLL_REDUCTION;
+        this.zoom -= (double) movement / Config.GUI_SCROLL_REDUCTION * this.zoom;
 
         inToOut();
     }

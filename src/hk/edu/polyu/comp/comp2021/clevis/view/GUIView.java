@@ -164,7 +164,7 @@ public class GUIView {
             double printValue = size[0] - remainder.doubleValue();
             while (printValue < size[1]) {
                 if (printValue > size[0]) {
-                    if (scale > 1) {
+                    if (scale >= 1) {
                         g.drawString(String.valueOf(Math.round(printValue)), (int) (width / difference * (printValue - size[0])), g.getFontMetrics().getHeight());
                     } else {
                         double roundRange = Math.pow(10, String.valueOf(scale).length());
@@ -209,13 +209,14 @@ public class GUIView {
             double printValue = size[0] - remainder.doubleValue();
             while (printValue < size[1]) {
                 if (printValue > size[0]) {
-                    if (scale > 1) {
+                    if (scale >= 1) {
                         g.drawString(String.valueOf(Math.round(printValue)), Config.GUI_RULER_VERTICAL_OFFSET, (int) (height / difference * (printValue - size[0]) + g.getFontMetrics().getHeight() / 2));
                     } else {
                         double roundRange = Math.pow(10, String.valueOf(scale).length());
                         g.drawString(String.valueOf(Math.round(printValue * roundRange) / roundRange), Config.GUI_RULER_VERTICAL_OFFSET, (int) (height / difference * (printValue - size[0]) + g.getFontMetrics().getHeight() / 2));
                     }
-                    g.drawLine(Config.GUI_RULER_VERTICAL_OFFSET + (int) g.getFontMetrics().getStringBounds(String.valueOf(printValue), g).getWidth(), (int) (height / difference * (printValue - size[0])), width, (int) (height / difference * (printValue - size[0])));
+                    int temp = (int) (height / difference * (printValue - size[0]));
+                    g.drawLine(Config.GUI_RULER_VERTICAL_OFFSET + (int) g.getFontMetrics().getStringBounds(String.valueOf(printValue), g).getWidth(), temp, width, temp);
                 }
                 printValue += scale;
             }
