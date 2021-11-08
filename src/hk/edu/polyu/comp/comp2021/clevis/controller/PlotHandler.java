@@ -98,6 +98,17 @@ public class PlotHandler {
     }
 
     /**
+     * Updates the plot after home button.
+     */
+    public void homeUpdate() {
+        this.zoom = Config.GUI_BASE_ZOOM;
+        this.dx = 0;
+        this.dy = 0;
+
+        inToOut();
+    }
+
+    /**
      * Generates the true plotting guides.
      *
      * @return the plotting guides for panel to directly plot.

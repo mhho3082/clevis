@@ -25,6 +25,7 @@ public class GUIView {
     private final JPanel mainLayoutPanel;
     private final HorizontalRuler mainHorizontalRuler;
     private final VerticalRuler mainVerticalRuler;
+    private final JButton mainHomeButton;
 
     /**
      * Constructs a GUI view.
@@ -41,11 +42,13 @@ public class GUIView {
         this.mainLayoutPanel = new JPanel(new GridBagLayout());
         this.mainHorizontalRuler = new HorizontalRuler();
         this.mainVerticalRuler = new VerticalRuler();
+        this.mainHomeButton = new JButton();
 
         WindowControlHandler windowControlHandler = new WindowControlHandler();
         MouseActionHandler mouseActionHandler = new MouseActionHandler();
         ResizeHandler resizeHandler = new ResizeHandler();
         CommandCaller commandCaller = new CommandCaller();
+        HomeHandler homeHandler = new HomeHandler();
 
         this.mainFrame.setSize(Config.GUI_MAIN_FRAME_SIZE);
         this.mainFrame.setMinimumSize(Config.GUI_MAIN_FRAME_MIN_SIZE);
@@ -60,6 +63,12 @@ public class GUIView {
         this.mainPlotPanel.addMouseMotionListener(mouseActionHandler);
         this.mainPlotPanel.addMouseWheelListener(mouseActionHandler);
         this.mainPlotPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        this.mainHomeButton.setText("Home");
+        this.mainHomeButton.setOpaque(false);
+        this.mainHomeButton.setBackground(Color.white);
+        this.mainHomeButton.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        this.mainHomeButton.addActionListener(homeHandler);
     }
 
     /**
@@ -80,6 +89,11 @@ public class GUIView {
         gridBagConstraints.insets = new Insets(0, 0, 0, 0);
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
+
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        this.mainLayoutPanel.add(this.mainHomeButton, gridBagConstraints);
 
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -124,9 +138,11 @@ public class GUIView {
 
             for (double[] tempPlot : tempPlotList) {
                 if (tempPlot[4] == 0) {
-                    g.drawLine((int) tempPlot[0], (int) tempPlot[1], (int) tempPlot[2], (int) tempPlot[3]);
+                    g.drawLine((int) tempPlot[0], (int) tempPlot[1], (int) tempPlot[2],
+                            (int) tempPlot[3]);
                 } else {
-                    g.drawOval((int) tempPlot[0], (int) tempPlot[1], (int) tempPlot[2], (int) tempPlot[3]);
+                    g.drawOval((int) tempPlot[0], (int) tempPlot[1], (int) tempPlot[2],
+                            (int) tempPlot[3]);
                 }
             }
         }
@@ -150,7 +166,8 @@ public class GUIView {
 
             double scale = Math.pow(10, Math.ceil(Math.log10(difference)));
             int counter = 0;
-            while ((double) width / Math.ceil(difference / scale) > Config.GUI_RULER_HORIZONTAL_MAJOR_MARKS_MAX_SEPARATION) {
+            while ((double) width / Math.ceil(
+                    difference / scale) > Config.GUI_RULER_HORIZONTAL_MAJOR_MARKS_MAX_SEPARATION) {
                 if (counter % 3 == 1) {
                     scale /= Config.GUI_RULER_REDUCE_2;
                 } else {
@@ -165,12 +182,20 @@ public class GUIView {
             while (printValue < size[1]) {
                 if (printValue > size[0]) {
                     if (scale >= 1) {
-                        g.drawString(String.valueOf(Math.round(printValue)), (int) (width / difference * (printValue - size[0])), g.getFontMetrics().getHeight());
+                        g.drawString(String.valueOf(Math.round(printValue)),
+                                (int) (width / difference * (printValue - size[0])),
+                                g.getFontMetrics().getHeight());
                     } else {
                         double roundRange = Math.pow(10, String.valueOf(scale).length());
-                        g.drawString(String.valueOf(Math.round(printValue * roundRange) / roundRange), (int) (width / difference * (printValue - size[0])), g.getFontMetrics().getHeight());
+                        g.drawString(
+                                String.valueOf(Math.round(printValue * roundRange) / roundRange),
+                                (int) (width / difference * (printValue - size[0])),
+                                g.getFontMetrics().getHeight());
                     }
-                    g.drawLine((int) (width / difference * (printValue - size[0])), g.getFontMetrics().getHeight() + Config.GUI_RULER_HORIZONTAL_LINE_OFFSET, (int) (width / difference * (printValue - size[0])), height);
+                    g.drawLine((int) (width / difference * (printValue - size[0])),
+                            g.getFontMetrics().getHeight()
+                                    + Config.GUI_RULER_HORIZONTAL_LINE_OFFSET,
+                            (int) (width / difference * (printValue - size[0])), height);
                 }
                 printValue += scale;
             }
@@ -195,7 +220,8 @@ public class GUIView {
 
             double scale = Math.pow(10, Math.ceil(Math.log10(difference)));
             int counter = 0;
-            while ((double) height / Math.ceil(difference / scale) > Config.GUI_RULER_VERTICAL_MAJOR_MARKS_MAX_SEPARATION) {
+            while ((double) height / Math.ceil(
+                    difference / scale) > Config.GUI_RULER_VERTICAL_MAJOR_MARKS_MAX_SEPARATION) {
                 if (counter % 3 == 1) {
                     scale /= Config.GUI_RULER_REDUCE_2;
                 } else {
@@ -211,13 +237,23 @@ public class GUIView {
                 if (printValue > size[0]) {
                     int temp = (int) (height / difference * (printValue - size[0]));
                     if (scale >= 1) {
-                        g.drawString(String.valueOf(Math.round(printValue)), Config.GUI_RULER_VERTICAL_OFFSET, (int) (height / difference * (printValue - size[0]) + g.getFontMetrics().getHeight() / 2));
-                        g.drawLine(Config.GUI_RULER_VERTICAL_OFFSET * 2 + (int) g.getFontMetrics().getStringBounds(String.valueOf(Math.round(printValue)), g).getWidth(), temp, width, temp);
+                        g.drawString(String.valueOf(Math.round(printValue)),
+                                Config.GUI_RULER_VERTICAL_OFFSET,
+                                (int) (height / difference * (printValue - size[0])
+                                        + g.getFontMetrics().getHeight() / 2));
+                        g.drawLine(Config.GUI_RULER_VERTICAL_OFFSET * 2 + (int) g.getFontMetrics()
+                                .getStringBounds(String.valueOf(Math.round(printValue)), g)
+                                .getWidth(), temp, width, temp);
                     } else {
                         double roundRange = Math.pow(10, String.valueOf(scale).length());
-                        String outValue = String.valueOf(Math.round(printValue * roundRange) / roundRange);
-                        g.drawString(outValue, Config.GUI_RULER_VERTICAL_OFFSET, (int) (height / difference * (printValue - size[0]) + g.getFontMetrics().getHeight() / 2));
-                        g.drawLine(Config.GUI_RULER_VERTICAL_OFFSET * 2 + (int) g.getFontMetrics().getStringBounds(outValue, g).getWidth(), temp, width, temp);
+                        String outValue =
+                                String.valueOf(Math.round(printValue * roundRange) / roundRange);
+                        g.drawString(outValue, Config.GUI_RULER_VERTICAL_OFFSET,
+                                (int) (height / difference * (printValue - size[0])
+                                        + g.getFontMetrics().getHeight() / 2));
+                        g.drawLine(Config.GUI_RULER_VERTICAL_OFFSET * 2
+                                + (int) g.getFontMetrics().getStringBounds(outValue, g).getWidth(),
+                                temp, width, temp);
                     }
                 }
                 printValue += scale;
@@ -246,7 +282,23 @@ public class GUIView {
     public class ResizeHandler extends ComponentAdapter {
         @Override
         public void componentResized(ComponentEvent e) {
-            plotHandler.sizeUpdate(mainFrame.getWidth(), mainFrame.getHeight(), mainFrame.getInsets());
+            plotHandler.sizeUpdate(mainFrame.getWidth(), mainFrame.getHeight(),
+                    mainFrame.getInsets());
+            mainPlotPanel.repaint();
+            mainHorizontalRuler.repaint();
+            mainVerticalRuler.repaint();
+        }
+    }
+
+    /**
+     * The listener for home button.
+     * 
+     * @author Ho Man Hin
+     */
+    public class HomeHandler implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            plotHandler.homeUpdate();
             mainPlotPanel.repaint();
             mainHorizontalRuler.repaint();
             mainVerticalRuler.repaint();
@@ -299,8 +351,7 @@ public class GUIView {
         private final JScrollPane jScrollPane;
 
         /**
-         * Creates a command caller,
-         * and initializes the components for dialog.
+         * Creates a command caller, and initializes the components for dialog.
          */
         public CommandCaller() {
             jTextArea = new JTextArea();
@@ -338,9 +389,11 @@ public class GUIView {
                 this.jTextArea.setText(stringBuilder.toString());
 
                 if (commandHandler.getWarning()) {
-                    JOptionPane.showMessageDialog(mainFrame, this.jScrollPane, "Warning", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(mainFrame, this.jScrollPane, "Warning",
+                            JOptionPane.WARNING_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(mainFrame, this.jScrollPane, "Output", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(mainFrame, this.jScrollPane, "Output",
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
             }
             mainTextField.setText("");
