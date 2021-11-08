@@ -62,8 +62,8 @@ public class Application {
 
         // Check that the paths can be written to
         try {
-            new FileWriter(html);
-            new FileWriter(txt);
+            new FileWriter(html).close();
+            new FileWriter(txt).close();
         } catch (IOException e) {
             handleBadPath();
             return;

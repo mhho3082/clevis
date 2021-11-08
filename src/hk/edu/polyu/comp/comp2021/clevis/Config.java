@@ -152,7 +152,7 @@ public class Config {
     /**
      * The preset zoom level
      */
-    public static final int GUI_BASE_ZOOM = 1;
+    public static final double GUI_BASE_ZOOM = 1;
 
     /**
      * For reducing the scale to 2-something; for ruler
