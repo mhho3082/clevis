@@ -89,7 +89,7 @@ public class Application {
         System.out.println("Please make sure that you have gave both paths, then re-init the program.");
         System.out.println();
         System.out.println("Format:");
-        System.out.println("java Clevis -html [html file name] -txt [txt file name]");
+        System.out.println("java Clevis -html [html file name] -txt [txt file name] [-gui]");
         System.out.print(Config.CLI_COLOUR_INPUT);
     }
 
@@ -103,7 +103,7 @@ public class Application {
         System.out.println("then re-init the program with the proper paths.");
         System.out.println();
         System.out.println("Format:");
-        System.out.println("java Clevis -html [html file name] -txt [txt file name]");
+        System.out.println("java Clevis -html [html file name] -txt [txt file name] [-gui]");
         System.out.print(Config.CLI_COLOUR_INPUT);
     }
 }

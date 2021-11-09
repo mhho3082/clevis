@@ -49,6 +49,11 @@ public class Config {
     public static final String CLI_INPUT_ICON = "clevis> ";
 
     /**
+     * Icon for waiting input
+     */
+    public static final String CLI_WAIT_ICON = "    ... ";
+
+    /**
      * Sentence to announce command completed
      */
     public static final String CLI_AOK = "Done";

@@ -70,6 +70,8 @@ public class CLIView {
                     // Set input colour
                     System.out.println(Config.CLI_COLOUR_INPUT);
                     System.out.print(Config.CLI_INPUT_ICON);
+                } else {
+                    System.out.print(Config.CLI_WAIT_ICON);
                 }
             }
             in.close();
