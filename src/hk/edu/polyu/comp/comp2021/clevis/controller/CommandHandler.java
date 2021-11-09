@@ -308,6 +308,8 @@ public class CommandHandler {
     public void quit() {
         try {
             // Closing boilerplate for html
+            htmlOut.write("    </table>");
+            htmlOut.newLine();
             htmlOut.write("    <footer>");
             htmlOut.newLine();
             htmlOut.write("      <p> <tt>clevis</tt> by Group 32 </p>");
@@ -317,8 +319,6 @@ public class CommandHandler {
             htmlOut.write("      <p> The Hong Kong Polytechnic University </p>");
             htmlOut.newLine();
             htmlOut.write("    </footer>");
-            htmlOut.newLine();
-            htmlOut.write("    </table>");
             htmlOut.newLine();
             htmlOut.write("  </body>");
             htmlOut.newLine();
