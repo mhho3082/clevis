@@ -69,16 +69,6 @@ public class CommandHandler {
             htmlOut.newLine();
             htmlOut.write("  <body>");
             htmlOut.newLine();
-            htmlOut.write("    <footer>");
-            htmlOut.newLine();
-            htmlOut.write("      <p> <tt>clevis</tt> by Group 32 </p>");
-            htmlOut.newLine();
-            htmlOut.write("      <p> COMP2021, Autumn 2021 </p>");
-            htmlOut.newLine();
-            htmlOut.write("      <p> The Hong Kong Polytechnic University </p>");
-            htmlOut.newLine();
-            htmlOut.write("    </footer>");
-            htmlOut.newLine();
             htmlOut.write("    <h1>CLEVIS LOG</h1>");
             htmlOut.newLine();
             htmlOut.write("    <h3> <tt> Log start at " + dateTimeFormatter.format(now) + " </tt> </h3>");
@@ -318,6 +308,16 @@ public class CommandHandler {
     public void quit() {
         try {
             // Closing boilerplate for html
+            htmlOut.write("    <footer>");
+            htmlOut.newLine();
+            htmlOut.write("      <p> <tt>clevis</tt> by Group 32 </p>");
+            htmlOut.newLine();
+            htmlOut.write("      <p> COMP2021, Autumn 2021 </p>");
+            htmlOut.newLine();
+            htmlOut.write("      <p> The Hong Kong Polytechnic University </p>");
+            htmlOut.newLine();
+            htmlOut.write("    </footer>");
+            htmlOut.newLine();
             htmlOut.write("    </table>");
             htmlOut.newLine();
             htmlOut.write("  </body>");
