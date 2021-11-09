@@ -374,7 +374,11 @@ public class GUIView {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-            commandHandler.exec(mainTextField.getText());
+            String inString = mainTextField.getText();
+            if (inString.isEmpty()) {
+                return;
+            }
+            commandHandler.exec(inString);
             ArrayList<String> tempOutString = commandHandler.getOutString();
 
             if (!tempOutString.isEmpty()) {
@@ -396,7 +400,10 @@ public class GUIView {
                             JOptionPane.INFORMATION_MESSAGE);
                 }
             }
-            mainTextField.setText("");
+
+            if (!commandHandler.getWarning()) {
+                mainTextField.setText("");
+            }
 
             plotHandler.commandUpdate();
             mainPlotPanel.repaint();
