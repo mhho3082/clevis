@@ -97,7 +97,8 @@ public class Application {
         System.out.print(Config.CLI_COLOUR_ERROR);
         System.out.println(Config.CLI_ERROR_BEGIN);
         System.out.println("The file path(s) you gave cannot be written to.");
-        System.out.println("It may mean that you gave path(s) to directory(ies) instead.");
+        System.out.println("It may mean that you gave path(s) to read-only files.");
+        System.out.println("It may also mean that you gave path(s) to directory(ies) instead.");
         System.out.println("Please double-check your paths,");
         System.out.println("then re-init the program with the proper paths.");
         System.out.println();
