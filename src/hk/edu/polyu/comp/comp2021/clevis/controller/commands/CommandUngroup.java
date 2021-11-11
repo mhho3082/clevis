@@ -33,7 +33,7 @@ public class CommandUngroup extends Command {
     public CommandUngroup(Clevis model, String command) throws ShapeNotFoundException, WrongArgumentLengthException, NotANumberException {
         super(model, command);
 
-        GroupedNames = ((Group) model.find(parsedInput[0])).getUserShapesNames();
+        GroupedNames = ((Group) model.find(parsedInput[1])).getUserShapesNames();
     }
 
     /**
