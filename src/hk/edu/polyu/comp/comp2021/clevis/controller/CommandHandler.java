@@ -360,7 +360,7 @@ public class CommandHandler {
         outString.add("To use GUI, restart the program with the flag \"-gui\"");
         outString.add("");
         outString.add("List of commands:");
-        outString.add("Shapes: rectangle, line circle, square");
+        outString.add("Shapes: rectangle, line, circle, square");
         outString.add("Groups: group, ungroup");
         outString.add("  Info: boundingbox, intersect, list, listAll");
         outString.add("Change: move, pick-and-move, delete");
@@ -397,7 +397,7 @@ public class CommandHandler {
         outString.add("You inputted: " + inString);
         outString.add("");
         outString.add("List of commands:");
-        outString.add("Shapes: rectangle, line circle, square");
+        outString.add("Shapes: rectangle, line, circle, square");
         outString.add("Groups: group, ungroup");
         outString.add("  Info: boundingbox, intersect, list, listAll");
         outString.add("Change: move, pick-and-move, delete");
