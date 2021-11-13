@@ -102,25 +102,15 @@ public class Group extends UserShape {
         BigDecimal[] out = userShapes.get(0).boundingBox();
         BigDecimal[] temp;
 
-
         for (UserShape userShape : userShapes) {
             temp = userShape.boundingBox();
 
-            if (temp[0].compareTo(out[0]) < 0) { // Left-er
-                out[0] = temp[0];
-            }
+            BigDecimal xLeft = out[0].compareTo(temp[0]) < 0 ? out[0] : temp[0];
+            BigDecimal yTop = out[1].compareTo(temp[1]) < 0 ? out[1] : temp[1];
+            BigDecimal xRight = out[0].add(out[2]).compareTo(temp[0].add(temp[2])) > 0 ? out[0].add(out[2]) : temp[0].add(temp[2]);
+            BigDecimal yBottom = out[1].add(out[3]).compareTo(temp[1].add(temp[3])) > 0 ? out[1].add(out[3]) : temp[1].add(temp[3]);
 
-            if (temp[1].compareTo(out[1]) < 0) { // Top-er
-                out[1] = temp[1];
-            }
-
-            if ((temp[0].add(temp[2])).compareTo(out[0].add(out[2])) > 0) { // Right-er
-                out[2] = temp[0].add(temp[2]).subtract(out[0]);
-            }
-
-            if ((temp[1].add(temp[3])).compareTo(out[1].add(out[3])) > 0) { // Bottom-er
-                out[3] = temp[1].add(temp[3]).subtract(out[1]);
-            }
+            out = new BigDecimal[] {xLeft, yTop, xRight.subtract(xLeft), yBottom.subtract(yTop)};
         }
 
         return out;
