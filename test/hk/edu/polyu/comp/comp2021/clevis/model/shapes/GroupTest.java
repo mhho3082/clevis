@@ -277,7 +277,7 @@ public class GroupTest {
     public void testBoundingBox() {
         assertEquals(0, new BigDecimal("-6").compareTo(g1.boundingBox()[0]));
         assertEquals(0, new BigDecimal("-14.4").compareTo(g1.boundingBox()[1]));
-        assertEquals(0, new BigDecimal("17.4").compareTo(g1.boundingBox()[2]));
+        assertEquals(0, new BigDecimal("19").compareTo(g1.boundingBox()[2]));
         assertEquals(0, new BigDecimal("20.4").compareTo(g1.boundingBox()[3]));
     }
 
