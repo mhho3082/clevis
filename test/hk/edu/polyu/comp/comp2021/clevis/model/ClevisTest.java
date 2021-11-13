@@ -507,7 +507,7 @@ public class ClevisTest {
 
         out[0] = new BigDecimal("-8");
         out[1] = new BigDecimal("-123.4312");
-        out[2] = new BigDecimal("18.6");
+        out[2] = new BigDecimal("24.3580");
         out[3] = new BigDecimal("133.4312");
         assertArrayEquals(out, test.boundingBox("g1"));
     }
